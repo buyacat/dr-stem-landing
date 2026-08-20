@@ -1,0 +1,25 @@
+{
+  "cta_title": "Оновіть свій STEM-кабінет вже сьогодні",
+  "cta_lede": "Залиште заявку, і наш менеджер допоможе підібрати оптимальну комплектацію ЦВКК Dr.STEM під ваші навчальні програми або оформить дозамовлення окремих датчиків.",
+  "catalog_title": "Потрібні окремі датчики?",
+  "catalog_desc": "Перелік датчиків постійно розширюється. Щоб отримати актуальний перелік — лишіть заявку або зв'яжіться за контактами.",
+  "catalog_email": "info@st4e.eu",
+  "catalog_phone": "+38 (044) 299 5 299",
+  "form_title": "Заявка на ЦВКК Dr.STEM",
+  "form_fields": [
+    { "name": "name", "label": "Ім'я та Прізвище", "type": "text", "required": true, "placeholder": "Олена Коваленко" },
+    { "name": "org", "label": "Назва навчального закладу / організації", "type": "text", "required": false, "placeholder": "Ліцей №1, м. Київ" },
+    { "name": "phone", "label": "Контактний телефон", "type": "tel", "required": false, "placeholder": "+380 __ ___ __ __" },
+    { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "school@email.com" },
+    { "name": "comment", "label": "Коментар", "type": "textarea", "required": false, "placeholder": "Наприклад: «Цікавить дозамовлення датчиків pH»", "rows": 3 }
+  ],
+  "form_submit": "Надіслати заявку на ЦВКК Dr.STEM",
+  "form_hint": "Відповідаємо протягом одного робочого дня.",
+  "form_sending": "Надсилаємо...",
+  "form_success": "✓ Заявку надіслано",
+  "form_success_hint": "Дякуємо! Відповімо протягом одного робочого дня.",
+  "form_error": "Надіслати заявку на ЦВКК Dr.STEM",
+  "form_error_hint": "Помилка відправки. Спробуйте ще раз або напишіть нам напряму.",
+  "form_thanks": "Дякуємо!",
+  "form_thanks_sub": "Наш менеджер зв'яжеться з вами найближчим часом."
+}

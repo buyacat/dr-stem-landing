@@ -1,0 +1,15 @@
+---
+import type { Locale } from '../utils/i18n';
+
+interface Props {
+  locale: Locale;
+  kit: string;
+  label: string;
+  active?: boolean;
+  icon: string;
+}
+
+const { kit, active = false, icon, label } = Astro.props;
+---
+
+<button class={`kit-tab ${kit} ${active ? 'active' : ''}`} data-kit={kit} set:html={`${icon}<span>${label}</span>`} />

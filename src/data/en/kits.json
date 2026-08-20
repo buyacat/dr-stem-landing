@@ -1,0 +1,126 @@
+{
+  "kits_eyebrow": "Kit variants",
+  "kits_title": "Choose a kit <span class=\"hl\">for your subject</span>",
+  "kits_desc": "Five ready configurations. Each with a set of sensors and TOP topics it covers.",
+  "kit_tabs": [
+    { "key": "uni", "label": "Universal" },
+    { "key": "phys", "label": "Physics" },
+    { "key": "chem", "label": "Chemistry" },
+    { "key": "bio", "label": "Biology" },
+    { "key": "geo", "label": "Geography" }
+  ],
+  "kits": [
+    {
+      "key": "phys",
+      "title": "Physics",
+      "desc": "Kit for mechanics, thermal phenomena, electricity, waves and sound — grades 7 to 11.",
+      "count": "14 sensor types",
+      "btn": "Order kit",
+      "note": "Kits come in 'teacher' and 'student' versions: one for the class, one for a group of 5–6 students.",
+      "sensors_title": "Sensors in the kit",
+      "sensors": [
+        "sensor_voltage", "sensor_current", "sensor_temperature", "sensor_thermocouple",
+        "sensor_gas_pressure", "sensor_sound", "sensor_light", "sensor_uv",
+        "sensor_co2", "sensor_magnetic", "sensor_photogate", "sensor_force",
+        "sensor_angle", "sensor_multi"
+      ],
+      "topics_title": "🔬 TOP topics and sensors",
+      "topics": [
+        { "key": "topic_m", "text": "<b>Mechanics</b> — photogates, force, angle, acceleration, pressure" },
+        { "key": "topic_t", "text": "<b>Thermal phenomena</b> — temperature, thermocouple, gas pressure" },
+        { "key": "topic_e", "text": "<b>Electricity</b> — voltage, current, temperature" },
+        { "key": "topic_h", "text": "<b>Waves and sound</b> — sound and light sensors" }
+      ]
+    },
+    {
+      "key": "chem",
+      "title": "Chemistry",
+      "desc": "Acidity of solutions, reaction rates, gas evolution and conductivity of electrolytes.",
+      "count": "10 sensor types",
+      "btn": "Order kit",
+      "note": "Kits come in 'teacher' and 'student' versions: one for the class, one for a group of 5–6 students.",
+      "sensors_title": "Sensors in the kit",
+      "sensors": [
+        "sensor_temperature", "sensor_thermocouple", "sensor_ph", "sensor_oxygen",
+        "sensor_gas_pressure", "sensor_light", "sensor_uv", "sensor_conductivity",
+        "sensor_drop_counter", "sensor_multi"
+      ],
+      "topics_title": "🔬 TOP topics and sensors",
+      "topics": [
+        { "key": "topic_k", "text": "<b>Acidity in solutions</b> — pH, temperature, conductivity" },
+        { "key": "topic_sh", "text": "<b>Reaction rates</b> — CO₂, temperature, conductivity" },
+        { "key": "topic_g", "text": "<b>Gas evolution</b> — CO₂, gas pressure, drop counter" },
+        { "key": "topic_el", "text": "<b>Electrolytes</b> — conductivity, voltage" }
+      ]
+    },
+    {
+      "key": "bio",
+      "title": "Biology",
+      "desc": "Respiration and photosynthesis, human physiology, environmental ecology and aquatic ecosystems.",
+      "count": "11 sensor types",
+      "btn": "Order kit",
+      "note": "Kits come in 'teacher' and 'student' versions: one for the class, one for a group of 5–6 students.",
+      "sensors_title": "Sensors in the kit",
+      "sensors": [
+        "sensor_temperature", "sensor_gas_pressure", "sensor_ph", "sensor_co2",
+        "sensor_light", "sensor_uv", "sensor_ekg", "sensor_heart_rate",
+        "sensor_oxygen", "sensor_soil_moisture", "sensor_multi"
+      ],
+      "topics_title": "🔬 TOP topics and sensors",
+      "topics": [
+        { "key": "topic_d", "text": "<b>Respiration and photosynthesis</b> — CO₂, illuminance, temperature" },
+        { "key": "topic_f", "text": "<b>Human physiology</b> — heart rate, CO₂, temperature, pH" },
+        { "key": "topic_ec", "text": "<b>Environmental ecology</b> — temperature, CO₂, UV, soil moisture" },
+        { "key": "topic_v", "text": "<b>Aquatic ecosystems</b> — temperature, salinity" }
+      ],
+      "warn": "<b>Important:</b> ECG and heart rate are educational demonstration sensors, <b>NOT medical devices</b>. Intended for demonstrating heart principles and educational experiments, not for diagnosis or clinical use."
+    },
+    {
+      "key": "geo",
+      "title": "Geography",
+      "desc": "Weather and microclimate, atmosphere, water and soils, Earth's magnetic field and solar radiation.",
+      "count": "Weather station 9-in-1 + sensors",
+      "btn": "Order kit",
+      "note": "Kits come in 'teacher' and 'student' versions: one for the class, one for a group of 5–6 students.",
+      "multi_title": "Weather station (multi-sensor, 9 integrated)",
+      "multi_sensors": [
+        "sensor_vibration", "sensor_illuminance", "sensor_uv", "sensor_temperature",
+        "sensor_precipitation", "sensor_humidity", "sensor_wind", "sensor_pressure",
+        "sensor_air_quality"
+      ],
+      "separate_title": "Separate sensors",
+      "separate_sensors": [
+        "sensor_ph", "sensor_air_oxygen", "sensor_co2", "sensor_conductivity",
+        "sensor_light", "sensor_magnetic", "sensor_sound", "sensor_soil_moisture",
+        "sensor_multi_3in1"
+      ],
+      "topics_title": "🔬 TOP topics and sensors",
+      "topics": [
+        { "key": "topic_p", "text": "<b>Weather and microclimate</b> — temperature, humidity, pressure, UV" },
+        { "key": "topic_a", "text": "<b>Atmosphere and air</b> — CO₂, temperature, humidity" },
+        { "key": "topic_vod", "text": "<b>Water and soils</b> — soil moisture, salinity, temperature" },
+        { "key": "topic_magn", "text": "<b>Earth's magnetic field</b> — magnetic field sensor" }
+      ]
+    },
+    {
+      "key": "uni",
+      "title": "Universal",
+      "desc": "A ready wide range of sensors that covers the maximum number of lessons and educational scenarios across all subjects.",
+      "btn": "Pick a configuration",
+      "note": "Kits come in 'teacher' and 'student' versions: one for the class, one for a group of 5–6 students.",
+      "badge": "Turnkey solution",
+      "custom_title": "How customization works",
+      "steps": [
+        "Take the universal kit as is",
+        "Choose or replace sensors yourself",
+        "Ask for our help with selection for special requests"
+      ],
+      "examples_title": "💬 Customization examples",
+      "examples": [
+        "<span class=\"q\">«Focus on ecology needed»</span> → add more air and water quality sensors",
+        "<span class=\"q\">«Only physics grades 7–9»</span> → minimize chemistry and biology, focus on mechanics",
+        "<span class=\"q\">«We want STEM projects»</span> → expand the set for interdisciplinary experiments"
+      ]
+    }
+  ]
+}

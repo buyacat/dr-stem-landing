@@ -1,0 +1,33 @@
+{
+  "includes_eyebrow": "What Dr.STEM includes",
+  "includes_title": "Five components of <span class=\"hl\">one solution</span>",
+  "includes_desc": "From display device to ready scenarios — everything works as a unified system.",
+  "includes": [
+    {
+      "icon": "monitor",
+      "title": "Tablet / laptop",
+      "desc": "Device for displaying, processing and saving data (as chosen by the customer)."
+    },
+    {
+      "icon": "module",
+      "title": "Central module",
+      "desc": "Block to which sensors are connected. Connects to the computer via USB."
+    },
+    {
+      "icon": "sensor",
+      "title": "Sensors",
+      "desc": "Modular devices for measuring temperature, pressure, pH, light, sound, etc."
+    },
+    {
+      "icon": "code",
+      "highlight": true,
+      "title": "Software",
+      "desc": "Intuitive program for data visualization, graphing and saving results."
+    },
+    {
+      "icon": "book",
+      "title": "Methodological materials",
+      "desc": "Ready lesson scenarios and experiment instructions for the teacher."
+    }
+  ]
+}

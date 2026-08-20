@@ -1,0 +1,20 @@
+{
+  "game_eyebrow": "Game mode",
+  "game_title": "We turn the lab into <span class=\"hl\">a team game</span>",
+  "game_intro": "The gamification format turns the experiment into a competition where teams complete missions based on real data.",
+  "game_features": [
+    "Team split and mascot selection",
+    "Missions with clear data conditions",
+    "Real-time competition"
+  ],
+  "game_missions_label": "Game mission types",
+  "game_missions": [
+    "Reach target values",
+    "Keep indicator in range",
+    "Dynamic control",
+    "Prediction and accuracy",
+    "Working with graphs"
+  ],
+  "game_dashboard": "<b>Teacher dashboard:</b> all teams on one screen, real-time progress — mission stage and received data.",
+  "game_img_alt": "Game mode"
+}

@@ -1,0 +1,130 @@
+{
+  "robotics_eyebrow": "Robotics for STEM education",
+  "robotics_title": "Robotics <span class=\"hl\">Dr.STEM</span>",
+  "robotics_lede": "Robotics kits for STEM classrooms in schools, STEM labs and education centers.",
+  "robotics_cta": "Request Dr.STEM Robotics",
+  "robotics_stats": [
+    { "n": "18", "l": "kits" },
+    { "n": "7–12", "l": "grades" },
+    { "n": "5–50", "l": "projects per kit" }
+  ],
+  "robotics_slot_car": "4-wheel car",
+  "robotics_slot_house": "Smart house",
+  "robotics_slot_spider": "Spider",
+  "robotics_slot_hint": "Photo coming soon",
+
+  "robotics_advantages_eyebrow": "Advantages of Dr.STEM Robotics",
+  "robotics_advantages_title": "Why choose <span class=\"hl\">Dr.STEM Robotics</span>",
+  "robotics_advantages_desc": "18 kits, ready-made curriculum and technical support — everything you need to launch a robotics track this semester.",
+  "robotics_advantages": [
+    {
+      "num": "01",
+      "icon": "circle",
+      "title": "18 kits",
+      "desc": "Cars, smart houses, robotic arms, walking robots, spiders and much more."
+    },
+    {
+      "num": "02",
+      "icon": "book",
+      "title": "Matches the curriculum",
+      "desc": "Kits fit students in grades 7–9 as well as 10–12."
+    },
+    {
+      "num": "03",
+      "icon": "zap",
+      "highlight": true,
+      "title": "Learning projects for every kit",
+      "desc": "From 5 to 50 ready-made projects in every kit."
+    },
+    {
+      "num": "04",
+      "icon": "chart",
+      "title": "Compatible with Arduino IDE and Scratch",
+      "desc": "Supports both block-based and text programming in C/C++ and Python."
+    },
+    {
+      "num": "05",
+      "icon": "wallet",
+      "title": "Ukraine Facility compliant",
+      "desc": "Our robotics kits are manufactured in Ukraine."
+    },
+    {
+      "num": "06",
+      "icon": "support",
+      "title": "Technical support",
+      "desc": "Setup assistance and consultations whenever you need them."
+    }
+  ],
+
+  "robotics_includes_eyebrow": "What's inside a Dr.STEM Robotics kit",
+  "robotics_includes_title": "Everything you need <span class=\"hl\">in one kit</span>",
+  "robotics_includes_desc": "From electronics to teaching materials — every kit is ready for the first lesson straight out of the box.",
+  "robotics_includes": [
+    {
+      "icon": "module",
+      "title": "Microcontroller & peripherals",
+      "desc": "Arduino, ESP and Raspberry Pi microcontrollers plus a wide range of sensors, servos, motors, structural parts, screws and tools."
+    },
+    {
+      "icon": "box",
+      "title": "Storage case",
+      "desc": "A safe plastic case with compartments for small electronics, parts and kit enclosures."
+    },
+    {
+      "icon": "code",
+      "highlight": true,
+      "title": "Dr.STEM software",
+      "desc": "Ready-made code samples, sketches and instructions for classroom use."
+    },
+    {
+      "icon": "book",
+      "title": "Learning projects & materials",
+      "desc": "Assembly, setup and IDE configuration instructions for every kit."
+    }
+  ],
+
+  "robotics_kits_eyebrow": "Kit catalog",
+  "robotics_kits_title": "18 <span class=\"hl\">Dr.STEM Robotics kits</span>",
+  "robotics_kits_intro": "From simple wheeled robots for the first lessons to ESP32 IoT systems and computer vision. Full descriptions, specs and learning outcomes for every kit are in the PDF catalog.",
+  "robotics_kits_list": [
+    { "code": "R01", "name": "4-wheel car" },
+    { "code": "R02", "name": "4-wheel car with robotic arm" },
+    { "code": "R03", "name": "2-wheel car" },
+    { "code": "R04", "name": "Smart house" },
+    { "code": "R05", "name": "Eco house" },
+    { "code": "R06", "name": "Tracked tank" },
+    { "code": "R07", "name": "Smart steering wheel" },
+    { "code": "R08", "name": "Walking robot" },
+    { "code": "R09", "name": "Solar station" },
+    { "code": "R10", "name": "Robotic arm manipulator" },
+    { "code": "R11", "name": "Electronic scale" },
+    { "code": "R12", "name": "Smart irrigation system" },
+    { "code": "R13", "name": "Smart farm" },
+    { "code": "R14", "name": "Smart school" },
+    { "code": "R15", "name": "4-wheel car with computer vision" },
+    { "code": "R16", "name": "4-legged spider" },
+    { "code": "R17", "name": "Arduino UNO starter" },
+    { "code": "R18", "name": "ESP32 Internet of Things" }
+  ],
+  "robotics_kits_pdf_label": "Download kit catalog (PDF)",
+
+  "robotics_form_headline": "Upgrade your STEM lab today",
+  "robotics_form_lede": "Leave a request and our manager will help you select the optimal Dr.STEM Robotics kits for your curriculum.",
+  "robotics_form_title": "Request Dr.STEM Robotics",
+  "robotics_form_fields": [
+    { "name": "name", "label": "Full Name", "type": "text", "required": true, "placeholder": "Olena Kovalenko" },
+    { "name": "org", "label": "School / organization name", "type": "text", "required": false, "placeholder": "Lyceum No.1, Kyiv" },
+    { "name": "phone", "label": "Contact phone", "type": "tel", "required": false, "placeholder": "+380 __ ___ __ __" },
+    { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "school@email.com" },
+    { "name": "comment", "label": "Comment", "type": "textarea", "required": false, "placeholder": "For example: «Interested in additional servo motors»", "rows": 3 }
+  ],
+  "robotics_form_submit": "Submit Dr.STEM Robotics request",
+  "robotics_form_hint": "We respond within one business day.",
+  "robotics_form_sending": "Sending...",
+  "robotics_form_success": "✓ Request sent",
+  "robotics_form_success_hint": "Thank you! We will respond within one business day.",
+  "robotics_form_error": "Submit Dr.STEM Robotics request",
+  "robotics_form_error_hint": "Sending error. Please try again or contact us directly.",
+  "robotics_form_thanks": "Thank you!",
+  "robotics_form_thanks_sub": "Our manager will contact you soon."
+}

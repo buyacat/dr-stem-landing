@@ -1,0 +1,190 @@
+---
+import '../styles/style.css';
+import { t, tArray } from '../utils/i18n';
+import type { Locale } from '../utils/i18n';
+import appScriptUrl from '../scripts/app.js?url';
+
+interface Props {
+  locale: Locale;
+  path?: string;
+}
+
+const { locale, path = '/' } = Astro.props;
+
+const siteUrl = import.meta.env.SITE_URL || 'https://drstem.eu';
+
+const title = t(locale, 'meta_title');
+const description = t(locale, 'meta_description');
+const keywords = t(locale, 'meta_keywords');
+const ogTitle = t(locale, 'meta_og_title');
+const ogDescription = t(locale, 'meta_og_description');
+const twitterTitle = t(locale, 'meta_twitter_title');
+const twitterDescription = t(locale, 'meta_twitter_description');
+const robots = t(locale, 'meta_robots') || 'index, follow';
+
+const canonical = siteUrl + path;
+const ogImage = siteUrl + '/images/thumb.webp?v5';
+const ogUrl = canonical;
+const ogLocale = locale === 'uk' ? 'uk_UA' : 'en_US';
+
+// Schema.org data
+const schemaName = t(locale, 'schema_name');
+const schemaDescription = t(locale, 'schema_description');
+const schemaBrand = t(locale, 'schema_brand');
+const schemaTelephone = t(locale, 'schema_telephone');
+const schemaEmail = t(locale, 'schema_email');
+const schemaAddressCountry = t(locale, 'schema_address_country');
+const schemaAddressLocality = t(locale, 'schema_address_locality');
+const schemaAddressStreet = t(locale, 'schema_address_street');
+const schemaPriceRange = t(locale, 'schema_price_range');
+const schemaSameAs = tArray<string>(locale, 'schema_same_as');
+
+const schemaOrg = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": schemaName,
+  "description": schemaDescription,
+  "url": siteUrl,
+  "logo": siteUrl + "/assets/logo.svg",
+  "brand": {
+    "@type": "Brand",
+    "name": schemaBrand
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": schemaTelephone,
+    "email": schemaEmail,
+    "contactType": "sales",
+    "availableLanguage": ["Ukrainian", "English"]
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": schemaAddressStreet,
+    "addressLocality": schemaAddressLocality,
+    "addressCountry": schemaAddressCountry
+  },
+  "priceRange": schemaPriceRange,
+  "sameAs": schemaSameAs || []
+}).replace(/</g, '\\u003c');
+
+const appUrl = import.meta.env.DRSTEM_APP_URL || 'https://app.drstem.eu/#/';
+const appDomain = (() => {
+  try {
+    return new URL(appUrl).hostname;
+  } catch {
+    return 'app.drstem.eu';
+  }
+})();
+
+const otherLocale = locale === 'uk' ? 'en' : 'uk';
+const otherPath = otherLocale === 'uk' ? '/' : '/en/';
+
+// Scatter labels for app.js i18n
+const scatterLabels = [
+  t(locale, 'sensor_uv'),
+  t(locale, 'sensor_conductivity'),
+  t(locale, 'sensor_co2'),
+  t(locale, 'sensor_soil_moisture'),
+  t(locale, 'sensor_force'),
+  t(locale, 'sensor_voltage'),
+  t(locale, 'sensor_angle'),
+  t(locale, 'sensor_temperature'),
+  t(locale, 'sensor_current'),
+  t(locale, 'sensor_light'),
+  t(locale, 'sensor_heart_rate'),
+  t(locale, 'sensor_gas_pressure'),
+  t(locale, 'sensor_atmosphere')
+];
+
+const i18nData = {
+  formSubmit: t(locale, 'form_submit'),
+  formSending: t(locale, 'form_sending'),
+  formSuccess: t(locale, 'form_success'),
+  formSuccessHint: t(locale, 'form_success_hint'),
+  formError: t(locale, 'form_error'),
+  formErrorHint: t(locale, 'form_error_hint'),
+  scatterLabels
+};
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="CaZhJ74E2-o0h9rK_mfcCsuZ7KUN8s8wnY2iPsz2daE" />
+  <title>{title}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  {keywords && <meta name="keywords" content={keywords} />}
+  <meta name="robots" content={robots} />
+  <meta name="theme-color" content="#1b6fe3" />
+  <meta name="msapplication-TileColor" content="#1b6fe3" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Dr.STEM" />
+  <meta name="application-name" content="Dr.STEM" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="generator" content="Astro" />
+  <link rel="canonical" href={canonical} />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link rel="apple-touch-icon" href="/assets/logo.svg">
+  <link rel="mask-icon" href="/assets/logo.svg" color="#1b6fe3">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={ogTitle} />
+  <meta property="og:description" content={ogDescription} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1342" />
+  <meta property="og:image:height" content="997" />
+  <meta property="og:image:alt" content={ogTitle} />
+  <meta property="og:url" content={ogUrl} />
+  <meta property="og:locale" content={ogLocale} />
+  <meta property="og:site_name" content="Dr.STEM" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content={twitterTitle} />
+  <meta property="twitter:description" content={twitterDescription} />
+  <meta property="twitter:image" content={ogImage} />
+  <meta property="twitter:image:alt" content={twitterTitle} />
+  <meta property="twitter:site" content="@drstem" />
+  <meta property="twitter:creator" content="@drstem" />
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="uk" href={siteUrl + '/'} />
+  <link rel="alternate" hreflang="en" href={siteUrl + '/en/'} />
+  <link rel="alternate" hreflang="x-default" href={siteUrl + '/'} />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={schemaOrg} />
+
+  <script define:vars={{ appUrl, appDomain, i18nData }}>
+    window.DRSTEM_APP_URL = appUrl;
+    window.DRSTEM_APP_DOMAIN = appDomain;
+    window.DRSTEM_I18N = i18nData;
+  </script>
+</head>
+<body itemscope itemtype="https://schema.org/WebPage">
+  <template id="atom-mark">
+    <svg viewBox="60 12 65 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M88.1664 41.327C91.1492 41.327 93.5673 38.9332 93.5673 35.9803C93.5673 33.0273 91.1492 30.6335 88.1664 30.6335C85.1836 30.6335 82.7655 33.0273 82.7655 35.9803C82.7655 38.9332 85.1836 41.327 88.1664 41.327Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M88.1664 21.1899C95.1199 16.9487 101.725 15.965 105.055 19.2625C106.043 20.2406 106.65 21.5043 106.904 22.9777C107.034 23.7335 106.4 24.3673 105.633 24.3584C104.917 24.35 104.353 23.7768 104.181 23.0811C103.988 22.297 103.642 21.6455 103.146 21.1539C102.149 20.2878 100.844 19.8509 99.5204 19.9401C96.3615 20.1512 93.3055 21.1376 90.6279 22.8101C92.019 23.8077 93.3546 24.8782 94.6289 26.0168C94.9812 26.3316 95.0995 26.7615 94.9684 27.2154C94.7208 28.0726 93.5269 28.6405 92.8628 28.0446C91.379 26.7132 89.7979 25.467 88.1664 24.3512C83.5857 27.5078 79.6082 31.4455 76.4196 35.9803C78.0015 38.2495 79.7918 40.3691 81.7678 42.3121C83.1413 43.681 84.6022 44.9601 86.1411 46.1415C87.2674 47.0062 87.6095 48.6263 87.2433 49.9983C86.9878 50.9555 86.4844 51.8349 85.5982 52.278C82.8511 53.6515 79.844 54.4702 76.7531 54.6736C74.7335 54.7751 72.7585 54.0629 71.278 52.6993C67.9483 49.4031 68.9421 42.8641 73.2263 35.9803C68.9421 29.0978 67.9483 22.5588 71.278 19.2625C74.6076 15.9663 81.2128 16.95 88.1664 21.1899ZM74.8709 38.4237C71.6601 44.0002 71.1322 48.7735 73.1871 50.8093C75.2421 52.845 80.0651 52.3224 85.6968 49.1437C83.6207 47.6548 81.6684 46.0036 79.8585 44.2061C78.0428 42.4135 76.3749 40.4798 74.8709 38.4237ZM76.8125 19.9401C75.4892 19.8505 74.1845 20.2869 73.1871 21.1525C71.1321 23.1883 71.66 27.9602 74.8709 33.5395C77.89 29.4233 81.5464 25.8045 85.705 22.8167C83.0278 21.1424 79.9718 20.1539 76.8125 19.9401Z" fill="currentColor"/>
+      <path d="M115.092 49.8847L107.88 36.6759V28.8072C107.88 28.0666 107.254 27.4763 106.507 27.4763H99.1452C98.3972 27.4763 97.7816 28.0666 97.7816 28.8072V36.6759L90.5636 49.8847C90.013 50.8918 90.0407 52.1147 90.6328 53.0991C91.2249 54.0823 92.2988 54.6899 93.4552 54.6899H112.196C113.352 54.6899 114.429 54.0823 115.021 53.0991C115.612 52.1147 115.642 50.8918 115.092 49.8847ZM104.018 44.3586C104.664 44.3586 105.188 44.8768 105.188 45.5166C105.188 46.1557 104.663 46.6745 104.018 46.6745C103.372 46.6745 102.848 46.1557 102.848 45.5166C102.848 44.8786 103.372 44.3586 104.018 44.3586ZM100.729 37.3962C101.375 37.3962 101.898 37.9149 101.898 38.5547C101.898 39.1939 101.375 39.7126 100.729 39.7126C100.082 39.7126 99.559 39.1939 99.559 38.5547C99.5596 37.9149 100.082 37.3962 100.729 37.3962ZM100.729 41.4388C101.776 41.4388 102.625 42.2795 102.625 43.3152C102.625 44.3515 101.776 45.1916 100.729 45.1916C99.6813 45.1916 98.8326 44.3515 98.8326 43.3152C98.8326 42.2789 99.6813 41.4388 100.729 41.4388ZM111.617 51.0653C111.374 51.4755 110.929 51.7176 110.45 51.7176H95.2013C94.7219 51.7176 94.2774 51.4755 94.034 51.0653C93.7907 50.6551 93.7841 50.1542 94.0172 49.738L95.85 46.4765C96.1114 46.0103 96.627 45.7431 97.163 45.7938C99.597 46.0234 102.333 48.0846 104.777 47.9928C106.087 47.9433 107.302 47.4711 108.46 46.8396C109.113 46.4819 109.936 46.7162 110.298 47.3626L111.635 49.7368C111.867 50.1536 111.861 50.6557 111.617 51.0653Z" fill="currentColor"/>
+    </svg>
+  </template>
+
+  <slot />
+
+  <script is:inline src={appScriptUrl}></script>
+  <script is:inline>
+    (function(){ const tpl=document.getElementById('atom-mark');
+      document.querySelectorAll('.mark').forEach(m=>m.appendChild(tpl.content.cloneNode(true))); })();
+  </script>
+</body>
+</html>

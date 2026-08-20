@@ -1,0 +1,53 @@
+---
+import { t, tArray } from '../utils/i18n';
+import type { Locale } from '../utils/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const stats = tArray<{n: string; l: string}>(locale, 'hero_stats');
+const chips = tArray<{t: string; v: string; color: string}>(locale, 'hero_chips');
+---
+
+<section class="hero" id="top" itemscope itemtype="https://schema.org/Product">
+  <div class="bgword-layer" data-float data-vx="0.45" data-vy="0.12" data-clamp="600" data-mx="-34" data-my="0" data-rot="0"><span class="bgword">DR.STEM</span></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">{t(locale, 'hero_eyebrow')}</span>
+      <h1 itemprop="name" set:html={t(locale, 'hero_title')} />
+      <p class="lede" itemprop="description">{t(locale, 'hero_lede')}</p>
+      <div class="hero-cta">
+        <a class="btn btn-ghost" href="#demo">{t(locale, 'hero_cta')}</a>
+      </div>
+      <div class="hero-stats">
+        {stats.map((stat, i) => (
+          <div class="s" itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue">
+            <meta itemprop="name" content={stat.l} />
+            <div class="n" itemprop="value">{stat.n}</div>
+            <div class="l">{stat.l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="layer atom-wrap" data-float data-vx="0.02" data-vy="0.10" data-mx="-26" data-my="-18" data-rot="0" data-clamp="150">
+        <div class="atom-glow"></div>
+        <div class="atom">
+          <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div>
+          <div class="core"><img src="/assets/logo2.svg" alt="Dr.STEM" class="core-logo" width="185" height="94"></div>
+          <div class="electron e1"></div><div class="electron e2"></div><div class="electron e3"></div>
+        </div>
+      </div>
+      {chips.map((chip, i) => (
+        <div class={`layer bob-${['a','c','b','a'][i]}`} style={[`top:6%;left:2%`,`top:40%;right:2%`,`bottom:8%;left:4%`,`top:18%;right:4%`][i]} data-float data-vx="0.02" data-vy="0.10" data-mx={[40,-46,34,-30][i]} data-my={[26,20,-22,-16][i]} data-rot={[-0.01,0.012,-0.008,0.006][i]} data-clamp="150">
+          <div class="chip"><span class="dot" style={`background:${chip.color}`}></span><span class="t">{chip.t}</span><span class="v">{chip.v}</span></div>
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="mouse"></div><span>{t(locale, 'scroll')}</span></div>
+</section>

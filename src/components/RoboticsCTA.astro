@@ -1,0 +1,49 @@
+---
+import { t, tArray } from '../utils/i18n';
+import type { Locale } from '../utils/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const fields = tArray<{name: string; label: string; type: string; required: boolean; placeholder: string; rows?: number}>(locale, 'robotics_form_fields');
+---
+
+<section class="cta final" id="demo">
+  <div class="wrap cta-grid">
+    <div>
+      <h2>{t(locale, 'robotics_form_headline')}</h2>
+      <p class="lede">{t(locale, 'robotics_form_lede')}</p>
+    </div>
+
+    <div class="form-card">
+      <form id="demo-form" data-submit={t(locale, 'robotics_form_submit')} data-sending={t(locale, 'robotics_form_sending')} data-success={t(locale, 'robotics_form_success')} data-success-hint={t(locale, 'robotics_form_success_hint')} data-error={t(locale, 'robotics_form_error')} data-error-hint={t(locale, 'robotics_form_error_hint')}>
+        <h3>{t(locale, 'robotics_form_title')}</h3>
+        {/* honeypot проти ботів — приховане, реальні користувачі не заповнюють */}
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+        <input type="hidden" name="product" value="robotics" />
+        {fields.map(field => (
+          <div class="field">
+            <label>{field.label}</label>
+            {field.type === 'textarea' ? (
+              <textarea rows={field.rows || 3} name={field.name} placeholder={field.placeholder}></textarea>
+            ) : (
+              <input type={field.type} name={field.name} required={field.required} placeholder={field.placeholder} />
+            )}
+          </div>
+        ))}
+        <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;margin-top:6px">{t(locale, 'robotics_form_submit')}</button>
+        <div class="sub form-hint">{t(locale, 'robotics_form_hint')}</div>
+      </form>
+      <div class="form-ok">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3>{t(locale, 'robotics_form_thanks')}</h3>
+        <div class="sub">{t(locale, 'robotics_form_thanks_sub')}</div>
+      </div>
+    </div>
+  </div>
+</section>

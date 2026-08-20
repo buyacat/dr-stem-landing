@@ -1,0 +1,26 @@
+{
+  "meta_title": "ЦВКК Dr.STEM — Цифровий вимірювальний комп'ютерний комплекс",
+  "meta_description": "ЦВКК Dr.STEM — цифровий вимірювальний комп'ютерний комплекс для кабінетів фізики, хімії, біології, географії шкіл, STEM-кабінетів, лабораторій та центрів. Сучасні датчики, ШІ-асистент та гейміфікація.",
+  "meta_keywords": "Dr.STEM, цифровий вимірювальний, комп'ютерний комплекс, датчики фізики, датчики хімії, датчики біології, STEM освіта, лабораторне обладнання, освітні технології, цифрова лабораторія",
+  "meta_og_title": "ЦВКК Dr.STEM — Цифровий вимірювальний комп'ютерний комплекс",
+  "meta_og_description": "Цифровий вимірювальний комп'ютерний комплекс для кабінетів фізики, хімії, біології, географії шкіл, STEM-кабінетів, лабораторій та центрів.",
+  "meta_twitter_title": "ЦВКК Dr.STEM — Цифровий вимірювальний комп'ютерний комплекс",
+  "meta_twitter_description": "Цифровий вимірювальний комп'ютерний комплекс для кабінетів фізики, хімії, біології, географії шкіл, STEM-кабінетів, лабораторій та центрів.",
+  "meta_canonical": "https://drstem.eu/",
+  "meta_robots": "index, follow",
+  "schema_name": "Dr.STEM",
+  "schema_description": "Цифровий вимірювальний комп'ютерний комплекс для STEM освіти",
+  "schema_brand": "Dr.STEM",
+  "schema_url": "https://drstem.eu/",
+  "schema_telephone": "+380442221111",
+  "schema_email": "info@drstem.eu",
+  "schema_address_country": "UA",
+  "schema_address_locality": "Kyiv",
+  "schema_address_street": "STEM Street 1",
+  "schema_price_range": "$$",
+  "schema_same_as": [
+    "https://www.facebook.com/drstem",
+    "https://www.linkedin.com/company/drstem",
+    "https://www.youtube.com/@drstem"
+  ]
+}

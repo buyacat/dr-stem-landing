@@ -1,0 +1,16 @@
+{
+  "ai_eyebrow": "AI consultant",
+  "ai_title": "The experiment becomes <span class=\"hl\">a dialogue</span>, not just measurement",
+  "ai_intro": "We integrate an AI consultant directly into the experiment process. The student sees the graph and can immediately ask:",
+  "ai_questions": [
+    "Why does the curve change slope?",
+    "What does this peak mean?",
+    "What physical process is happening now?"
+  ],
+  "ai_features": [
+    "Interprets data together with the student",
+    "Helps form hypotheses",
+    "Deeper reveals natural phenomena"
+  ],
+  "ai_img_alt": "AI robot image / assistant visualization"
+}

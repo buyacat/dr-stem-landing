@@ -1,0 +1,140 @@
+---
+import { t, tArray } from '../utils/i18n';
+import type { Locale } from '../utils/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const appUrl = import.meta.env.DRSTEM_APP_URL || 'https://app.drstem.eu/#/';
+
+const otherLocale = locale === 'uk' ? 'en' : 'uk';
+const otherUrl = otherLocale === 'uk' ? '/' : '/en/';
+const langLabel = otherLocale === 'uk' ? 'UA' : 'EN';
+
+const corpLinks = tArray<{ label: string; url: string }>(locale, 'nav_corp_links');
+const sectionItems = tArray<{ id: string; label: string }>(locale, 'dot_nav_items');
+const roboticsUrl = locale === 'uk' ? '/robototehnika/' : '/en/robotics/';
+const homeUrl = locale === 'uk' ? '/' : '/en/';
+---
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href={homeUrl}><img src="/assets/logo.svg" alt="Dr.STEM" class="brand-logo" width="110" height="91"></a>
+    <div class="nav-actions">
+      {corpLinks.map((link) => (
+        <a href={link.url} target="_blank" rel="noopener noreferrer" class="nav-corp-link">{link.label}</a>
+      ))}
+      <a href={roboticsUrl} class="btn btn-ghost nav-dl-btn" style="margin-right:6px;text-decoration:none">{t(locale, 'nav_robotics')}</a>
+      <a href={otherUrl} class="btn btn-ghost nav-dl-btn" style="margin-right:6px;text-decoration:none">{langLabel}</a>
+      <div class="dl-drop" id="dl-drop">
+        <button class="btn btn-ghost nav-dl-btn" id="dl-btn" aria-expanded="false">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span class="nav-dl-label">{t(locale, 'nav_download')}</span>
+          <svg class="dl-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="dl-menu" id="dl-menu">
+          <a href={appUrl} target="_blank" rel="noopener noreferrer" class="dl-item" data-dl="tablet">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <span>{t(locale, 'nav_download_tablet')}</span>
+          </a>
+          <a href={appUrl} target="_blank" rel="noopener noreferrer" class="dl-item" data-dl="desktop">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+            <span>{t(locale, 'nav_download_desktop')}</span>
+          </a>
+        </div>
+      </div>
+      <a href={appUrl} target="_blank" rel="noopener noreferrer" id="cabinet-btn" class="btn btn-primary nav-cta" aria-label={t(locale, 'nav_experiment')}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"></path><path d="M7 15h10"></path></svg>
+        <span>{t(locale, 'nav_experiment')}</span>
+      </a>
+      <button class="nav-burger" id="nav-burger" type="button" aria-label={t(locale, 'nav_menu_open')} aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-inner" aria-label={t(locale, 'dot_nav_aria')}>
+    {corpLinks.map((link) => (
+      <a href={link.url} target="_blank" rel="noopener noreferrer" class="mm-link">{link.label}</a>
+    ))}
+    <a href={roboticsUrl} class="mm-link">{t(locale, 'nav_robotics')}</a>
+    {sectionItems.map((item) => (
+      <a href={`#${item.id}`} class="mm-link">{item.label}</a>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('click', function(e) {
+    var drop = document.getElementById('dl-drop');
+    if (!drop) return;
+    if (e.target.closest('#dl-btn')) {
+      e.stopPropagation();
+      drop.classList.toggle('open');
+      document.getElementById('dl-btn').setAttribute('aria-expanded', drop.classList.contains('open'));
+    } else if (!drop.contains(e.target)) {
+      drop.classList.remove('open');
+      var btn = document.getElementById('dl-btn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    var drop = document.getElementById('dl-drop');
+    if (drop) drop.classList.remove('open');
+    var btn = document.getElementById('dl-btn');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  });
+</script>
+
+<script is:inline>
+  (function() {
+    var burger = document.getElementById('nav-burger');
+    var menu = document.getElementById('mobile-menu');
+    if (!burger || !menu) return;
+
+    function closeMenu() {
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    function openMenu() {
+      menu.classList.add('open');
+      burger.classList.add('open');
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    burger.addEventListener('click', function() {
+      if (menu.classList.contains('open')) closeMenu(); else openMenu();
+    });
+    menu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var href = a.getAttribute('href') || '';
+        closeMenu();
+        if (href.charAt(0) === '#') {
+          e.preventDefault();
+          var target = document.querySelector(href);
+          if (target) {
+            requestAnimationFrame(function() {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            history.pushState(null, '', href);
+          }
+        }
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) closeMenu();
+    });
+  })();
+</script>

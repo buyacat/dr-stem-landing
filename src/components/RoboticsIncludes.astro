@@ -1,0 +1,61 @@
+---
+import { t, tArray } from '../utils/i18n';
+import type { Locale } from '../utils/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const items = tArray<{icon: string; title: string; desc: string; highlight?: boolean}>(locale, 'robotics_includes');
+
+const icons: Record<string, string> = {
+  module: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M9 21v-3h6v3"/></svg>',
+  box: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>',
+  code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 5l-2 14"/></svg>',
+  book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V5Z"/><path d="M4 17a2 2 0 0 1 2-2h13M9 7h6"/></svg>',
+};
+---
+
+<section class="band includes" id="includes">
+  <div class="wrap">
+    <div class="band-head">
+      <span class="eyebrow center">{t(locale, 'robotics_includes_eyebrow')}</span>
+      <h2 set:html={t(locale, 'robotics_includes_title')} />
+      <p>{t(locale, 'robotics_includes_desc')}</p>
+    </div>
+    <div class="inc-grid">
+      {items.map(item => (
+        <div class="inc">
+          <div class:list={["ic", { "ic--flip": item.highlight }]} set:html={icons[item.icon]} />
+          <h3>{item.title}</h3>
+          <p>{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Only 4 cards here (the homepage's shared .inc-grid is built for 5),
+     so the inherited 5-column track left an empty trailing column and
+     read as shoved left. Scope this component to its own 4-up track. */
+  .inc-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 920px) {
+    .inc-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .inc-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  /* The glass-jelly icon treatment itself (.inc .ic, ::before/::after,
+     .ic--flip) lives in the shared src/styles/style.css now, so it's
+     consistent with the homepage's Includes section too — only the
+     column count is specific to this page (4 cards here vs 5 there). */
+</style>

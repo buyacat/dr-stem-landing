@@ -1,0 +1,18 @@
+{
+  "hero_eyebrow": "Digital measurement computer complex",
+  "hero_title": "<span class=\"hl\">Dr.STEM</span>",
+  "hero_lede": "Digital measurement computer complex for physics, chemistry, biology, geography classrooms, STEM labs, laboratories and centers.",
+  "hero_cta": "Request Dr.STEM",
+  "hero_stats": [
+    { "n": "5", "l": "subject kits" },
+    { "n": "2 min", "l": "to set up" },
+    { "n": "5–12", "l": "grades per curriculum" }
+  ],
+  "hero_chips": [
+    { "t": "pH", "v": "7.4", "color": "var(--cyan)" },
+    { "t": "Light", "v": "96.7 lux", "color": "var(--orange)" },
+    { "t": "Temp.", "v": "22.4 °C", "color": "var(--violet)" },
+    { "t": "CO₂", "v": "412 ppm", "color": "#34c759" }
+  ],
+  "scroll": "SCROLL"
+}

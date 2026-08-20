@@ -1,0 +1,15 @@
+{
+  "software_eyebrow": "Dr.STEM Software",
+  "software_title": "Data collection and visualization <span class=\"hl\">in real time</span>",
+  "software_intro": "Dr.STEM software reads data from educational sensors and instantly converts it into graphs that students work with right during the experiment.",
+  "software_features": [
+    "Real-time sensor data reading",
+    "Graph building and interaction to explore changes",
+    "3 data display modes",
+    "Standard calculations",
+    "School experiment library",
+    "Gamification (game mode)",
+    "AI consultant inside the experiment"
+  ],
+  "software_browser_url": "drstem.eu"
+}

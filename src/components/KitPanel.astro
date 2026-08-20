@@ -1,0 +1,116 @@
+---
+import { t } from '../utils/i18n';
+import type { Locale } from '../utils/i18n';
+
+interface Props {
+  locale: Locale;
+  kit: {
+    key: string;
+    title: string;
+    desc: string;
+    count: string;
+    btn: string;
+    note: string;
+    sensors_title?: string;
+    sensors?: string[];
+    topics_title?: string;
+    topics?: {key: string; text: string}[];
+    warn?: string;
+    multi_title?: string;
+    multi_sensors?: string[];
+    separate_title?: string;
+    separate_sensors?: string[];
+    badge?: string;
+    custom_title?: string;
+    steps?: string[];
+    examples_title?: string;
+    examples?: string[];
+  };
+  active?: boolean;
+  bgIcon: string;
+}
+
+const { locale, kit, active = false, bgIcon } = Astro.props;
+const isUni = kit.key === 'uni';
+---
+
+<div class={`kit-panel ${active ? 'active' : ''}`} id={`kit-${kit.key}`}>
+  <div class="kit-card">
+    <div class={`kit-side ${isUni ? 'uni' : ''}`}>
+      {kit.badge && <span class="badge-feat">{kit.badge}</span>}
+      <svg class="kit-bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=".5" set:html={bgIcon} />
+      <h3>{kit.title}</h3>
+      <p>{kit.desc}</p>
+      {kit.count && <div class="count"><span class="sd" style="width:7px;height:7px;border-radius:50%;background:var(--yellow);display:inline-block"></span><span>{kit.count}</span></div>}
+      <a class="btn btn-yellow kbtn" href="#demo">{kit.btn}</a>
+      <p class="kit-note-sm">{kit.note}</p>
+    </div>
+    <div class="kit-main">
+      {kit.sensors && kit.sensors.length > 0 && !kit.multi_title && (
+        <>
+          <h4>{kit.sensors_title}</h4>
+          <div class="sensor-chips">
+            {kit.sensors.map(s => (
+              <span class={`schip ${s === 'sensor_multi' ? 'multi' : ''}`}><span class="sd"></span><span>{t(locale, s)}</span></span>
+            ))}
+          </div>
+        </>
+      )}
+      {kit.multi_title && (
+        <>
+          <h4>{kit.multi_title}</h4>
+          <div class="sensor-chips">
+            {kit.multi_sensors?.map(s => (
+              <span class="schip"><span class="sd"></span><span>{t(locale, s)}</span></span>
+            ))}
+          </div>
+        </>
+      )}
+      {kit.separate_title && (
+        <>
+          <h4>{kit.separate_title}</h4>
+          <div class="sensor-chips">
+            {kit.separate_sensors?.map(s => (
+              <span class="schip"><span class="sd"></span><span>{t(locale, s)}</span></span>
+            ))}
+          </div>
+        </>
+      )}
+      {kit.topics && kit.topics.length > 0 && (
+        <div class="topics">
+          <h4>{kit.topics_title}</h4>
+          <div class="topic-list">
+            {kit.topics.map(topic => (
+              <div class="topic"><span class="tk">{t(locale, topic.key)}</span><span set:html={topic.text} /></div>
+            ))}
+          </div>
+        </div>
+      )}
+      {kit.warn && (
+        <div class="kit-warn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <p set:html={kit.warn} />
+        </div>
+      )}
+      {kit.custom_title && (
+        <>
+          <h4>{kit.custom_title}</h4>
+          <div class="uni-steps">
+            {kit.steps?.map((step, i) => (
+              <div class="ustep"><div class="n">{i + 1}</div><p>{step}</p></div>
+            ))}
+          </div>
+          <h4>{kit.examples_title}</h4>
+          <div class="uni-ex">
+            {kit.examples?.map(ex => (
+              <div class="uex">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                <span set:html={ex} />
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+</div>

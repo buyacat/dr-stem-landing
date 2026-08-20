@@ -1,0 +1,26 @@
+{
+  "meta_title": "Dr.STEM — Digital Measurement Computer Complex",
+  "meta_description": "Dr.STEM is a digital measurement computer complex for physics, chemistry, biology, geography classrooms, STEM labs, laboratories and centers. Modern sensors, AI assistant, and gamification.",
+  "meta_keywords": "Dr.STEM, digital measurement, computer complex, physics sensors, chemistry sensors, biology sensors, STEM education, laboratory equipment, educational technology, digital lab",
+  "meta_og_title": "Dr.STEM — Digital Measurement Computer Complex",
+  "meta_og_description": "Digital measurement computer complex for physics, chemistry, biology, geography classrooms, STEM labs, laboratories and centers.",
+  "meta_twitter_title": "Dr.STEM — Digital Measurement Computer Complex",
+  "meta_twitter_description": "Digital measurement computer complex for physics, chemistry, biology, geography classrooms, STEM labs, laboratories and centers.",
+  "meta_canonical": "https://drstem.eu/en/",
+  "meta_robots": "index, follow",
+  "schema_name": "Dr.STEM",
+  "schema_description": "Digital measurement computer complex for STEM education",
+  "schema_brand": "Dr.STEM",
+  "schema_url": "https://drstem.eu/en/",
+  "schema_telephone": "+380442221111",
+  "schema_email": "info@drstem.eu",
+  "schema_address_country": "UA",
+  "schema_address_locality": "Kyiv",
+  "schema_address_street": "STEM Street 1",
+  "schema_price_range": "$$",
+  "schema_same_as": [
+    "https://www.facebook.com/drstem",
+    "https://www.linkedin.com/company/drstem",
+    "https://www.youtube.com/@drstem"
+  ]
+}

@@ -1,0 +1,192 @@
+---
+import '../styles/style.css';
+import adminScriptUrl from '../scripts/admin.js?url';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dr.STEM — Translation Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <style is:global>
+    /* ====== base ====== */
+    body { background:var(--sky); color:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif; -webkit-font-smoothing:antialiased; min-height:100vh; margin:0; }
+    .hidden { display:none !important; }
+
+    /* ====== login ====== */
+    .login-wrap { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:40px 24px; }
+    .login-card { max-width:440px; width:100%; }
+    .login-card h1 { font-family:"Space Grotesk",sans-serif; font-size:clamp(28px,4vw,38px); font-weight:700; letter-spacing:-0.02em; margin:0 0 8px; line-height:1.05; }
+    .login-card h1 .hl { color:var(--blue); }
+    .login-subtitle { color:var(--slate); font-size:16px; margin:0 0 32px; line-height:1.55; }
+    .login-form { background:#fff; border-radius:24px; padding:40px 36px 32px; box-shadow:0 46px 90px -34px rgba(20,40,90,.4); border:1px solid var(--line); }
+    .login-form .field { margin-bottom:20px; }
+    .login-form .field:last-child { margin-bottom:0; }
+    .login-hint { font-size:13px; color:#5a6b85; margin:16px 0 0; text-align:center; }
+    .proxy-toggle { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--slate); margin:12px 0 0; cursor:pointer; font-weight:500; }
+    .proxy-toggle input { width:16px; height:16px; cursor:pointer; accent-color:var(--blue); }
+
+    /* ====== panel layout ====== */
+    .panel-wrap { display:grid; grid-template-columns:260px 1fr; grid-template-rows:auto 1fr auto; grid-template-areas:"header header" "sidebar main" "footer footer"; min-height:100vh; }
+    @media (max-width:920px) {
+      .panel-wrap { grid-template-columns:1fr; grid-template-rows:auto auto 1fr auto; grid-template-areas:"header" "sidebar" "main" "footer"; }
+    }
+
+    /* header */
+    .admin-header { grid-area:header; position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); box-shadow:0 1px 0 rgba(20,40,70,.08); border-bottom:1px solid var(--line); }
+    .admin-header .inner { display:flex; align-items:center; justify-content:space-between; padding:12px 24px; max-width:1400px; margin:0 auto; }
+    .admin-header .brand { display:flex; align-items:center; gap:11px; }
+    .admin-header .brand .mark { width:36px; height:36px; flex:none; }
+    .admin-header .brand .name { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:20px; color:var(--blue); line-height:1; }
+    .admin-meta { display:flex; align-items:center; gap:12px; }
+    .admin-token-badge { font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--slate); background:var(--sky); padding:5px 10px; border-radius:8px; border:1px solid var(--line); }
+
+    /* sidebar */
+    .admin-sidebar { grid-area:sidebar; background:#fff; border-right:1px solid var(--line); padding:20px 0; overflow-y:auto; }
+    @media (max-width:920px) { .admin-sidebar { border-right:none; border-bottom:1px solid var(--line); padding:12px 16px; } }
+    .admin-sidebar-title { font-family:"Space Grotesk",sans-serif; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--slate); padding:0 20px 12px; margin:0; }
+    @media (max-width:920px) { .admin-sidebar-title { display:none; } }
+    .admin-nav { display:flex; flex-direction:column; gap:2px; padding:0 12px; }
+    @media (max-width:920px) { .admin-nav { flex-direction:row; flex-wrap:wrap; gap:6px; padding:0; } }
+    .admin-nav-item { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; font-family:"Space Grotesk",sans-serif; font-size:13px; font-weight:600; color:var(--slate); cursor:pointer; transition:all .15s ease; border:none; background:transparent; text-align:left; width:100%; }
+    @media (max-width:920px) { .admin-nav-item { width:auto; border-radius:100px; border:1.5px solid var(--line); background:#fff; padding:8px 16px; } }
+    .admin-nav-item:hover { background:var(--sky); color:var(--blue); }
+    .admin-nav-item.active { background:var(--blue); color:#fff; }
+    @media (max-width:920px) { .admin-nav-item.active { box-shadow:0 12px 26px -10px rgba(27,111,227,.6); } }
+    .admin-nav-item.dirty::after { content:""; width:6px; height:6px; border-radius:50%; background:var(--yellow); display:inline-block; margin-left:auto; flex:none; }
+    @media (max-width:920px) { .admin-nav-item.dirty::after { margin-left:0; } }
+
+    /* main */
+    .admin-main { grid-area:main; padding:24px; overflow-y:auto; }
+    @media (max-width:920px) { .admin-main { padding:16px; } }
+    .admin-banner { padding:12px 24px; font-size:14px; font-weight:500; margin-bottom:20px; border-radius:10px; }
+    .admin-banner.success { background:#e7f8ee; color:#199e54; }
+    .admin-banner.error { background:#fde8e8; color:#c53030; }
+    .admin-savebar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px; padding:14px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); box-shadow:0 6px 16px -8px rgba(20,40,90,.12); }
+    .admin-dirty-count { font-size:14px; color:var(--slate); font-weight:500; font-family:"JetBrains Mono",monospace; }
+    .admin-editor { background:#fff; border-radius:20px; border:1px solid var(--line); padding:28px; box-shadow:0 12px 32px -12px rgba(20,40,90,.15); }
+    .admin-editor > .admin-fieldset:first-child { margin-top:0; }
+    .admin-fieldset { border:1px solid var(--line); border-radius:14px; padding:16px; margin:12px 0; background:#fafcff; }
+    .admin-fieldset > .admin-fieldset { background:#fff; }
+    .admin-legend { font-family:"Space Grotesk",sans-serif; font-size:13px; font-weight:600; color:var(--cobalt); padding:0 10px; letter-spacing:-0.01em; }
+    .admin-row { display:grid; grid-template-columns:200px 1fr; gap:14px; align-items:start; padding:10px 0; border-bottom:1px solid var(--line); }
+    .admin-row:last-child { border-bottom:none; }
+    .admin-row.readonly { opacity:0.6; background:var(--sky); border-radius:10px; padding:10px 14px; border:1px solid var(--line); }
+    .admin-key { font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--slate); font-weight:600; padding-top:10px; word-break:break-word; }
+    .admin-cells { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .admin-cell { position:relative; }
+    .admin-cell.empty .field input,
+    .admin-cell.empty .field textarea,
+    .admin-cell.empty .wysiwyg { border-color:var(--yellow); box-shadow:0 0 0 4px rgba(245,197,24,.15); }
+    .admin-cell.has-html .field input,
+    .admin-cell.has-html .field textarea,
+    .admin-cell.has-html .wysiwyg-editor { font-family:"JetBrains Mono",monospace; font-size:12px; }
+    .admin-locale-badge { display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue); background:var(--sky); padding:4px 8px; border-radius:6px; margin-bottom:8px; border:1px solid var(--line); }
+    .admin-html-hint { display:block; font-size:11px; color:var(--orange); margin-top:6px; font-weight:500; }
+    .admin-error { color:#c53030; font-size:14px; padding:20px; text-align:center; }
+    .admin-row.mismatch { color:#c53030; font-size:13px; padding:10px; background:#fff4e8; border-radius:10px; }
+    .admin-loader { display:flex; align-items:center; justify-content:center; padding:60px; color:var(--slate); font-size:15px; }
+
+    /* WYSIWYG */
+    .wysiwyg { border:1.5px solid var(--line); border-radius:12px; background:#fafcff; overflow:hidden; }
+    .wysiwyg-toolbar { display:flex; gap:4px; padding:6px 10px; background:#f1f6fd; border-bottom:1px solid var(--line); }
+    .wysiwyg-toolbar button { width:30px; height:30px; border-radius:6px; border:1px solid var(--line); background:#fff; color:var(--cobalt); font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-family:"Space Grotesk",sans-serif; font-weight:700; }
+    .wysiwyg-toolbar button:hover { background:var(--sky); border-color:var(--blue); color:var(--blue); }
+    .wysiwyg-editor { min-height:80px; padding:12px 14px; font-size:14px; line-height:1.5; outline:none; background:#fff; }
+    .wysiwyg-editor:empty:before { content:attr(data-placeholder); color:var(--slate); opacity:0.6; }
+    .wysiwyg-editor p { margin:0 0 8px; }
+    .wysiwyg-editor p:last-child { margin:0; }
+
+    /* DND Array Items */
+    .array-item { position:relative; border:1px dashed transparent; border-radius:10px; margin:4px 0; padding-left:30px; background:#fff; transition:all .15s ease; }
+    .array-item:hover { border-color:var(--line); }
+    .array-item.dragging { opacity:0.5; border-color:var(--blue); background:var(--sky); }
+    .array-item.drag-over { border-color:var(--blue); background:var(--sky); box-shadow:0 0 0 3px rgba(27,111,227,.15); }
+    .drag-handle { position:absolute; left:6px; top:8px; cursor:grab; color:var(--slate); font-size:13px; line-height:1; user-select:none; font-family:monospace; padding:4px 2px; border-radius:4px; }
+    .drag-handle:hover { background:var(--sky); color:var(--blue); }
+    .drag-handle:active { cursor:grabbing; }
+    .array-item-content { padding:4px 0; }
+    .array-item-content > .admin-fieldset { margin:0; }
+    .array-item-content > .admin-row { padding:6px 0; }
+
+    /* footer */
+    .admin-footer { grid-area:footer; background:#16276b; color:#7e95bf; padding:18px 24px; border-top:1px solid rgba(255,255,255,.07); font-size:13px; }
+    .admin-footer .inner { display:flex; align-items:center; justify-content:space-between; gap:24px; max-width:1400px; margin:0 auto; }
+    @media (max-width:920px) { .admin-footer .inner { flex-direction:column; gap:8px; text-align:center; } }
+
+    /* responsive */
+    @media (max-width:920px) {
+      .admin-row { grid-template-columns:1fr; }
+      .admin-cells { grid-template-columns:1fr; }
+      .admin-editor { padding:18px; border-radius:18px; }
+      .admin-savebar { flex-wrap:wrap; gap:12px; }
+      .login-wrap { padding:20px 16px; }
+      .login-form { padding:24px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ====== LOGIN ====== -->
+  <div id="admin-login" class="login-wrap">
+    <div class="login-card">
+      <h1>Dr.STEM <span class="hl">Translation</span> Panel</h1>
+      <p class="login-subtitle">Enter your Bitbucket Repository Access Token to edit translations in the browser.</p>
+      <form class="login-form" id="login-form">
+        <div class="field">
+          <label for="token-input">Repository Access Token</label>
+          <input type="password" id="token-input" placeholder="Paste your token here" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Open Panel</button>
+      </form>
+      <p class="login-hint">The token is stored in your browser only. It needs repository:write scope.</p>
+    </div>
+  </div>
+
+  <!-- ====== PANEL ====== -->
+  <div id="admin-panel" class="panel-wrap hidden">
+    <header class="admin-header">
+      <div class="inner">
+        <div class="brand">
+          <img class="mark" src="/assets/logo.svg" alt="Dr.STEM">
+          <div class="name">Translation Panel</div>
+        </div>
+        <div class="admin-meta">
+          <span class="admin-token-badge" id="token-badge">Token: ****</span>
+          <button class="btn btn-ghost" id="logout-btn" type="button">Log out</button>
+        </div>
+      </div>
+    </header>
+
+    <aside class="admin-sidebar">
+      <h2 class="admin-sidebar-title">Translation Files</h2>
+      <nav class="admin-nav" id="admin-nav"></nav>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-banner hidden" id="admin-banner"></div>
+      <div class="admin-savebar" id="admin-savebar">
+        <span class="admin-dirty-count" id="admin-dirty-count">No changes</span>
+        <button class="btn btn-primary" id="admin-save-btn" type="button">Save changes</button>
+      </div>
+      <div class="admin-editor" id="admin-editor"></div>
+      <div class="admin-loader hidden" id="admin-loader">Loading translations…</div>
+    </main>
+
+    <footer class="admin-footer">
+      <div class="inner">
+        <span>© 2026 Eddy Group</span>
+        <span>Dr.STEM Translation Panel</span>
+      </div>
+    </footer>
+  </div>
+
+  <script is:inline src={adminScriptUrl}></script>
+</body>
+</html>

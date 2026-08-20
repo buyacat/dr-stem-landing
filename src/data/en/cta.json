@@ -1,0 +1,25 @@
+{
+  "cta_title": "Upgrade your STEM lab today",
+  "cta_lede": "Leave a request and our manager will help you select the optimal Dr.STEM configuration for your curriculum or process additional sensor orders.",
+  "catalog_title": "Need separate sensors?",
+  "catalog_desc": "The sensor list is constantly expanding. To get the current list — leave a request or contact us.",
+  "catalog_email": "info@st4e.eu",
+  "catalog_phone": "+38 (044) 299 5 299",
+  "form_title": "Request for Dr.STEM",
+  "form_fields": [
+    { "name": "name", "label": "Full Name", "type": "text", "required": true, "placeholder": "Olena Kovalenko" },
+    { "name": "org", "label": "School / organization name", "type": "text", "required": false, "placeholder": "Lyceum No.1, Kyiv" },
+    { "name": "phone", "label": "Contact phone", "type": "tel", "required": false, "placeholder": "+380 __ ___ __ __" },
+    { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "school@email.com" },
+    { "name": "comment", "label": "Comment", "type": "textarea", "required": false, "placeholder": "For example: «Interested in additional pH sensors»", "rows": 3 }
+  ],
+  "form_submit": "Submit Dr.STEM request",
+  "form_hint": "We respond within one business day.",
+  "form_sending": "Sending...",
+  "form_success": "✓ Request sent",
+  "form_success_hint": "Thank you! We will respond within one business day.",
+  "form_error": "Submit Dr.STEM request",
+  "form_error_hint": "Sending error. Please try again or contact us directly.",
+  "form_thanks": "Thank you!",
+  "form_thanks_sub": "Our manager will contact you soon."
+}

@@ -1,0 +1,94 @@
+---
+import { t, tArray } from '../utils/i18n';
+import type { Locale } from '../utils/i18n';
+import KitTab from './KitTab.astro';
+import KitPanel from './KitPanel.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const kitTabs = tArray<{key: string; label: string}>(locale, 'kit_tabs');
+const kits = tArray<{
+  key: string;
+  title: string;
+  desc: string;
+  count: string;
+  btn: string;
+  note: string;
+  sensors_title: string;
+  sensors: string[];
+  topics_title: string;
+  topics: {key: string; text: string}[];
+  warn?: string;
+  multi_title?: string;
+  multi_sensors?: string[];
+  separate_title?: string;
+  separate_sensors?: string[];
+  badge?: string;
+  custom_title?: string;
+  steps?: string[];
+  examples_title?: string;
+  examples?: string[];
+}>(locale, 'kits');
+
+const tabIcons: Record<string, string> = {
+  uni: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 13l9 5 9-5M3 18l9 5 9-5"/></svg>',
+  phys: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/></svg>',
+  chem: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7 15h10"/></svg>',
+  bio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c4 4 4 9 0 14M12 3c-4 4-4 9 0 14M12 17v4M8 7h8M7 12h10"/></svg>',
+  geo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>',
+};
+
+const bgIcons: Record<string, string> = {
+  phys: '<circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/>',
+  chem: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7 15h10"/>',
+  bio: '<path d="M12 3c4 4 4 9 0 14M12 3c-4 4-4 9 0 14M12 17v4M8 7h8M7 12h10"/>',
+  geo: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>',
+  uni: '<path d="M12 3 3 8l9 5 9-5-9-5ZM3 13l9 5 9-5M3 18l9 5 9-5"/>',
+};
+---
+
+<section class="band kits" id="kits" itemscope itemtype="https://schema.org/Product">
+  <div class="wrap">
+    <div class="band-head">
+      <span class="eyebrow center">{t(locale, 'kits_eyebrow')}</span>
+      <h2 set:html={t(locale, 'kits_title')} />
+      <p>{t(locale, 'kits_desc')}</p>
+    </div>
+
+    <div class="kit-tabs">
+      {kitTabs.map((tab, i) => (
+        <KitTab locale={locale} kit={tab.key} label={tab.label} active={i === 0} icon={tabIcons[tab.key]} />
+      ))}
+    </div>
+
+    {kits.map((kit, i) => (
+      <KitPanel
+        locale={locale}
+        kit={kit}
+        active={i === 0}
+        bgIcon={bgIcons[kit.key]}
+      />
+    ))}
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.kit-tab');
+    const panels = document.querySelectorAll('.kit-panel');
+    if (!tabs.length) return;
+    tabs.forEach(function(t) {
+      t.addEventListener('click', function() {
+        tabs.forEach(function(x) { x.classList.remove('active'); });
+        panels.forEach(function(p) { p.classList.remove('active'); });
+        t.classList.add('active');
+        const p = document.getElementById('kit-' + t.dataset.kit);
+        if (p) p.classList.add('active');
+      });
+    });
+  });
+</script>

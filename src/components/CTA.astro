@@ -1,0 +1,66 @@
+---
+import { t, tArray } from '../utils/i18n';
+import type { Locale } from '../utils/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const fields = tArray<{name: string; label: string; type: string; required: boolean; placeholder: string; rows?: number}>(locale, 'form_fields');
+---
+
+<section class="cta final" id="demo">
+  <div class="wrap cta-grid">
+    <div>
+      <h2>{t(locale, 'cta_title')}</h2>
+      <p class="lede">{t(locale, 'cta_lede')}</p>
+      <div class="catalog-card" style="margin-top:30px" itemscope itemtype="https://schema.org/ContactPoint">
+        <meta itemprop="contactType" content="sales" />
+        <meta itemprop="availableLanguage" content="Ukrainian" />
+        <meta itemprop="availableLanguage" content="English" />
+        <img src="/assets/logo.svg" alt="Dr.STEM" class="catalog-logo" width="110" height="91">
+        <h3>{t(locale, 'catalog_title')}</h3>
+        <p>{t(locale, 'catalog_desc')}</p>
+        <div class="cnt">
+          <a href={`mailto:${t(locale, 'catalog_email')}`} itemprop="email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <span>{t(locale, 'catalog_email')}</span>
+          </a>
+          <a href={`tel:${t(locale, 'catalog_phone').replace(/\s/g, '')}`} itemprop="telephone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+            <span>{t(locale, 'catalog_phone')}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form id="demo-form" data-submit={t(locale, 'form_submit')} data-sending={t(locale, 'form_sending')} data-success={t(locale, 'form_success')} data-success-hint={t(locale, 'form_success_hint')} data-error={t(locale, 'form_error')} data-error-hint={t(locale, 'form_error_hint')}>
+        <h3>{t(locale, 'form_title')}</h3>
+        {/* honeypot проти ботів — приховане, реальні користувачі не заповнюють */}
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+        {fields.map(field => (
+          <div class={`field ${field.type === 'textarea' ? '' : ''}`}>
+            <label>{field.label}</label>
+            {field.type === 'textarea' ? (
+              <textarea rows={field.rows || 3} name={field.name} placeholder={field.placeholder}></textarea>
+            ) : (
+              <input type={field.type} name={field.name} required={field.required} placeholder={field.placeholder} />
+            )}
+          </div>
+        ))}
+        <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;margin-top:6px">{t(locale, 'form_submit')}</button>
+        <div class="sub form-hint">{t(locale, 'form_hint')}</div>
+      </form>
+      <div class="form-ok">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3>{t(locale, 'form_thanks')}</h3>
+        <div class="sub">{t(locale, 'form_thanks_sub')}</div>
+      </div>
+    </div>
+  </div>
+</section>
