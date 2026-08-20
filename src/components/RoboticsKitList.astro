@@ -8,14 +8,35 @@ interface Props {
 
 const { locale } = Astro.props;
 
-const kits = tArray<{code: string; name: string}>(locale, 'robotics_kits_list');
+interface Kit {
+  code: string;
+  name: string;
+  mcu?: string;
+  projects?: number;
+  gist?: string;
+  outcome?: string;
+  features?: string[];
+  specs?: string[];
+}
 
-// Phase 1 (current): plain wording + a link to a PDF catalog — no per-kit
-// cards/specs/images yet, per client's "будемо робити вкінці" note.
-// Phase 2 (future): expand this into full per-kit cards/specs, modeled on
-// Kits.astro/KitTab.astro/KitPanel.astro's tab+panel pattern, once kit
-// photos and final copy are approved. Source photos for that phase:
-// https://drive.google.com/drive/folders/1G0GrLkDs8F7vNG5R-SwkTGG3OvZDwuWe
+const kits = tArray<Kit>(locale, 'robotics_kits_list');
+
+// The kit grid doubles as the catalog: every tile carries the robot's photo plus
+// the two fields buyers compare first (board + project count), so the tiles read
+// without opening anything. A tile opens a <dialog> panel that walks all 18 with
+// ← / →, and the open kit is reflected in the hash (#R05) so a panel can be linked.
+// Photos live in /assets/robotics/kits/ as r01.webp (panel) + r01-thumb.webp (tile).
+// R13–R18 carry no copy yet — their panel shows the photo and points at the PDF
+// catalog instead of an empty body.
+const projectsLabel = t(locale, 'robotics_kits_projects_label');
+const projectsFullLabel = t(locale, 'robotics_kits_projects_full_label');
+
+const meta = (kit: Kit) =>
+  [kit.mcu, kit.projects ? `${kit.projects} ${projectsLabel}` : null]
+    .filter(Boolean)
+    .join(' · ');
+
+const photo = (kit: Kit) => `/assets/robotics/kits/${kit.code.toLowerCase()}`;
 ---
 
 <section class="band" id="kits">
@@ -25,18 +46,96 @@ const kits = tArray<{code: string; name: string}>(locale, 'robotics_kits_list');
       <h2 set:html={t(locale, 'robotics_kits_title')} />
       <p>{t(locale, 'robotics_kits_intro')}</p>
     </div>
+
     <div class="rk-grid">
-      {kits.map(kit => (
-        <div class="rk-item">
-          <span class="rk-code">{kit.code}</span>
-          <span class="rk-name">{kit.name}</span>
-        </div>
+      {kits.map((kit, i) => (
+        <button type="button" class="rk-item" data-rk-open={i} aria-haspopup="dialog">
+          <span class="rk-line">
+            <span class="rk-code">{kit.code}</span>
+            <span class="rk-name">{kit.name}</span>
+          </span>
+          {meta(kit) && <span class="rk-meta">{meta(kit)}</span>}
+          <img class="rk-thumb" src={`${photo(kit)}-thumb.webp`} alt="" loading="lazy" decoding="async" width="72" height="72" />
+          <svg class="rk-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
       ))}
     </div>
+
     <div class="rk-cta">
       <a class="btn btn-primary" href="/assets/robotics/catalog.pdf" target="_blank" rel="noopener" download>{t(locale, 'robotics_kits_pdf_label')}</a>
     </div>
   </div>
+
+  <dialog class="rk-dialog" id="rk-dialog" aria-labelledby="rk-dialog-name">
+    <div class="rk-bar">
+      <span class="rk-bar-title">
+        <span class="rk-code" id="rk-dialog-code"></span>
+        <span class="rk-bar-name" id="rk-dialog-name"></span>
+      </span>
+      <span class="rk-nav">
+        <button type="button" data-rk-go="-1" aria-label={t(locale, 'robotics_kits_prev_label')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+        </button>
+        <span class="rk-counter" data-rk-counter></span>
+        <button type="button" data-rk-go="1" aria-label={t(locale, 'robotics_kits_next_label')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+      </span>
+      <button type="button" class="rk-close" data-rk-close aria-label={t(locale, 'robotics_kits_close_label')}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="rk-body" data-rk-body>
+      {kits.map((kit, i) => (
+        <article class="rk-panel" data-rk-panel={i} hidden>
+          {/* Panels are display:none until opened, and browsers fetch loading="lazy"
+              images inside them anyway — all 18 photos at once. The src is attached
+              on open instead, with the neighbours warmed so ← / → stay instant. */}
+          <div class="rk-aside">
+            <img class="rk-photo" data-rk-src={`${photo(kit)}.webp`} alt={kit.name} decoding="async" />
+            {(kit.mcu || kit.projects) && (
+              <div class="rk-badges">
+                {kit.mcu && <span class="rk-badge">{kit.mcu}</span>}
+                {kit.projects && <span class="rk-badge">{kit.projects} {projectsFullLabel}</span>}
+              </div>
+            )}
+          </div>
+
+          <div class="rk-copy">
+          {kit.gist ? (
+            <>
+              <h4>{t(locale, 'robotics_kits_gist_label')}</h4>
+              <p>{kit.gist}</p>
+              <h4>{t(locale, 'robotics_kits_outcome_label')}</h4>
+              <p>{kit.outcome}</p>
+              {kit.features && kit.features.length > 0 && (
+                <>
+                  <h4>{t(locale, 'robotics_kits_features_label')}</h4>
+                  <ul>{kit.features.map(f => <li>{f}</li>)}</ul>
+                </>
+              )}
+              {kit.specs && kit.specs.length > 0 && (
+                <details class="rk-specs">
+                  <summary>{t(locale, 'robotics_kits_specs_label')} · {kit.specs.length}</summary>
+                  <ul>{kit.specs.map(s => <li>{s}</li>)}</ul>
+                </details>
+              )}
+            </>
+          ) : (
+            <p class="rk-more">{t(locale, 'robotics_kits_more_label')}</p>
+          )}
+
+          </div>
+
+          <div class="rk-actions">
+            <a class="btn btn-primary" href="#demo">{t(locale, 'robotics_kits_order_label')}</a>
+            <a class="btn btn-ghost" href="/assets/robotics/catalog.pdf" target="_blank" rel="noopener" download>{t(locale, 'robotics_kits_catalog_label')}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </dialog>
 </section>
 
 <style>
@@ -47,13 +146,35 @@ const kits = tArray<{code: string; name: string}>(locale, 'robotics_kits_list');
     gap: 14px;
   }
   .rk-item {
+    position: relative;
     display: flex;
-    align-items: baseline;
-    gap: 10px;
-    padding: 16px 20px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    min-height: 88px;
+    padding: 14px 96px 14px 20px;
+    text-align: left;
+    font: inherit;
+    color: var(--ink);
     background: #fff;
     border: 1.5px solid var(--line);
     border-radius: 14px;
+    cursor: pointer;
+    transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+  }
+  .rk-item:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(27, 111, 227, 0.14);
+  }
+  .rk-item:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+  .rk-line {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
   }
   .rk-code {
     font-family: "JetBrains Mono", monospace;
@@ -65,13 +186,306 @@ const kits = tArray<{code: string; name: string}>(locale, 'robotics_kits_list');
   }
   .rk-name {
     font-size: 14.5px;
+    line-height: 1.3;
     color: var(--ink);
+  }
+  .rk-meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--slate);
+    padding-left: 34px;
+  }
+  .rk-thumb {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    width: 72px;
+    height: 72px;
+    margin-top: -36px;
+    object-fit: contain;
+    transition: transform 0.2s;
+  }
+  .rk-item:hover .rk-thumb {
+    transform: scale(1.12);
+  }
+  .rk-chev {
+    position: absolute;
+    right: 92px;
+    top: 50%;
+    margin-top: -7px;
+    width: 14px;
+    height: 14px;
+    color: var(--line);
+    transition: color 0.18s, transform 0.18s;
+  }
+  .rk-item:hover .rk-chev {
+    color: var(--blue);
+    transform: translateX(2px);
   }
   .rk-cta {
     display: flex;
     justify-content: center;
     margin-top: 36px;
   }
+
+  /* ---- panel ---- */
+  .rk-dialog {
+    width: min(880px, calc(100vw - 48px));
+    max-height: min(88vh, 780px);
+    padding: 0;
+    border: 0;
+    border-radius: 18px;
+    background: #fff;
+    color: var(--ink);
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(17, 32, 58, 0.32);
+  }
+  .rk-dialog[open] {
+    display: flex;
+    flex-direction: column;
+    animation: rk-pop 0.22s cubic-bezier(0.2, 0.8, 0.3, 1);
+  }
+  .rk-dialog::backdrop {
+    background: rgba(17, 32, 58, 0.5);
+    backdrop-filter: blur(2px);
+  }
+  @keyframes rk-pop {
+    from { opacity: 0; transform: scale(0.97) translateY(10px); }
+  }
+
+  .rk-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .rk-bar-title {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+  }
+  .rk-bar-name {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .rk-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .rk-nav button,
+  .rk-close {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--slate);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .rk-nav button svg,
+  .rk-close svg {
+    width: 17px;
+    height: 17px;
+  }
+  .rk-nav button:hover,
+  .rk-close:hover {
+    background: var(--sky);
+    color: var(--blue);
+  }
+  .rk-nav button:focus-visible,
+  .rk-close:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 1px;
+  }
+  .rk-counter {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    color: var(--slate);
+    padding: 0 5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rk-body {
+    padding: 18px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  /* [hidden] loses to the display below, so the closed panels need it spelled out. */
+  .rk-panel[hidden] {
+    display: none;
+  }
+  .rk-panel {
+    display: grid;
+    gap: 18px;
+    grid-template-areas: "aside" "copy" "actions";
+  }
+  .rk-aside {
+    grid-area: aside;
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+  }
+  .rk-copy {
+    grid-area: copy;
+  }
+  /* Photos are baked square on white, so the box never letterboxes or crops. */
+  .rk-photo {
+    display: block;
+    width: 100%;
+    max-width: 230px;
+    aspect-ratio: 1;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 12px;
+  }
+  .rk-copy > :first-child,
+  .rk-copy h4:first-child {
+    margin-top: 0;
+  }
+  .rk-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+  }
+  .rk-badge {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 7px;
+    background: var(--sky-2);
+    color: var(--cobalt);
+  }
+  .rk-panel h4 {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin: 20px 0 8px;
+  }
+  .rk-panel p {
+    margin: 0 0 10px;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  .rk-panel ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14px;
+    line-height: 1.62;
+  }
+  .rk-panel li {
+    margin-bottom: 5px;
+  }
+  .rk-more {
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--sky);
+    color: var(--slate);
+    font-size: 14px;
+  }
+  .rk-specs {
+    margin-top: 16px;
+    border-top: 1px solid var(--line);
+    padding-top: 13px;
+  }
+  .rk-specs summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+  .rk-specs summary::-webkit-details-marker {
+    display: none;
+  }
+  .rk-specs summary::before {
+    content: "\25B8";
+    font-size: 10px;
+    transition: transform 0.16s;
+  }
+  .rk-specs[open] summary::before {
+    transform: rotate(90deg);
+  }
+  .rk-specs summary:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .rk-specs ul {
+    margin-top: 10px;
+  }
+  .rk-actions {
+    grid-area: actions;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+  }
+  .rk-actions .btn {
+    font-size: 13.5px;
+    padding: 11px 20px;
+  }
+
+  /* Photo, badges and buttons stack in one column beside the copy, so the kit
+     fits a laptop screen without scrolling and neither column runs empty. */
+  @media (min-width: 760px) {
+    .rk-panel {
+      grid-template-columns: 300px minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "aside  copy"
+        "actions copy";
+      gap: 16px 28px;
+      align-items: start;
+    }
+    .rk-photo {
+      max-width: none;
+    }
+    .rk-actions {
+      align-self: start;
+      flex-direction: column;
+      border-top: 0;
+      padding-top: 0;
+    }
+    .rk-actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* Short laptops: trade photo height for copy height. */
+  @media (min-width: 760px) and (max-height: 820px) {
+    .rk-panel {
+      grid-template-columns: 240px minmax(0, 1fr);
+    }
+    .rk-panel h4 {
+      margin-top: 15px;
+    }
+  }
+
   @media (max-width: 900px) {
     .rk-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -81,5 +495,159 @@ const kits = tArray<{code: string; name: string}>(locale, 'robotics_kits_list');
     .rk-grid {
       grid-template-columns: 1fr;
     }
+    .rk-dialog {
+      width: 100vw;
+      max-width: 100vw;
+      max-height: 88vh;
+      margin: auto 0 0;
+      border-radius: 18px 18px 0 0;
+    }
+    .rk-dialog[open] {
+      animation: rk-up 0.26s cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+    @keyframes rk-up {
+      from { transform: translateY(70px); opacity: 0.5; }
+    }
+    .rk-nav button,
+    .rk-close {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rk-item,
+    .rk-thumb,
+    .rk-chev,
+    .rk-dialog[open] {
+      transition: none;
+      animation: none;
+    }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    var section = document.getElementById('kits');
+    var dialog = document.getElementById('rk-dialog');
+    if (!section || !dialog || typeof dialog.showModal !== 'function') return;
+
+    var tiles = Array.prototype.slice.call(section.querySelectorAll('[data-rk-open]'));
+    var panels = Array.prototype.slice.call(dialog.querySelectorAll('[data-rk-panel]'));
+    var counter = dialog.querySelector('[data-rk-counter]');
+    var body = dialog.querySelector('[data-rk-body]');
+    var codeEl = document.getElementById('rk-dialog-code');
+    var nameEl = document.getElementById('rk-dialog-name');
+    if (!tiles.length || !panels.length) return;
+
+    var codes = tiles.map(function (tile) {
+      return tile.querySelector('.rk-code').textContent.trim().toUpperCase();
+    });
+    var names = tiles.map(function (tile) {
+      return tile.querySelector('.rk-name').textContent.trim();
+    });
+
+    var current = -1;
+    var bare = location.pathname + location.search;
+    // Set right before dialog.close() so the shared close handler can tell a
+    // deliberate close from one the browser already recorded in history.
+    var closingFromHistory = false;
+    var closingToAnchor = false;
+
+    function indexFromHash() {
+      return codes.indexOf(decodeURIComponent(location.hash.slice(1)).toUpperCase());
+    }
+
+    function loadPhoto(i) {
+      var img = panels[i] && panels[i].querySelector('[data-rk-src]');
+      if (!img) return;
+      img.src = img.getAttribute('data-rk-src');
+      img.removeAttribute('data-rk-src');
+    }
+
+    function render(i) {
+      current = i;
+      panels.forEach(function (panel, n) {
+        if (n === i) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', '');
+      });
+      loadPhoto(i);
+      loadPhoto((i + 1) % panels.length);
+      loadPhoto((i - 1 + panels.length) % panels.length);
+      codeEl.textContent = codes[i];
+      nameEl.textContent = names[i];
+      counter.textContent = i + 1 + '/' + panels.length;
+      body.scrollTop = 0;
+    }
+
+    function open(i, viaHistory) {
+      render(i);
+      if (!dialog.open) {
+        dialog.showModal();
+        document.documentElement.style.overflow = 'hidden';
+      }
+      if (!viaHistory) history.pushState({ rk: codes[i] }, '', '#' + codes[i]);
+    }
+
+    // Arrows swap the panel in place — they replace the entry so one Esc still
+    // leaves the block instead of unwinding every kit the visitor flipped past.
+    function step(delta) {
+      var i = (current + delta + panels.length) % panels.length;
+      render(i);
+      history.replaceState({ rk: codes[i] }, '', '#' + codes[i]);
+    }
+
+    function close(viaHistory) {
+      closingFromHistory = !!viaHistory;
+      if (dialog.open) dialog.close();
+      else closingFromHistory = false;
+    }
+
+    tiles.forEach(function (tile, i) {
+      tile.addEventListener('click', function () { open(i); });
+    });
+
+    dialog.querySelectorAll('[data-rk-go]').forEach(function (btn) {
+      btn.addEventListener('click', function () { step(Number(btn.getAttribute('data-rk-go'))); });
+    });
+
+    dialog.querySelector('[data-rk-close]').addEventListener('click', function () { close(); });
+
+    // Clicking the backdrop lands on <dialog> itself, never on its children.
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) close();
+    });
+
+    // Fires for Esc as well as close(), so scroll, history and focus are all
+    // put back in one place no matter how the panel was dismissed.
+    dialog.addEventListener('close', function () {
+      document.documentElement.style.overflow = '';
+      if (!closingFromHistory && indexFromHash() > -1) history.pushState(null, '', bare);
+      if (!closingToAnchor && current > -1 && tiles[current]) tiles[current].focus();
+      closingFromHistory = false;
+      closingToAnchor = false;
+    });
+
+    dialog.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowLeft') { step(-1); event.preventDefault(); }
+      if (event.key === 'ArrowRight') { step(1); event.preventDefault(); }
+    });
+
+    // The order-form link jumps to #demo, so the panel has to get out of the way
+    // first — and focus must stay on the form instead of snapping back to the tile.
+    dialog.addEventListener('click', function (event) {
+      if (!event.target.closest || !event.target.closest('a[href^="#"]')) return;
+      closingToAnchor = true;
+      document.documentElement.style.overflow = '';
+      close();
+    });
+
+    window.addEventListener('popstate', function () {
+      var i = indexFromHash();
+      if (i > -1) open(i, true);
+      else close(true);
+    });
+
+    var initial = indexFromHash();
+    if (initial > -1) open(initial, true);
+  })();
+</script>

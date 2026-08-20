@@ -4,15 +4,23 @@
   "robotics_lede": "Robotics kits for STEM classrooms in schools, STEM labs and education centers.",
   "robotics_cta": "Request Dr.STEM Robotics",
   "robotics_stats": [
-    { "n": "18", "l": "kits" },
-    { "n": "7–12", "l": "grades" },
-    { "n": "5–50", "l": "projects per kit" }
+    {
+      "n": "18",
+      "l": "kits"
+    },
+    {
+      "n": "7–12",
+      "l": "grades"
+    },
+    {
+      "n": "5–50",
+      "l": "projects per kit"
+    }
   ],
   "robotics_slot_car": "4-wheel car",
   "robotics_slot_house": "Smart house",
   "robotics_slot_spider": "Spider",
   "robotics_slot_hint": "Photo coming soon",
-
   "robotics_advantages_eyebrow": "Advantages of Dr.STEM Robotics",
   "robotics_advantages_title": "Why choose <span class=\"hl\">Dr.STEM Robotics</span>",
   "robotics_advantages_desc": "18 kits, ready-made curriculum and technical support — everything you need to launch a robotics track this semester.",
@@ -55,7 +63,6 @@
       "desc": "Setup assistance and consultations whenever you need them."
     }
   ],
-
   "robotics_includes_eyebrow": "What's inside a Dr.STEM Robotics kit",
   "robotics_includes_title": "Everything you need <span class=\"hl\">in one kit</span>",
   "robotics_includes_desc": "From electronics to teaching materials — every kit is ready for the first lesson straight out of the box.",
@@ -82,41 +89,323 @@
       "desc": "Assembly, setup and IDE configuration instructions for every kit."
     }
   ],
-
   "robotics_kits_eyebrow": "Kit catalog",
   "robotics_kits_title": "18 <span class=\"hl\">Dr.STEM Robotics kits</span>",
-  "robotics_kits_intro": "From simple wheeled robots for the first lessons to ESP32 IoT systems and computer vision. Full descriptions, specs and learning outcomes for every kit are in the PDF catalog.",
+  "robotics_kits_intro": "From simple wheeled robots for the first lessons to ESP32 IoT systems and computer vision. Open any kit to see its description, specification and learning outcome.",
   "robotics_kits_list": [
-    { "code": "R01", "name": "4-wheel car" },
-    { "code": "R02", "name": "4-wheel car with robotic arm" },
-    { "code": "R03", "name": "2-wheel car" },
-    { "code": "R04", "name": "Smart house" },
-    { "code": "R05", "name": "Eco house" },
-    { "code": "R06", "name": "Tracked tank" },
-    { "code": "R07", "name": "Smart steering wheel" },
-    { "code": "R08", "name": "Walking robot" },
-    { "code": "R09", "name": "Solar station" },
-    { "code": "R10", "name": "Robotic arm manipulator" },
-    { "code": "R11", "name": "Electronic scale" },
-    { "code": "R12", "name": "Smart irrigation system" },
-    { "code": "R13", "name": "Smart farm" },
-    { "code": "R14", "name": "Smart school" },
-    { "code": "R15", "name": "4-wheel car with computer vision" },
-    { "code": "R16", "name": "4-legged spider" },
-    { "code": "R17", "name": "Arduino UNO starter" },
-    { "code": "R18", "name": "ESP32 Internet of Things" }
+    {
+      "code": "R01",
+      "name": "4-wheel car",
+      "mcu": "Arduino UNO",
+      "projects": 17,
+      "gist": "A four-wheel-drive multifunction smart car built on Arduino with Bluetooth control. The robot avoids obstacles on its own, follows a line and tracks light sources.",
+      "outcome": "Students learn how to wire up sensors, program the driving logic and make boards talk to each other over a wireless link. They build algorithms for autonomous vehicle control.",
+      "features": [
+        "Four-wheel drive",
+        "Bluetooth and IR remote control",
+        "Obstacle avoidance, line following, light tracking",
+        "Block-based programming and IDE support"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 6 – 9 V",
+        "Maximum output current: 2 A",
+        "Maximum power dissipation: 25 W (at 75 °C)",
+        "Motor speed: 200 rpm (at 5 V)",
+        "Ultrasonic sensor: angle < 15°, range 2 – 400 cm",
+        "Wireless control: IR up to 10 m, Bluetooth up to 50 m (Android/iOS)"
+      ]
+    },
+    {
+      "code": "R02",
+      "name": "4-wheel car with robotic arm",
+      "mcu": "Arduino UNO",
+      "projects": 18,
+      "gist": "A four-wheel robotic platform fitted with a movable mechanical gripper. The whole rig is driven remotely from a smartphone.",
+      "outcome": "Students grasp how servo motors work and how a robotic arm moves through space. They gain hands-on experience building mobile interfaces that drive the car and the gripper at the same time.",
+      "features": [
+        "Four-wheel drive plus a 4 DOF robotic arm",
+        "Smartphone control through a mobile app",
+        "Grabs, lifts and moves objects",
+        "Autonomous driving and obstacle avoidance"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 7 – 12 V",
+        "Maximum output current: 3 A",
+        "Maximum power dissipation: 25 W (at 75 °C)",
+        "Motor speed: 63 rpm (at 5 V)",
+        "Ultrasonic sensor: angle < 15°, range 2 – 400 cm",
+        "Wireless control: IR up to 10 m, Bluetooth 20 – 50 m (Android/iOS)"
+      ]
+    },
+    {
+      "code": "R03",
+      "name": "2-wheel car",
+      "mcu": "Arduino UNO",
+      "projects": 16,
+      "gist": "A small wheeled learning robot shaped like a turtle, built specifically for STEM classrooms. It carries a basic sensor set: ultrasonic ranging, line following and infrared remote control.",
+      "outcome": "The kit is a perfect starting point: students pick up basic Arduino syntax and obstacle-avoidance algorithms, and sharpen their logical thinking by solving navigation problems.",
+      "features": [
+        "Learning robot with a round chassis",
+        "Line following, obstacle avoidance and IR control",
+        "Built-in LED matrix for faces and symbols",
+        "Easy assembly and block-based programming"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 6 – 9 V",
+        "Maximum output current: 2 A",
+        "Motor speed: 63 rpm (at 5 V)",
+        "Ultrasonic sensor: angle < 15°, range 2 – 400 cm",
+        "Wireless control: IR up to 10 m, Bluetooth up to 50 m"
+      ]
+    },
+    {
+      "code": "R04",
+      "name": "Smart house",
+      "mcu": "ESP32",
+      "projects": 15,
+      "gist": "An interactive smart-house model that simulates home automation: automatic doors, windows, ventilation and lighting. Every system reacts to its surroundings or is driven remotely.",
+      "outcome": "Students grasp the Internet of Things and learn to automate everyday processes with gas, flame and motion sensors. They pick up the basics of designing safety and comfort systems.",
+      "features": [
+        "Full smart-home simulation",
+        "Automatic doors, lighting and ventilation control",
+        "Gas leak, smoke and humidity detection",
+        "Control from a mobile app or straight from the sensors"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 6 – 9 V or USB 5 V",
+        "Maximum current per pin: 20 mA (digital I/O), 50 mA (3.3 V)",
+        "System operating current: 100 – 500 mA",
+        "Interfaces: analog, digital, I2C, UART",
+        "Sensors: motion (PIR), gas, temperature and humidity, light"
+      ]
+    },
+    {
+      "code": "R05",
+      "name": "Eco house",
+      "mcu": "Arduino UNO",
+      "projects": 9,
+      "gist": "An eco-minded smart-house model focused on energy efficiency and indoor climate control. The kit supports temperature, humidity and environmental monitoring sensors.",
+      "outcome": "The kit builds environmental awareness through the lens of modern technology. Students learn to collect analytical data about their surroundings and write algorithms that save resources.",
+      "features": [
+        "Eco house built around renewable energy",
+        "Solar energy, temperature and humidity monitoring",
+        "Automatic blinds and lighting control",
+        "Programming in C/C++"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 6 – 9 V (solar panel or batteries)",
+        "Maximum current: 1.5 A",
+        "Actuators: solar panel, servo, solenoid, fan",
+        "Sensors: light, soil moisture, rain, temperature"
+      ]
+    },
+    {
+      "code": "R06",
+      "name": "Tracked tank",
+      "mcu": "Arduino UNO",
+      "projects": 15,
+      "gist": "A tracked mini tank that handles rough ground far better than an ordinary wheeled car. It carries sensors for automatic manoeuvring, obstacle detection and path following.",
+      "outcome": "Students study the mechanics of tracked drive and how motor torque is managed through a turn. They learn to work with more demanding chassis types and to synchronise sensors in real time.",
+      "features": [
+        "Tracked mini tank with high ground clearance",
+        "Ultrasonic obstacle avoidance and object following",
+        "Built-in LED matrix for visual effects",
+        "Bluetooth control"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 6 – 9 V (2×18650)",
+        "Maximum output current: 1.5 A",
+        "Maximum power dissipation: 32 W",
+        "Wireless control: IR up to 10 m, Bluetooth 10 – 20 m"
+      ]
+    },
+    {
+      "code": "R07",
+      "name": "Smart steering wheel",
+      "mcu": "Arduino Nano",
+      "projects": 5,
+      "gist": "A dedicated steering wheel with tilt sensors — an accelerometer and a gyroscope. Connect it to a robot car and the robot obeys the wheel’s movements in the air.",
+      "outcome": "Students find out how modern motion-recognition systems and spatial sensors work. They get hands-on practice sending telemetry between two separate devices — the wheel and the car.",
+      "features": [
+        "Drive the car by moving the wheel",
+        "Wireless data link between wheel and car",
+        "Accurate tilt and rotation sensing",
+        "Room to program extra car functions"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 6 – 9 V (platform), 3.7 – 9 V (wheel)",
+        "Gesture sensor: accelerometer and gyroscope",
+        "Wireless module: Bluetooth 2.4 GHz",
+        "Range: 10 – 20 metres"
+      ]
+    },
+    {
+      "code": "R08",
+      "name": "Walking robot",
+      "mcu": "Arduino Nano",
+      "projects": 9,
+      "gist": "A walking robot built on Arduino Nano that moves on servo-driven legs.",
+      "outcome": "Children meet the basics of bio-robotics and the balancing mechanisms behind walking machines. Block-based programming lets even the youngest students set up the robot’s walk and dance moves.",
+      "features": [
+        "Walking robot with 4 degrees of freedom (4 DOF)",
+        "Mimics the hops and gait of living creatures",
+        "Control from a graphical app on iOS and Android",
+        "Ideal for studying servos and biomechanics"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 7 – 12 V (or a 3.7 – 7.4 V battery)",
+        "Drive: 4× servos",
+        "Servo rotation angle: 0 – 180°",
+        "Control: Bluetooth or mobile app"
+      ]
+    },
+    {
+      "code": "R09",
+      "name": "Solar station",
+      "mcu": "Arduino UNO",
+      "projects": 10,
+      "gist": "A smart solar tracker that uses photoresistors to turn the panel after the light source on its own. It also carries a display and a module for charging a phone from the sun.",
+      "outcome": "Students study renewable energy sources and automatic positioning in depth. They learn to program precise tracking systems driven by the difference between light sensor readings.",
+      "features": [
+        "Two-axis automatic sun tracking",
+        "Higher solar panel efficiency",
+        "Phone charging over a USB output",
+        "Light level data visualisation"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Input voltage: 5 – 9 V or USB",
+        "Orientation sensors: 4× photoresistors (LDR)",
+        "Positioning drive: 2× servos (9 g, 2 DOF)",
+        "Extra: USB output for charging mobile devices"
+      ]
+    },
+    {
+      "code": "R10",
+      "name": "Robotic arm manipulator",
+      "mcu": "Arduino UNO",
+      "projects": 6,
+      "gist": "A desktop acrylic manipulator with four degrees of freedom, driven by two joysticks. The robot is built for picking up, lifting and moving small objects precisely.",
+      "outcome": "Students gain the fundamentals of industrial automation and coordinate control in space. They learn to coordinate several servos at once so the arm moves smoothly.",
+      "features": [
+        "Desktop robotic arm with a gripper and 4 DOF",
+        "Precise gripper positioning with joysticks",
+        "Lifts, rotates and grabs light objects",
+        "Open source code for custom programs"
+      ],
+      "specs": [
+        "Operating voltage: 5 V",
+        "Operating current: 2 – 3 A (at peak load)",
+        "Degrees of freedom: 4 DOF (base, shoulder, elbow, gripper)",
+        "Drive: 4× servo motors",
+        "Control: joysticks, potentiometers or mobile app"
+      ]
+    },
+    {
+      "code": "R11",
+      "name": "Electronic scale",
+      "mcu": "Arduino UNO",
+      "projects": 9,
+      "gist": "A kit for building a digital scale with a 5 kg load cell and an analog-to-digital converter. It comes with a matrix keypad, a real-time clock and an LCD that shows the weight and the calculated price.",
+      "outcome": "Students understand the physics of measuring force and mass electronically, and how sensors are calibrated. They build a genuinely useful household instrument and handle demanding maths in code.",
+      "features": [
+        "Build a working electronic scale up to 5 kg",
+        "High-precision weight measurement",
+        "Readout on an LCD display",
+        "Taring and calibration from code"
+      ],
+      "specs": [
+        "Operating voltage: 2.6 – 5.5 V",
+        "Maximum load: 5 kg",
+        "ADC: 24-bit",
+        "Measurement error: ± 0.1 %",
+        "Display: LCD, OLED or 4-digit"
+      ]
+    },
+    {
+      "code": "R12",
+      "name": "Smart irrigation system",
+      "gist": "An automated plant watering system. It uses a capacitive soil moisture sensor and a water pump to irrigate on a schedule or whenever the soil dries out.",
+      "outcome": "Students study closed-loop control systems that run without a human in the loop. They gain practical skills in agritech and in working safely with pumps and liquids around electronics.",
+      "features": [
+        "Automatic plant watering",
+        "Real-time soil moisture monitoring"
+      ]
+    },
+    {
+      "code": "R13",
+      "name": "Smart farm"
+    },
+    {
+      "code": "R14",
+      "name": "Smart school"
+    },
+    {
+      "code": "R15",
+      "name": "4-wheel car with computer vision"
+    },
+    {
+      "code": "R16",
+      "name": "4-legged spider"
+    },
+    {
+      "code": "R17",
+      "name": "Arduino UNO starter"
+    },
+    {
+      "code": "R18",
+      "name": "ESP32 Internet of Things"
+    }
   ],
   "robotics_kits_pdf_label": "Download kit catalog (PDF)",
-
   "robotics_form_headline": "Upgrade your STEM lab today",
   "robotics_form_lede": "Leave a request and our manager will help you select the optimal Dr.STEM Robotics kits for your curriculum.",
   "robotics_form_title": "Request Dr.STEM Robotics",
   "robotics_form_fields": [
-    { "name": "name", "label": "Full Name", "type": "text", "required": true, "placeholder": "Olena Kovalenko" },
-    { "name": "org", "label": "School / organization name", "type": "text", "required": false, "placeholder": "Lyceum No.1, Kyiv" },
-    { "name": "phone", "label": "Contact phone", "type": "tel", "required": false, "placeholder": "+380 __ ___ __ __" },
-    { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "school@email.com" },
-    { "name": "comment", "label": "Comment", "type": "textarea", "required": false, "placeholder": "For example: «Interested in additional servo motors»", "rows": 3 }
+    {
+      "name": "name",
+      "label": "Full Name",
+      "type": "text",
+      "required": true,
+      "placeholder": "Olena Kovalenko"
+    },
+    {
+      "name": "org",
+      "label": "School / organization name",
+      "type": "text",
+      "required": false,
+      "placeholder": "Lyceum No.1, Kyiv"
+    },
+    {
+      "name": "phone",
+      "label": "Contact phone",
+      "type": "tel",
+      "required": false,
+      "placeholder": "+380 __ ___ __ __"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "email",
+      "required": true,
+      "placeholder": "school@email.com"
+    },
+    {
+      "name": "comment",
+      "label": "Comment",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "For example: «Interested in additional servo motors»",
+      "rows": 3
+    }
   ],
   "robotics_form_submit": "Submit Dr.STEM Robotics request",
   "robotics_form_hint": "We respond within one business day.",
@@ -126,5 +415,18 @@
   "robotics_form_error": "Submit Dr.STEM Robotics request",
   "robotics_form_error_hint": "Sending error. Please try again or contact us directly.",
   "robotics_form_thanks": "Thank you!",
-  "robotics_form_thanks_sub": "Our manager will contact you soon."
+  "robotics_form_thanks_sub": "Our manager will contact you soon.",
+  "robotics_kits_gist_label": "What the kit is",
+  "robotics_kits_outcome_label": "Learning outcome",
+  "robotics_kits_features_label": "Features",
+  "robotics_kits_specs_label": "Specification",
+  "robotics_kits_projects_label": "projects",
+  "robotics_kits_projects_full_label": "learning projects",
+  "robotics_kits_open_label": "Open kit description",
+  "robotics_kits_close_label": "Close",
+  "robotics_kits_prev_label": "Previous kit",
+  "robotics_kits_next_label": "Next kit",
+  "robotics_kits_more_label": "The full description, specification and learning outcomes for this kit are in the kit catalog.",
+  "robotics_kits_order_label": "Request a quote",
+  "robotics_kits_catalog_label": "PDF catalog"
 }
