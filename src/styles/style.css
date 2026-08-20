@@ -1403,15 +1403,15 @@ a {
   padding: 28px;
   border: 1px solid var(--line);
   box-shadow: 0 24px 50px -28px rgba(20, 40, 90, 0.3);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
   position: relative;
   overflow: hidden;
 }
-.adv:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 34px 64px -28px rgba(20, 40, 90, 0.42);
+/* Картка нікуди не веде, тому вона й не піднімається — підйом обіцяв би клік.
+   Замість нього цокає номер, як табло на вокзалі: цифра йде вгору, а знизу
+   приходить така сама. Через це кінець анімації непомітний — повернення до
+   нуля показує рівно те, що й було, тож відводити мишу можна будь-коли. */
+.adv:hover .num {
+  color: var(--blue);
 }
 /* Кругла плитка: іконки переваг — циферблати, і кільце має збігатися з оправою.
    Малюнок займає майже всю плитку (46 з 54): на колишніх 28px тіки й піни
@@ -1456,6 +1456,35 @@ a {
   font-size: 34px;
   color: rgba(27, 111, 227, 0.75);
   line-height: 1;
+  /* Вікно рівно на одну цифру — друга чекає під ним. */
+  height: 1.14em;
+  overflow: hidden;
+  transition: color 0.25s ease;
+}
+.adv .num-roll {
+  display: block;
+}
+.adv .num-roll span {
+  display: block;
+  line-height: 1.14;
+}
+@keyframes adv-num-roll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+@media (hover: hover) {
+  .adv:hover .num-roll {
+    animation: adv-num-roll 0.5s cubic-bezier(0.3, 0.85, 0.25, 1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .adv:hover .num-roll {
+    animation: none;
+  }
 }
 
 /* =========================== Block 3: Includes =========================== */

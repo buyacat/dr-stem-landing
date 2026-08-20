@@ -61,7 +61,7 @@ const icons: Record<string, string> = {
       {advantages.map((adv, i) => (
         <div class={`adv ${adv.highlight ? 'y' : ''}`} itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
           <meta itemprop="position" content={String(i + 1)} />
-          <span class="num" aria-hidden="true">{adv.num}</span>
+          <span class="num" aria-hidden="true"><span class="num-roll"><span>{adv.num}</span><span>{adv.num}</span></span></span>
           <div class="ic" set:html={icons[adv.icon]} />
           <h3 itemprop="name">{adv.title}</h3>
           <p itemprop="description">{adv.desc}</p>
