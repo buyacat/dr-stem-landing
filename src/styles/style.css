@@ -1413,10 +1413,13 @@ a {
   transform: translateY(-6px);
   box-shadow: 0 34px 64px -28px rgba(20, 40, 90, 0.42);
 }
+/* Кругла плитка: іконки переваг — циферблати, і кільце має збігатися з оправою.
+   Малюнок займає майже всю плитку (46 з 54): на колишніх 28px тіки й піни
+   зливалися в сіру пляму. */
 .adv .ic {
   width: 54px;
   height: 54px;
-  border-radius: 15px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1425,8 +1428,8 @@ a {
   margin-bottom: 18px;
 }
 .adv .ic svg {
-  width: 28px;
-  height: 28px;
+  width: 46px;
+  height: 46px;
 }
 .adv.y .ic {
   background: linear-gradient(150deg, #fff6d6, #fcedae);
@@ -2041,6 +2044,17 @@ a {
 .feat .fk svg {
   width: 15px;
   height: 15px;
+}
+/* Пунктирний варіант (блок ПЗ): кільце і є оправа, тому підкладка не потрібна,
+   а малюнок займає всю клітинку. Game та AI лишаються з плитками — там у кожного
+   пункту своя іконка, і тінтований квадрат їх тримає. */
+.feat .fk--dashed {
+  background: none;
+  border-radius: 50%;
+}
+.feat .fk--dashed svg {
+  width: 26px;
+  height: 26px;
 }
 .qa {
   display: flex;

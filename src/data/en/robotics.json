@@ -19,38 +19,38 @@
   "robotics_advantages": [
     {
       "num": "01",
-      "icon": "circle",
+      "icon": "sets18",
       "title": "18 kits",
       "desc": "Cars, smart houses, robotic arms, walking robots, spiders and much more."
     },
     {
       "num": "02",
-      "icon": "book",
+      "icon": "spans",
       "title": "Matches the curriculum",
       "desc": "Kits fit students in grades 7–9 as well as 10–12."
     },
     {
       "num": "03",
-      "icon": "zap",
+      "icon": "projects",
       "highlight": true,
       "title": "Learning projects for every kit",
       "desc": "From 5 to 50 ready-made projects in every kit."
     },
     {
       "num": "04",
-      "icon": "chart",
+      "icon": "board",
       "title": "Compatible with Arduino IDE and Scratch",
       "desc": "Supports both block-based and text programming in C/C++ and Python."
     },
     {
       "num": "05",
-      "icon": "wallet",
+      "icon": "stamp",
       "title": "Ukraine Facility compliant",
       "desc": "Our robotics kits are manufactured in Ukraine."
     },
     {
       "num": "06",
-      "icon": "support",
+      "icon": "knob",
       "title": "Technical support",
       "desc": "Setup assistance and consultations whenever you need them."
     }

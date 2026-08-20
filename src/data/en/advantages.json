@@ -5,38 +5,38 @@
   "advantages": [
     {
       "num": "01",
-      "icon": "circle",
+      "icon": "modules",
       "title": "Modularity",
       "desc": "The system grows with your school's needs — add sensors and kits gradually."
     },
     {
       "num": "02",
-      "icon": "zap",
+      "icon": "timer",
       "highlight": true,
       "title": "Quick setup",
       "desc": "Connection and experiment launch in under 2 minutes. No complex installation."
     },
     {
       "num": "03",
-      "icon": "chart",
+      "icon": "readout",
       "title": "Data visualization",
       "desc": "Students see graphs in real time and immediately analyze changes in values."
     },
     {
       "num": "04",
-      "icon": "wallet",
+      "icon": "value",
       "title": "Affordable price",
       "desc": "Optimal kit price for high functionality equipment."
     },
     {
       "num": "05",
-      "icon": "globe",
+      "icon": "span",
       "title": "Curriculum aligned",
       "desc": "Covers topics for grades 5–11 (5–12) under the current curriculum."
     },
     {
       "num": "06",
-      "icon": "support",
+      "icon": "signal",
       "title": "Support",
       "desc": "Ready lesson scenarios, experiment instructions and technical consulting at every stage."
     }

@@ -9,7 +9,10 @@ interface Props {
 const { locale } = Astro.props;
 
 const features = tArray<string>(locale, 'software_features');
-const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+// Пункт списку — маленьке «закрито» в тому ж словнику, що іконки переваг:
+// пунктирне кільце тримає галочку замість плитки-підкладки.
+// pathLength="48" з періодом 3 дає рівно 16 штрихів, і кільце змикається без шва.
+const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="11" pathLength="48" stroke-dasharray="1 2" stroke-width="1.1" opacity=".45"/><path d="M7.6 12.3 10.6 15.3 16.4 8.9" stroke-width="1.7"/></svg>';
 ---
 
 <section class="band split alt-a" id="software" itemscope itemtype="https://schema.org/SoftwareApplication">
@@ -22,7 +25,7 @@ const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
         <div class="feat-list">
           {features.map((feat) => (
             <div class="feat">
-              <span class="fk" set:html={checkIcon} />
+              <span class="fk fk--dashed" set:html={checkIcon} />
               <span itemprop="featureList">{feat}</span>
             </div>
           ))}

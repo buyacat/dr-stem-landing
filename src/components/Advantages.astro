@@ -10,13 +10,43 @@ const { locale } = Astro.props;
 
 const advantages = tArray<{num: string; icon: string; highlight?: boolean; title: string; desc: string}>(locale, 'advantages');
 
+/*
+ * Іконки переваг — «показання приладу» у словнику протрактора з героя
+ * робототехніки: пунктирне кільце, годинні тіки, вузли-крапки, суцільна дуга
+ * там, де щось закрито. Правила набору, спільні з RoboticsAdvantages.astro:
+ *
+ *   штрих   — рівно три ваги: 1.2 субстрат (кільце, тіки, вторинна геометрія),
+ *             1.6 малюнок, 2.4 акцент — один на іконку;
+ *   opacity — тільки .4 і тільки на субстраті. «Неактивне» показує геометрія
+ *             (порожній вузол, тонший штрих), а не блідість;
+ *   вузол   — r 2.4 залитий / r 2.4 контурний / r 1.5 мікро;
+ *   кільця  — 20 / 15 / 10, заокруглення 2.5 і 1.2;
+ *   тіки    — від r20 до r17, усі однакової довжини.
+ *
+ * pathLength="120" на пунктирі: коло r20 має довжину 125.66, і без нормування
+ * період не ділиться націло — на третій годині лишався видимий шов.
+ *
+ * Жодна з шести не повторюється на /robototehnika/ — там свої шість.
+ */
 const icons: Record<string, string> = {
-  circle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg>',
-  zap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>',
-  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16M8 16l3-4 3 2 4-6"/></svg>',
-  wallet: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg>',
-  globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>',
-  support: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.7 2.7-2-2 2.7-2.7Z"/><path d="M4 5a2 2 0 0 1 2-2h7v16H6a2 2 0 0 1-2 2V5Z" opacity=".5"/><path d="M20 3v18a2 2 0 0 0-2-2h-5V3h5a2 2 0 0 1 2 2Z" opacity=".3"/></svg>',
+  // Ядро й шість гнізд: три зайняті, три вільні. Ядро кругле — квадрат у наборі
+  // означає тільки плату (див. `board` на робототехніці).
+  modules: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20" pathLength="120" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/><circle cx="24" cy="24" r="10" stroke-width="1.6"/><path d="M24 12.5V7M33.96 29.75 38.72 32.5M14.04 29.75 9.28 32.5" stroke-width="1.2"/><circle cx="24" cy="4" r="2.4" fill="currentColor" stroke="none"/><circle cx="41.32" cy="34" r="2.4" fill="currentColor" stroke="none"/><circle cx="6.68" cy="34" r="2.4" fill="currentColor" stroke="none"/><circle cx="41.32" cy="14" r="2.4" stroke-width="1.2"/><circle cx="24" cy="44" r="2.4" stroke-width="1.2"/><circle cx="6.68" cy="14" r="2.4" stroke-width="1.2"/></svg>',
+  // Стрілка приладу пройшла короткий сектор — ті самі «2 хвилини», що в тексті.
+  // Сектор симетричний відносно вертикалі (11h→1h), інакше іконка перекошується.
+  timer: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20" pathLength="120" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/><path d="M14 6.68A20 20 0 0 1 34 6.68" stroke-width="2.4"/><path d="M21.75 27.9 30.5 12.74" stroke-width="1.6"/><circle cx="14" cy="6.68" r="2.4" fill="currentColor" stroke="none"/><circle cx="24" cy="24" r="2.4" fill="currentColor" stroke="none"/></svg>',
+  // Не просто графік: пунктирний курсор стоїть на точці, яку читають зараз.
+  // Курсор на осі 24 — він же вісь симетрії іконки.
+  readout: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20" pathLength="120" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/><path d="M24 10v28" pathLength="30" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/><path d="M9.5 32 16.5 27.5 24 19 31.5 24 38.5 14.5" stroke-width="1.6"/><circle cx="24" cy="19" r="2.4" fill="currentColor" stroke="none"/></svg>',
+  // Довга смуга — що отримуєш, коротка — що платиш, пунктир — недоплачене.
+  // Єдина іконка набору без кола в центрі; терези на цьому розмірі розсипались.
+  value: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20" pathLength="120" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/><path d="M13 16v16" stroke-width="1.2"/><path d="M13 19h22" stroke-width="2.4"/><path d="M13 29h8" stroke-width="2.4"/><path d="M21 29h14" pathLength="15" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/></svg>',
+  // Купол від 9h до 3h: діапазон класів закрито без розривів, порожній вузол на
+  // 6h — те, що поза ним. Дуга навмисно симетрична: одностороння валила іконку.
+  span: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="1.2" opacity=".4"><path d="M24 4v3M34 6.68 32.5 9.28M41.32 14 38.72 15.5M44 24h-3M41.32 34 38.72 32.5M34 41.32 32.5 38.72M24 44v-3M14 41.32 15.5 38.72M6.68 34 9.28 32.5M4 24h3M6.68 14 9.28 15.5M14 6.68 15.5 9.28"/></g><path d="M4 24A20 20 0 0 1 44 24" stroke-width="2.4"/><circle cx="4" cy="24" r="2.4" fill="currentColor" stroke="none"/><circle cx="44" cy="24" r="2.4" fill="currentColor" stroke="none"/><circle cx="24" cy="44" r="2.4" stroke-width="1.2"/></svg>',
+  // Сигнал від школи доходить до вузла на кільці. Всі три дуги однієї ваги:
+  // відстань показує радіус, а не блідість.
+  signal: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20" pathLength="120" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/><circle cx="14" cy="24" r="2.4" fill="currentColor" stroke="none"/><path d="M21.66 17.57A10 10 0 0 1 21.66 30.43" stroke-width="1.6"/><path d="M25.49 14.36A15 15 0 0 1 25.49 33.64" stroke-width="1.6"/><path d="M29.32 11.14A20 20 0 0 1 29.32 36.86" stroke-width="1.6"/><circle cx="44" cy="24" r="2.4" fill="currentColor" stroke="none"/></svg>',
 };
 ---
 
