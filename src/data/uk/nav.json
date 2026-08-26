@@ -5,21 +5,54 @@
   "nav_experiment": "До експерименту",
   "nav_robotics": "Робототехніка",
   "nav_corp_links": [
-    { "label": "Eddy.Group", "url": "https://eddygroup.eu/" },
-    { "label": "1-Vision", "url": "https://1vision.eddygroup.eu/" }
+    {
+      "label": "Eddy.Group",
+      "url": "https://eddygroup.eu/"
+    },
+    {
+      "label": "1-Vision",
+      "url": "https://1vision.eddygroup.eu/"
+    }
   ],
   "nav_menu_open": "Відкрити меню",
   "nav_menu_close": "Закрити меню",
   "dot_nav_aria": "Навігація по секціях",
   "dot_nav_items": [
-    { "id": "top", "label": "Головна" },
-    { "id": "advantages", "label": "Переваги" },
-    { "id": "includes", "label": "Комплекс" },
-    { "id": "kits", "label": "Комплекти" },
-    { "id": "software", "label": "ПЗ Dr.STEM" },
-    { "id": "ai", "label": "ШІ-консультант" },
-    { "id": "game", "label": "Ігровий режим" },
-    { "id": "demo", "label": "Залишити заявку" }
+    {
+      "id": "top",
+      "label": "Головна"
+    },
+    {
+      "id": "advantages",
+      "label": "Переваги"
+    },
+    {
+      "id": "includes",
+      "label": "Комплекс"
+    },
+    {
+      "id": "kits",
+      "label": "Комплекти"
+    },
+    {
+      "id": "software",
+      "label": "ПЗ Dr.STEM"
+    },
+    {
+      "id": "ai",
+      "label": "ШІ-консультант"
+    },
+    {
+      "id": "game",
+      "label": "Ігровий режим"
+    },
+    {
+      "id": "demo",
+      "label": "Залишити заявку"
+    }
   ],
-  "cabinet_close": "Закрити"
+  "cabinet_close": "Закрити",
+  "nav_download_tablet_menu": "Скачати для планшета",
+  "nav_download_desktop_menu": "Скачати для ноутбука/ПК",
+  "nav_lang_switch": "English"
 }

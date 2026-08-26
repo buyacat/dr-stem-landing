@@ -11,13 +11,25 @@ const { locale } = Astro.props;
 const appUrl = import.meta.env.DRSTEM_APP_URL || 'https://app.drstem.eu/#/';
 
 const otherLocale = locale === 'uk' ? 'en' : 'uk';
-const otherUrl = otherLocale === 'uk' ? '/' : '/en/';
 const langLabel = otherLocale === 'uk' ? 'UA' : 'EN';
 
 const corpLinks = tArray<{ label: string; url: string }>(locale, 'nav_corp_links');
 const sectionItems = tArray<{ id: string; label: string }>(locale, 'dot_nav_items');
 const roboticsUrl = locale === 'uk' ? '/robototehnika/' : '/en/robotics/';
 const homeUrl = locale === 'uk' ? '/' : '/en/';
+
+/* Перемикач мови веде на ту саму сторінку іншої локалі, а не завжди на корінь. */
+const isRobotics = Astro.url.pathname.includes('robot');
+const otherUrl = isRobotics
+  ? (otherLocale === 'uk' ? '/robototehnika/' : '/en/robotics/')
+  : (otherLocale === 'uk' ? '/' : '/en/');
+
+/* У мобільному меню показуємо лише секції, які реально є на поточній сторінці:
+   на сторінці робототехніки нема software/ai/game. */
+const roboticsSectionIds = ['top', 'advantages', 'includes', 'kits', 'demo'];
+const menuSections = isRobotics
+  ? sectionItems.filter((item) => roboticsSectionIds.includes(item.id))
+  : sectionItems;
 ---
 
 <nav class="nav">
@@ -27,8 +39,8 @@ const homeUrl = locale === 'uk' ? '/' : '/en/';
       {corpLinks.map((link) => (
         <a href={link.url} target="_blank" rel="noopener noreferrer" class="nav-corp-link">{link.label}</a>
       ))}
-      <a href={roboticsUrl} class="btn btn-ghost nav-dl-btn" style="margin-right:6px;text-decoration:none">{t(locale, 'nav_robotics')}</a>
-      <a href={otherUrl} class="btn btn-ghost nav-dl-btn" style="margin-right:6px;text-decoration:none">{langLabel}</a>
+      <a href={roboticsUrl} class="btn btn-ghost nav-dl-btn nav-pill">{t(locale, 'nav_robotics')}</a>
+      <a href={otherUrl} class="btn btn-ghost nav-dl-btn nav-pill">{langLabel}</a>
       <div class="dl-drop" id="dl-drop">
         <button class="btn btn-ghost nav-dl-btn" id="dl-btn" aria-expanded="false">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -63,9 +75,12 @@ const homeUrl = locale === 'uk' ? '/' : '/en/';
       <a href={link.url} target="_blank" rel="noopener noreferrer" class="mm-link">{link.label}</a>
     ))}
     <a href={roboticsUrl} class="mm-link">{t(locale, 'nav_robotics')}</a>
-    {sectionItems.map((item) => (
+    {menuSections.map((item) => (
       <a href={`#${item.id}`} class="mm-link">{item.label}</a>
     ))}
+    <a href={appUrl} target="_blank" rel="noopener noreferrer" class="mm-link" data-dl="tablet">{t(locale, 'nav_download_tablet_menu')}</a>
+    <a href={appUrl} target="_blank" rel="noopener noreferrer" class="mm-link" data-dl="desktop">{t(locale, 'nav_download_desktop_menu')}</a>
+    <a href={otherUrl} class="mm-link">{t(locale, 'nav_lang_switch')}</a>
   </div>
 </div>
 
@@ -134,7 +149,7 @@ const homeUrl = locale === 'uk' ? '/' : '/en/';
       if (e.key === 'Escape') closeMenu();
     });
     window.addEventListener('resize', function() {
-      if (window.innerWidth > 768) closeMenu();
+      if (window.innerWidth > 991) closeMenu();
     });
   })();
 </script>

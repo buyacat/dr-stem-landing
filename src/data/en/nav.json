@@ -5,21 +5,54 @@
   "nav_experiment": "Go to Experiment",
   "nav_robotics": "Robotics",
   "nav_corp_links": [
-    { "label": "Eddy.Group", "url": "https://eddygroup.eu/" },
-    { "label": "1-Vision", "url": "https://1vision.eddygroup.eu/" }
+    {
+      "label": "Eddy.Group",
+      "url": "https://eddygroup.eu/"
+    },
+    {
+      "label": "1-Vision",
+      "url": "https://1vision.eddygroup.eu/"
+    }
   ],
   "nav_menu_open": "Open menu",
   "nav_menu_close": "Close menu",
   "dot_nav_aria": "Section navigation",
   "dot_nav_items": [
-    { "id": "top", "label": "Main" },
-    { "id": "advantages", "label": "Advantages" },
-    { "id": "includes", "label": "Complex" },
-    { "id": "kits", "label": "Kits" },
-    { "id": "software", "label": "Dr.STEM SW" },
-    { "id": "ai", "label": "AI consultant" },
-    { "id": "game", "label": "Game mode" },
-    { "id": "demo", "label": "Request" }
+    {
+      "id": "top",
+      "label": "Main"
+    },
+    {
+      "id": "advantages",
+      "label": "Advantages"
+    },
+    {
+      "id": "includes",
+      "label": "Complex"
+    },
+    {
+      "id": "kits",
+      "label": "Kits"
+    },
+    {
+      "id": "software",
+      "label": "Dr.STEM SW"
+    },
+    {
+      "id": "ai",
+      "label": "AI consultant"
+    },
+    {
+      "id": "game",
+      "label": "Game mode"
+    },
+    {
+      "id": "demo",
+      "label": "Request"
+    }
   ],
-  "cabinet_close": "Close"
+  "cabinet_close": "Close",
+  "nav_download_tablet_menu": "Download for tablet",
+  "nav_download_desktop_menu": "Download for laptop / PC",
+  "nav_lang_switch": "Українська"
 }

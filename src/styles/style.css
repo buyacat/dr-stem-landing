@@ -188,6 +188,10 @@ a {
 .dl-drop {
   position: relative;
 }
+.nav-pill {
+  margin-right: 6px;
+  text-decoration: none;
+}
 .nav-dl-btn {
   display: flex;
   align-items: center;
@@ -1337,6 +1341,27 @@ a {
   .band {
     padding: 4rem 0;
   }
+  /* На планшеті рядок навбару теж не вміщується у повному складі:
+     ховаємо corp-лінки й підписи, лишаємо іконки, показуємо бургер. */
+  .nav-cta span {
+    display: none;
+  }
+  .nav .brand-logo {
+    height: 51px;
+  }
+  .nav-actions {
+    margin-top: 0;
+    gap: 8px;
+  }
+  .nav-corp-link {
+    display: none;
+  }
+  .nav-dl-label {
+    display: none;
+  }
+  .nav-burger {
+    display: flex;
+  }
 }
 .band .wrap {
   position: relative;
@@ -2410,24 +2435,14 @@ a {
   .adv-grid {
     grid-template-columns: repeat(1, 1fr);
   }
-  .nav-cta span {
+  /* На телефоні в барі лишаються лише лого, CTA-колба і бургер;
+     Робототехніка, мова і завантаження живуть у мобільному меню. */
+  .nav-inner {
+    padding: 14px 16px;
+  }
+  .nav-actions > .nav-pill,
+  .dl-drop {
     display: none;
-  }
-  .nav .brand-logo {
-    height: 51px;
-  }
-  .nav-actions {
-    margin-top: 0;
-    gap: 8px;
-  }
-  .nav-corp-link {
-    display: none;
-  }
-  .nav-dl-label {
-    display: none;
-  }
-  .nav-burger {
-    display: flex;
   }
   .dot-nav {
     display: none;
