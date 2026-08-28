@@ -55,3 +55,6 @@ Thumbs.db
 mandrill.key
 .astro/
 .claude/
+
+# Демо ПЗ на головній: 139 КБ — це не «велика медіа», а частина складання.
+!public/assets/*.mp4

@@ -2432,8 +2432,39 @@ a {
 }
 
 @media (max-width: 768px) {
+  /* Дві в ряд і на телефоні: у стовпчик шість карток розтягували секцію на
+     півтора екрани прокрутки, а сама картка — короткий підпис, їй не потрібна
+     повна ширина. Разом із колонками стискається й нутрощі, інакше на 360px
+     заголовок ламається на три рядки. */
   .adv-grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 36px;
+  }
+  .adv {
+    padding: 18px 15px;
+    border-radius: 16px;
+  }
+  .adv .ic {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 12px;
+  }
+  .adv .ic svg {
+    width: 36px;
+    height: 36px;
+  }
+  .adv h3 {
+    font-size: 15.5px;
+  }
+  .adv p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .adv .num {
+    top: 10px;
+    right: 12px;
+    font-size: 25px;
   }
   /* На телефоні в барі лишаються лише лого, CTA-колба і бургер;
      Робототехніка, мова і завантаження живуть у мобільному меню. */
