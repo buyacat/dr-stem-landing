@@ -111,6 +111,17 @@ const i18nData = {
 <html lang={locale}>
 <head>
   <meta charset="UTF-8" />
+  <!-- Google Tag Manager -->
+  <!-- is:inline обов'язковий: без нього Astro збирає скрипт у бандл і відкладає
+       виконання, тож контейнер стартує пізніше за перші події й частину з них
+       губить. Стоїть найвище після charset — решта лічильників живе всередині
+       GTM, окремо на сайт нічого не додаємо. -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-M9JXZ4RN');</script>
+  <!-- End Google Tag Manager -->
   <meta name="google-site-verification" content="CaZhJ74E2-o0h9rK_mfcCsuZ7KUN8s8wnY2iPsz2daE" />
   <title>{title}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -171,6 +182,12 @@ const i18nData = {
   </script>
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
+  <!-- Google Tag Manager (noscript) -->
+  <!-- Мусить бути найпершим у <body>: нижче по сторінці Google Search Console
+       перестає бачити його і не підтверджує права на сайт. -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M9JXZ4RN"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <template id="atom-mark">
     <svg viewBox="60 12 65 48" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M88.1664 41.327C91.1492 41.327 93.5673 38.9332 93.5673 35.9803C93.5673 33.0273 91.1492 30.6335 88.1664 30.6335C85.1836 30.6335 82.7655 33.0273 82.7655 35.9803C82.7655 38.9332 85.1836 41.327 88.1664 41.327Z" fill="currentColor"/>
