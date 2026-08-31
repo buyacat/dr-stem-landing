@@ -35,7 +35,7 @@
       "num": "02",
       "icon": "spans",
       "title": "Matches the curriculum",
-      "desc": "Kits fit students in grades 7–9 as well as 10–12."
+      "desc": "Kits fit students in grades 7–9 as well as 10–12. Every kit comes with ready-made lessons for teachers."
     },
     {
       "num": "03",
@@ -86,7 +86,7 @@
     {
       "icon": "book",
       "title": "Learning projects & materials",
-      "desc": "Assembly, setup and IDE configuration instructions for every kit."
+      "desc": "Ready-made lessons, assembly, setup and configuration instructions for every kit."
     }
   ],
   "robotics_kits_eyebrow": "Kit catalog",
