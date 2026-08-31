@@ -296,7 +296,7 @@
       btn.disabled = true;
       btn.textContent = sendingText;
       try {
-        const res = await fetch('/dr-stem-landing/send.php', { method: 'POST', body: new FormData(f) });
+        const res = await fetch('/send.php', { method: 'POST', body: new FormData(f) });
         const data = await res.json();
         if (data.ok) {
           btn.textContent = successText;
