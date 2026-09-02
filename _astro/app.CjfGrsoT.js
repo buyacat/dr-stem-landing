@@ -6,20 +6,20 @@
 
   /* ---------- icons ---------- */
   const I = {
-    magnet:'<img src="/dr-stem-landing/images/magnet-2.png">',
-    ekg:'<img src="/dr-stem-landing/images/ekg-2.png">',
-    foto:'<img src="/dr-stem-landing/images/foto-2.png">',
-    uv:'<img src="/dr-stem-landing/images/uv-2.png">',
-    strum:'<img src="/dr-stem-landing/images/strum-2.png">',
-    light:'<img src="/dr-stem-landing/images/light-2.png">',
-    co2:'<img src="/dr-stem-landing/images/co2-2.png">',
-    napruga:'<img src="/dr-stem-landing/images/napruga-2.png">',
-    o2:'<img src="/dr-stem-landing/images/o2-2.png">',
-    providnist:'<img src="/dr-stem-landing/images/providnist-2.png">',
-    syla:'<img src="/dr-stem-landing/images/syla-2.png">',
-    heart:'<img src="/dr-stem-landing/images/heart-2.png">',
-    gaz:'<img src="/dr-stem-landing/images/gaz-2.png">',
-    atmosphere:'<img src="/dr-stem-landing/images/atmosphere-2.png">',
+    magnet:'<img src="/images/magnet-2.png">',
+    ekg:'<img src="/images/ekg-2.png">',
+    foto:'<img src="/images/foto-2.png">',
+    uv:'<img src="/images/uv-2.png">',
+    strum:'<img src="/images/strum-2.png">',
+    light:'<img src="/images/light-2.png">',
+    co2:'<img src="/images/co2-2.png">',
+    napruga:'<img src="/images/napruga-2.png">',
+    o2:'<img src="/images/o2-2.png">',
+    providnist:'<img src="/images/providnist-2.png">',
+    syla:'<img src="/images/syla-2.png">',
+    heart:'<img src="/images/heart-2.png">',
+    gaz:'<img src="/images/gaz-2.png">',
+    atmosphere:'<img src="/images/atmosphere-2.png">',
   };
   const foot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>';
 
