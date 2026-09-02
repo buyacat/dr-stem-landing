@@ -1,6 +1,7 @@
 ---
 import { t, tArray } from '../utils/i18n';
 import type { Locale } from '../utils/i18n';
+import { withBase } from '../utils/url';
 
 interface Props {
   locale: Locale;
@@ -8,6 +9,8 @@ interface Props {
 
 const { locale } = Astro.props;
 
+const gameImg400 = withBase('/images/img-game3-400.webp');
+const gameImg800 = withBase('/images/img-game3.webp');
 const features = tArray<string>(locale, 'game_features');
 const missions = tArray<string>(locale, 'game_missions');
 const gameIcons = [
@@ -44,7 +47,7 @@ const gameIcons = [
         </div>
       </div>
       <div class="visual visual-slot">
-        <img style="max-width:100%; border-radius: 24px" src="/images/img-game3-400.webp" srcset="/images/img-game3-400.webp 400w, /images/img-game3.webp 800w" sizes="(max-width: 768px) 90vw, 400px" alt={t(locale, 'game_img_alt')} width="800" height="689" loading="lazy" decoding="async">
+        <img style="max-width:100%; border-radius: 24px" src={gameImg400} srcset={`${gameImg400} 400w, ${gameImg800} 800w`} sizes="(max-width: 768px) 90vw, 400px" alt={t(locale, 'game_img_alt')} width="800" height="689" loading="lazy" decoding="async">
       </div>
     </div>
   </div>

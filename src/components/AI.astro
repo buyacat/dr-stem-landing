@@ -1,6 +1,7 @@
 ---
 import { t, tArray } from '../utils/i18n';
 import type { Locale } from '../utils/i18n';
+import { withBase } from '../utils/url';
 
 interface Props {
   locale: Locale;
@@ -8,6 +9,8 @@ interface Props {
 
 const { locale } = Astro.props;
 
+const aiImg400 = withBase('/images/img-ai-400.webp');
+const aiImg700 = withBase('/images/img-ai.webp');
 const questions = tArray<string>(locale, 'ai_questions');
 const features = tArray<string>(locale, 'ai_features');
 const aiIcons = [
@@ -21,7 +24,7 @@ const aiIcons = [
   <div class="wrap">
     <div class="split-grid reverse">
       <div class="visual visual-slot">
-        <img style="max-width:100%; border-radius: 24px" src="/images/img-ai-400.webp" srcset="/images/img-ai-400.webp 400w, /images/img-ai.webp 700w" sizes="(max-width: 768px) 90vw, 400px" alt={t(locale, 'ai_img_alt')} width="700" height="549" loading="lazy" decoding="async">
+        <img style="max-width:100%; border-radius: 24px" src={aiImg400} srcset={`${aiImg400} 400w, ${aiImg700} 700w`} sizes="(max-width: 768px) 90vw, 400px" alt={t(locale, 'ai_img_alt')} width="700" height="549" loading="lazy" decoding="async">
       </div>
       <div class="split-copy">
         <span class="eyebrow">{t(locale, 'ai_eyebrow')}</span>

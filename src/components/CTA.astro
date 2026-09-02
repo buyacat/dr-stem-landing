@@ -1,6 +1,7 @@
 ---
 import { t, tArray } from '../utils/i18n';
 import type { Locale } from '../utils/i18n';
+import { withBase } from '../utils/url';
 
 interface Props {
   locale: Locale;
@@ -20,7 +21,7 @@ const fields = tArray<{name: string; label: string; type: string; required: bool
         <meta itemprop="contactType" content="sales" />
         <meta itemprop="availableLanguage" content="Ukrainian" />
         <meta itemprop="availableLanguage" content="English" />
-        <img src="/assets/logo.svg" alt="Dr.STEM" class="catalog-logo" width="110" height="91">
+        <img src={withBase('/assets/logo.svg')} alt="Dr.STEM" class="catalog-logo" width="110" height="91">
         <h3>{t(locale, 'catalog_title')}</h3>
         <p>{t(locale, 'catalog_desc')}</p>
         <div class="cnt">

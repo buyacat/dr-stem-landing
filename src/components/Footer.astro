@@ -1,6 +1,7 @@
 ---
 import { t } from '../utils/i18n';
 import type { Locale } from '../utils/i18n';
+import { withBase } from '../utils/url';
 
 interface Props {
   locale: Locale;
@@ -12,7 +13,7 @@ const { locale } = Astro.props;
 <footer class="footer footer-inline" itemscope itemtype="https://schema.org/Organization">
   <div class="wrap footer-inner">
     <a href="#top" class="footer-logo" itemprop="url">
-      <img src="/assets/logo.svg" alt="Dr.STEM" style="height:36px;width:auto;opacity:.55" width="110" height="91" itemprop="logo">
+      <img src={withBase('/assets/logo.svg')} alt="Dr.STEM" style="height:36px;width:auto;opacity:.55" width="110" height="91" itemprop="logo">
     </a>
     <div class="footer-contacts">
       <a href={`mailto:${t(locale, 'footer_email')}`} itemprop="email">{t(locale, 'footer_email')}</a>

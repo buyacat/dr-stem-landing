@@ -1,6 +1,7 @@
 ---
 import { t, tArray } from '../utils/i18n';
 import type { Locale } from '../utils/i18n';
+import { withBase } from '../utils/url';
 
 interface Props {
   locale: Locale;
@@ -15,14 +16,14 @@ const langLabel = otherLocale === 'uk' ? 'UA' : 'EN';
 
 const corpLinks = tArray<{ label: string; url: string }>(locale, 'nav_corp_links');
 const sectionItems = tArray<{ id: string; label: string }>(locale, 'dot_nav_items');
-const roboticsUrl = locale === 'uk' ? '/robototehnika/' : '/en/robotics/';
-const homeUrl = locale === 'uk' ? '/' : '/en/';
+const roboticsUrl = withBase(locale === 'uk' ? '/robototehnika/' : '/en/robotics/');
+const homeUrl = withBase(locale === 'uk' ? '/' : '/en/');
 
 /* Перемикач мови веде на ту саму сторінку іншої локалі, а не завжди на корінь. */
 const isRobotics = Astro.url.pathname.includes('robot');
-const otherUrl = isRobotics
+const otherUrl = withBase(isRobotics
   ? (otherLocale === 'uk' ? '/robototehnika/' : '/en/robotics/')
-  : (otherLocale === 'uk' ? '/' : '/en/');
+  : (otherLocale === 'uk' ? '/' : '/en/'));
 
 /* У мобільному меню показуємо лише секції, які реально є на поточній сторінці:
    на сторінці робототехніки нема software/ai/game. */
@@ -34,7 +35,7 @@ const menuSections = isRobotics
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href={homeUrl}><img src="/assets/logo.svg" alt="Dr.STEM" class="brand-logo" width="110" height="91"></a>
+    <a href={homeUrl}><img src={withBase('/assets/logo.svg')} alt="Dr.STEM" class="brand-logo" width="110" height="91"></a>
     <div class="nav-actions">
       {corpLinks.map((link) => (
         <a href={link.url} target="_blank" rel="noopener noreferrer" class="nav-corp-link">{link.label}</a>

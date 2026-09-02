@@ -1,6 +1,7 @@
 ---
 import { t, tArray } from '../utils/i18n';
 import type { Locale } from '../utils/i18n';
+import { withBase } from '../utils/url';
 
 interface Props {
   locale: Locale;
@@ -36,7 +37,8 @@ const meta = (kit: Kit) =>
     .filter(Boolean)
     .join(' · ');
 
-const photo = (kit: Kit) => `/assets/robotics/kits/${kit.code.toLowerCase()}`;
+const photo = (kit: Kit) => withBase(`/assets/robotics/kits/${kit.code.toLowerCase()}`);
+const catalogPdf = withBase('/assets/robotics/catalog.pdf');
 ---
 
 <section class="band" id="kits">
@@ -62,7 +64,7 @@ const photo = (kit: Kit) => `/assets/robotics/kits/${kit.code.toLowerCase()}`;
     </div>
 
     <div class="rk-cta">
-      <a class="btn btn-primary" href="/assets/robotics/catalog.pdf" target="_blank" rel="noopener" download>{t(locale, 'robotics_kits_pdf_label')}</a>
+      <a class="btn btn-primary" href={catalogPdf} target="_blank" rel="noopener" download>{t(locale, 'robotics_kits_pdf_label')}</a>
     </div>
   </div>
 
@@ -130,7 +132,7 @@ const photo = (kit: Kit) => `/assets/robotics/kits/${kit.code.toLowerCase()}`;
 
           <div class="rk-actions">
             <a class="btn btn-primary" href="#demo">{t(locale, 'robotics_kits_order_label')}</a>
-            <a class="btn btn-ghost" href="/assets/robotics/catalog.pdf" target="_blank" rel="noopener" download>{t(locale, 'robotics_kits_catalog_label')}</a>
+            <a class="btn btn-ghost" href={catalogPdf} target="_blank" rel="noopener" download>{t(locale, 'robotics_kits_catalog_label')}</a>
           </div>
         </article>
       ))}

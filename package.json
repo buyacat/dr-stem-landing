@@ -7,6 +7,7 @@
     "build": "astro build",
     "build:dev": "DRSTEM_APP_URL=https://app-dev.drstem.eu/#/ astro build",
     "build:prod": "cross-env DRSTEM_APP_URL=https://app.drstem.eu/#/ astro build",
+    "build:pages": "cross-env SITE_BASE=/dr-stem-landing astro build",
     "preview": "astro preview"
   },
   "dependencies": {

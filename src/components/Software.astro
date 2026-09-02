@@ -1,6 +1,7 @@
 ---
 import { t, tArray } from '../utils/i18n';
 import type { Locale } from '../utils/i18n';
+import { withBase } from '../utils/url';
 
 interface Props {
   locale: Locale;
@@ -40,7 +41,7 @@ const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
             <div class="b-url">{t(locale, 'software_browser_url')}</div>
           </div>
           <div class="software-video-wrap">
-            <video class="software-video" src="/assets/software-demo.mp4" autoplay muted loop playsinline preload="metadata" width="1280" height="724"></video>
+            <video class="software-video" src={withBase('/assets/software-demo.mp4')} autoplay muted loop playsinline preload="metadata" width="1280" height="724"></video>
           </div>
         </div>
       </div>

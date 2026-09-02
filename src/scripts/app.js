@@ -3,23 +3,28 @@
   "use strict";
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const I18N = window.DRSTEM_I18N || {};
+  /* This file is loaded via `?url` as a raw static asset, so Astro/Vite never
+     substitutes import.meta.env into it — the base path has to arrive at
+     runtime instead, via window.DRSTEM_BASE (set in MainLayout.astro). */
+  const BASE = (window.DRSTEM_BASE || '/').replace(/\/$/, '') + '/';
+  const asset = (path) => BASE + path.replace(/^\//, '');
 
   /* ---------- icons ---------- */
   const I = {
-    magnet:'<img src="/images/magnet-2.png">',
-    ekg:'<img src="/images/ekg-2.png">',
-    foto:'<img src="/images/foto-2.png">',
-    uv:'<img src="/images/uv-2.png">',
-    strum:'<img src="/images/strum-2.png">',
-    light:'<img src="/images/light-2.png">',
-    co2:'<img src="/images/co2-2.png">',
-    napruga:'<img src="/images/napruga-2.png">',
-    o2:'<img src="/images/o2-2.png">',
-    providnist:'<img src="/images/providnist-2.png">',
-    syla:'<img src="/images/syla-2.png">',
-    heart:'<img src="/images/heart-2.png">',
-    gaz:'<img src="/images/gaz-2.png">',
-    atmosphere:'<img src="/images/atmosphere-2.png">',
+    magnet:'<img src="'+asset('/images/magnet-2.png')+'">',
+    ekg:'<img src="'+asset('/images/ekg-2.png')+'">',
+    foto:'<img src="'+asset('/images/foto-2.png')+'">',
+    uv:'<img src="'+asset('/images/uv-2.png')+'">',
+    strum:'<img src="'+asset('/images/strum-2.png')+'">',
+    light:'<img src="'+asset('/images/light-2.png')+'">',
+    co2:'<img src="'+asset('/images/co2-2.png')+'">',
+    napruga:'<img src="'+asset('/images/napruga-2.png')+'">',
+    o2:'<img src="'+asset('/images/o2-2.png')+'">',
+    providnist:'<img src="'+asset('/images/providnist-2.png')+'">',
+    syla:'<img src="'+asset('/images/syla-2.png')+'">',
+    heart:'<img src="'+asset('/images/heart-2.png')+'">',
+    gaz:'<img src="'+asset('/images/gaz-2.png')+'">',
+    atmosphere:'<img src="'+asset('/images/atmosphere-2.png')+'">',
   };
   const foot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>';
 
@@ -296,7 +301,7 @@
       btn.disabled = true;
       btn.textContent = sendingText;
       try {
-        const res = await fetch('/send.php', { method: 'POST', body: new FormData(f) });
+        const res = await fetch(asset('/send.php'), { method: 'POST', body: new FormData(f) });
         const data = await res.json();
         if (data.ok) {
           btn.textContent = successText;
