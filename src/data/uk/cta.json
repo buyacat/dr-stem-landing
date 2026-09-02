@@ -11,10 +11,9 @@
     { "name": "org", "label": "Назва навчального закладу / організації", "type": "text", "required": false, "placeholder": "Ліцей №1, м. Київ" },
     { "name": "phone", "label": "Контактний телефон", "type": "tel", "required": false, "placeholder": "+380 __ ___ __ __" },
     { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "school@email.com" },
-    { "name": "comment", "label": "Коментар", "type": "textarea", "required": false, "placeholder": "Наприклад: «Цікавить дозамовлення датчиків pH»", "rows": 3 }
+    { "name": "comment", "label": "Коментар", "type": "textarea", "required": false, "placeholder": "Наприклад: «Цікавить дозамовлення датчиків pH»", "rows": 2 }
   ],
   "form_submit": "Надіслати заявку на ЦВКК Dr.STEM",
-  "form_hint": "Відповідаємо протягом одного робочого дня.",
   "form_sending": "Надсилаємо...",
   "form_success": "✓ Заявку надіслано",
   "form_success_hint": "Дякуємо! Відповімо протягом одного робочого дня.",

@@ -11,10 +11,9 @@
     { "name": "org", "label": "School / organization name", "type": "text", "required": false, "placeholder": "Lyceum No.1, Kyiv" },
     { "name": "phone", "label": "Contact phone", "type": "tel", "required": false, "placeholder": "+380 __ ___ __ __" },
     { "name": "email", "label": "Email", "type": "email", "required": true, "placeholder": "school@email.com" },
-    { "name": "comment", "label": "Comment", "type": "textarea", "required": false, "placeholder": "For example: «Interested in additional pH sensors»", "rows": 3 }
+    { "name": "comment", "label": "Comment", "type": "textarea", "required": false, "placeholder": "For example: «Interested in additional pH sensors»", "rows": 2 }
   ],
   "form_submit": "Submit Dr.STEM request",
-  "form_hint": "We respond within one business day.",
   "form_sending": "Sending...",
   "form_success": "✓ Request sent",
   "form_success_hint": "Thank you! We will respond within one business day.",

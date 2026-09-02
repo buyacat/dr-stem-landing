@@ -735,13 +735,6 @@ a {
   height: auto;
   display: block;
 }
-.catalog-logo {
-  width: 90px;
-  height: auto;
-  display: block;
-  margin-bottom: 14px;
-  filter: brightness(0) invert(1);
-}
 .atom-glow {
   position: absolute;
   top: 50%;
@@ -2422,10 +2415,25 @@ a {
 }
 .photo-frame--static {
   cursor: default;
+  /* no white passe-partout mat here — the browser window itself carries
+     the frame (border + shadow below), so it sits right up against the
+     surrounding page instead of floating inside a white card */
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  /* the 3D tilt was fine with the white mat masking the seam, but on
+     Chrome it makes a rounded overflow:hidden child fail to clip one
+     corner cleanly (the border visibly splits open) — flatten it */
+  transform: none;
 }
 .browser-frame {
   border-radius: 10px;
   overflow: hidden;
+}
+.photo-frame--static .browser-frame {
+  border: 1.5px solid rgba(20, 40, 90, 0.28);
+  box-shadow: 18px 46px 70px -30px rgba(20, 40, 90, 0.45);
 }
 .browser-bar {
   background: #e8eaed;
@@ -2475,6 +2483,15 @@ a {
   width: 100%;
   height: auto;
   transform: scale(1.04);
+}
+/* This particular recording carries ~5% of dead space below its own UI chrome
+   (baked into the capture, not a layout gap) — a centered scale only trims
+   an even margin off both edges, which isn't enough on the bottom alone.
+   Anchoring the scale to the top edge grows the frame downward instead, so
+   the crop lands inside real content rather than leaving a pale strip. */
+.photo-frame--static .software-video {
+  transform-origin: 50% 0%;
+  transform: scale(1.12);
 }
 .pf-quote {
   position: absolute;

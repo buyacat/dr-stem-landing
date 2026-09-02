@@ -10,6 +10,12 @@ interface Props {
 const { locale } = Astro.props;
 
 const fields = tArray<{name: string; label: string; type: string; required: boolean; placeholder: string; rows?: number}>(locale, 'form_fields');
+const byName = (name: string) => fields.find(f => f.name === name)!;
+const nameField = byName('name');
+const orgField = byName('org');
+const phoneField = byName('phone');
+const emailField = byName('email');
+const commentField = byName('comment');
 ---
 
 <section class="cta final" id="demo">
@@ -21,7 +27,6 @@ const fields = tArray<{name: string; label: string; type: string; required: bool
         <meta itemprop="contactType" content="sales" />
         <meta itemprop="availableLanguage" content="Ukrainian" />
         <meta itemprop="availableLanguage" content="English" />
-        <img src={withBase('/assets/logo.svg')} alt="Dr.STEM" class="catalog-logo" width="110" height="91">
         <h3>{t(locale, 'catalog_title')}</h3>
         <p>{t(locale, 'catalog_desc')}</p>
         <div class="cnt">
@@ -42,18 +47,29 @@ const fields = tArray<{name: string; label: string; type: string; required: bool
         <h3>{t(locale, 'form_title')}</h3>
         {/* honeypot проти ботів — приховане, реальні користувачі не заповнюють */}
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
-        {fields.map(field => (
-          <div class={`field ${field.type === 'textarea' ? '' : ''}`}>
-            <label>{field.label}</label>
-            {field.type === 'textarea' ? (
-              <textarea rows={field.rows || 3} name={field.name} placeholder={field.placeholder}></textarea>
-            ) : (
-              <input type={field.type} name={field.name} required={field.required} placeholder={field.placeholder} />
-            )}
+        <div class="field">
+          <label>{nameField.label}</label>
+          <input type={nameField.type} name={nameField.name} required={nameField.required} placeholder={nameField.placeholder} />
+        </div>
+        <div class="field">
+          <label>{orgField.label}</label>
+          <input type={orgField.type} name={orgField.name} required={orgField.required} placeholder={orgField.placeholder} />
+        </div>
+        <div class="field row">
+          <div>
+            <label>{phoneField.label}</label>
+            <input type={phoneField.type} name={phoneField.name} required={phoneField.required} placeholder={phoneField.placeholder} />
           </div>
-        ))}
+          <div>
+            <label>{emailField.label}</label>
+            <input type={emailField.type} name={emailField.name} required={emailField.required} placeholder={emailField.placeholder} />
+          </div>
+        </div>
+        <div class="field">
+          <label>{commentField.label}</label>
+          <textarea rows={commentField.rows || 2} name={commentField.name} placeholder={commentField.placeholder}></textarea>
+        </div>
         <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;margin-top:6px">{t(locale, 'form_submit')}</button>
-        <div class="sub form-hint">{t(locale, 'form_hint')}</div>
       </form>
       <div class="form-ok">
         <div class="ic">
