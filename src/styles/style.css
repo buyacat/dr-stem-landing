@@ -21,6 +21,49 @@
 * {
   box-sizing: border-box;
 }
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+/* CRT power-on reveal — for the video "screen" card only, so it reads as a
+   device switching on rather than the generic fade+rise used elsewhere. */
+.reveal-crt {
+  opacity: 0;
+  transform: scaleY(0.015);
+  filter: brightness(2.4);
+  transition:
+    transform 0.55s cubic-bezier(0.3, 0, 0.15, 1),
+    opacity 0.12s linear,
+    filter 0.6s ease-out;
+}
+.reveal-crt.is-visible {
+  opacity: 1;
+  transform: scaleY(1);
+  filter: brightness(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-crt {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--nav-h);
@@ -148,6 +191,7 @@ a {
   box-shadow: 0 1px 0 rgba(20, 40, 70, 0.08);
 }
 .nav-inner {
+  position: relative;
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 20px 32px;
@@ -160,25 +204,21 @@ a {
   pointer-events: auto;
 }
 .nav .brand-logo {
-  height: 91px;
+  height: 30px;
   width: auto;
   display: block;
   transition: filter 0.3s;
   transition: height 0.3s ease-in-out;
 }
 .nav.scrolled .brand-logo {
-  height: 51px;
+  height: 22px;
 }
 /*.nav.on-dark .brand-logo{filter:brightness(0) invert(1);}*/
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 28px;
   transition: all 0.3s ease-in-out;
-}
-.scrolled .nav-actions {
-  margin-top: 0;
 }
 .nav-cta {
   padding: 10px 22px;
@@ -261,20 +301,53 @@ a {
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Corporate links (Eddy.Group / 1-Vision) */
-.nav-corp-link {
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--cobalt);
-  padding: 8px 6px;
-  white-space: nowrap;
-  transition: color 0.18s;
+/* ЦВКК / Роботи switch */
+.nav-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
 }
-.nav-corp-link:hover {
+.nav-switch-opt {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--slate);
+  padding: 7px 14px;
+  border-radius: 10px;
+  white-space: nowrap;
+  transition:
+    background 0.18s,
+    color 0.18s;
+}
+.nav-switch-opt:hover {
   color: var(--blue);
+}
+.nav-switch-opt.active {
+  background: var(--blue);
+  color: #fff;
+}
+.nav-switch-opt.active:hover {
+  color: #fff;
+}
+.nav-switch-opt--muted {
+  color: var(--slate);
+  opacity: 0.5;
+  cursor: not-allowed;
+  user-select: none;
+}
+.nav-switch-opt--muted:hover {
+  color: var(--slate);
+}
+.nav-switch--center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Burger button (mobile) */
@@ -370,6 +443,39 @@ a {
 }
 .mm-link:last-child {
   border-bottom: none;
+}
+.mm-switch {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 20px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.mm-switch-opt {
+  flex: 1;
+  text-align: center;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--slate);
+  padding: 11px 0;
+  border-radius: 100px;
+  border: 1.5px solid var(--line);
+  transition:
+    background 0.18s,
+    color 0.18s,
+    border-color 0.18s;
+}
+.mm-switch-opt.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+.mm-switch-opt--muted {
+  color: var(--slate);
+  opacity: 0.5;
+  cursor: not-allowed;
+  user-select: none;
 }
 
 .brand {
@@ -527,6 +633,9 @@ a {
   margin-top: 22px;
   flex-wrap: wrap;
 }
+.hero-cta .btn-ghost {
+  background: #fff;
+}
 .hero-stats {
   display: flex;
   gap: 28px;
@@ -604,9 +713,9 @@ a {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 132px;
-  height: 132px;
-  margin: -66px;
+  width: 112px;
+  height: 112px;
+  margin: -56px;
   border-radius: 34px;
   background: linear-gradient(150deg, #fff 0%, #e8f1ff 100%);
   display: flex;
@@ -622,7 +731,7 @@ a {
   height: 78px;
 }
 .core-logo {
-  width: 216px;
+  width: 80px;
   height: auto;
   display: block;
 }
@@ -1284,7 +1393,7 @@ a {
   border-top-color: rgba(255, 255, 255, 0.12);
   margin-top: auto;
 }
-.footer-inner {
+.footer-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1309,23 +1418,45 @@ a {
 .footer-contacts a:hover {
   color: #fff;
 }
-.footer-right {
+.footer-mid {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
-.footer .cp {
-  font-size: 12px;
-  color: #8fa5c8;
-  white-space: nowrap;
+.fl-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fl-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4f6396;
 }
 .footer .fl {
   display: flex;
   gap: 24px;
   font-size: 13.5px;
+  flex-wrap: wrap;
 }
 .footer .fl a:hover {
   color: #fff;
+}
+.footer-bottom {
+  margin-top: 18px;
+}
+.footer .cp {
+  font-size: 12px;
+  color: #8fa5c8;
+  white-space: nowrap;
 }
 
 /* =========================== shared section heading =========================== */
@@ -1342,19 +1473,15 @@ a {
     padding: 4rem 0;
   }
   /* На планшеті рядок навбару теж не вміщується у повному складі:
-     ховаємо corp-лінки й підписи, лишаємо іконки, показуємо бургер. */
+     ховаємо підписи, лишаємо іконки, показуємо бургер. */
   .nav-cta span {
     display: none;
   }
   .nav .brand-logo {
-    height: 51px;
+    height: 22px;
   }
   .nav-actions {
-    margin-top: 0;
     gap: 8px;
-  }
-  .nav-corp-link {
-    display: none;
   }
   .nav-dl-label {
     display: none;
@@ -1823,6 +1950,22 @@ a {
   font-size: 13px;
   font-weight: 500;
   color: var(--cobalt);
+  animation: chip-pop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes chip-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.35);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .schip {
+    animation: none;
+  }
 }
 .schip .sd {
   width: 7px;
@@ -2232,6 +2375,7 @@ a {
 /* image visual block (robot / mascot) */
 .visual-slot {
   position: relative;
+  perspective: 1400px;
 }
 .visual-slot img,
 .visual-slot video {
@@ -2265,11 +2409,23 @@ a {
   font-weight: 500;
   opacity: 0.5;
 }
-.browser-frame {
-  border-radius: 12px;
+.photo-frame {
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 50px 90px -40px rgba(20, 40, 90, 0.45);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 18px 46px 70px -30px rgba(20, 40, 90, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transform: rotateX(2deg) rotateY(-4deg);
+  background: #fff;
+  padding: 14px;
+  position: relative;
+  cursor: pointer;
+}
+.photo-frame--static {
+  cursor: default;
+}
+.browser-frame {
+  border-radius: 10px;
+  overflow: hidden;
 }
 .browser-bar {
   background: #e8eaed;
@@ -2312,11 +2468,49 @@ a {
   width: 100%;
   overflow: hidden;
   line-height: 0;
+  border-radius: 10px;
 }
 .software-video {
   display: block;
   width: 100%;
   height: auto;
+  transform: scale(1.04);
+}
+.pf-quote {
+  position: absolute;
+  inset: 14px;
+  border-radius: 10px;
+  background: rgba(10, 18, 40, 0.72);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 30px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.45;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+.pf-quote.show {
+  opacity: 1;
+  visibility: visible;
+}
+.pf-quote-author {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: none;
 }
 .gp-accent {
   position: absolute;
@@ -2472,6 +2666,7 @@ a {
     padding: 14px 16px;
   }
   .nav-actions > .nav-pill,
+  .nav-switch--center,
   .dl-drop {
     display: none;
   }

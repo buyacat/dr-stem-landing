@@ -305,14 +305,14 @@
         const data = await res.json();
         if (data.ok) {
           btn.textContent = successText;
-          hint.textContent = successHint;
+          if (hint) hint.textContent = successHint;
           f.reset();
           if(ok) { f.style.display='none'; ok.classList.add('show'); }
         } else { throw new Error(); }
       } catch {
         btn.disabled = false;
         btn.textContent = errorText;
-        hint.textContent = errorHint;
+        if (hint) hint.textContent = errorHint;
       }
     });
   }
@@ -342,6 +342,58 @@
     document.addEventListener('keydown',e=>{if(e.key==='Escape') close();});
   }
 
+  /* ---------- scroll reveal ---------- */
+  function revealOnScroll(){
+    const els=[...document.querySelectorAll('.reveal, .reveal-crt')];
+    if(!els.length) return;
+    if(reduce){ els.forEach(el=>el.classList.add('is-visible')); return; }
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          en.target.classList.add('is-visible');
+          obs.unobserve(en.target);
+        }
+      });
+    },{rootMargin:'0px 0px -8% 0px',threshold:0.12});
+    els.forEach(el=>obs.observe(el));
+  }
+
+  /* ---------- count-up on stat numbers ----------
+     Any numeric run inside a [data-countup] element counts up from 0 once it
+     scrolls into view; everything else in the text (dashes, units) is left
+     untouched, so "7–12" and "5–50" animate both sides at once. */
+  function countUp(){
+    const els=[...document.querySelectorAll('[data-countup]')];
+    if(!els.length) return;
+    if(reduce) return;
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if(!en.isIntersecting) return;
+        obs.unobserve(en.target);
+        const el=en.target;
+        const raw=el.textContent;
+        const nums=[...raw.matchAll(/\d+/g)];
+        if(!nums.length) return;
+        const dur=1100, t0=performance.now();
+        function step(t){
+          const k=Math.min((t-t0)/dur,1);
+          const e=1-Math.pow(1-k,3);
+          let out='', last=0;
+          nums.forEach(m=>{
+            const target=+m[0];
+            out+=raw.slice(last,m.index)+Math.round(target*e);
+            last=m.index+m[0].length;
+          });
+          out+=raw.slice(last);
+          el.textContent=out;
+          if(k<1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    },{rootMargin:'0px 0px -10% 0px',threshold:0.4});
+    els.forEach(el=>obs.observe(el));
+  }
+
   /* Replace {{DRSTEM_APP_URL}} links with actual URL */
   function fixAppLinks(){
     const url = window.DRSTEM_APP_URL || 'https://app.drstem.eu/#/';
@@ -366,7 +418,7 @@
     }));
     eNodes=electrons.map(s=>document.querySelector(s.sel));
     document.querySelectorAll('[data-chart]').forEach(drawChart);
-    navScroll(); navMagnet(); form(); kitTabs(); dotNav(); dlDrop();
+    navScroll(); navMagnet(); form(); kitTabs(); dotNav(); dlDrop(); revealOnScroll(); countUp();
     window.addEventListener('resize',recalc,{passive:true});
     window.addEventListener('load',recalc,{passive:true});
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(recalc);

@@ -15,12 +15,14 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
 
 // Dial hero: asymmetric left copy column + a scan-ring "dial" on the right
 // (dashed protractor rings + ticks + node dots around the spider photo,
-// dark badge chips for the car/house satellites). As the page scrolls the
-// three rings turn at their own speeds and directions, the middle ring
+// dark badge chips for the house/car/arm satellites). As the page scrolls
+// the three rings turn at their own speeds and directions, the middle ring
 // breathes its radius and morphs its dash pattern and colour (slate dots ->
-// solid blue -> dashes), and the two satellite chips orbit the same centre
-// counter-clockwise, opposite each other. The spider photo, the number
-// badges, the satellite photos and their captions all stay upright.
+// solid blue -> dashes), and the three satellite chips orbit the same centre
+// counter-clockwise, each at its own angle. House rides a smaller inner
+// radius (closer + smaller chip); car and arm share the outer radius on
+// opposite sides. The spider photo, the number badges, the satellite
+// photos and their captions all stay upright.
 ---
 
 <MainLayout locale={locale} path="/robototehnika/">
@@ -35,7 +37,7 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
           <div class="hero-stats">
             {stats.map((stat) => (
               <div class="s">
-                <div class="n">{stat.n}</div>
+                <div class="n" data-countup>{stat.n}</div>
                 <div class="l">{stat.l}</div>
               </div>
             ))}
@@ -77,19 +79,25 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
             <circle cx="330" cy="330" r="14" stroke="#333a44" stroke-width="1.3" opacity="0.5"/>
           </svg>
 
-          <img class="robo-dial-photo" src={withBase("/assets/robotics/kits/r16.webp")} alt={t(locale, 'robotics_slot_spider')} loading="eager" />
+          <img class="robo-dial-photo" src={withBase("/assets/robotics/kits/r16-cutout.webp")} alt={t(locale, 'robotics_slot_spider')} loading="eager" />
           <div class="robo-dial-badge robo-dial-badge--main">01</div>
 
-          <div class="robo-dial-sat robo-dial-sat--car">
-            <div class="robo-dial-sat-circle"><img src={withBase("/assets/robotics/kits/r03.webp")} alt={t(locale, 'robotics_slot_car')} loading="eager" /></div>
+          <div class="robo-dial-sat robo-dial-sat--house robo-dial-sat--sm">
+            <div class="robo-dial-sat-circle"><img src={withBase("/assets/robotics/kits/r04.webp")} alt={t(locale, 'robotics_slot_house')} loading="eager" /></div>
             <div class="robo-dial-badge robo-dial-badge--sat">02</div>
+            <span class="robo-dial-caption">{t(locale, 'robotics_slot_house')}</span>
+          </div>
+
+          <div class="robo-dial-sat robo-dial-sat--car robo-dial-sat--lg">
+            <div class="robo-dial-sat-circle"><img src={withBase("/assets/robotics/kits/r01.webp")} alt={t(locale, 'robotics_slot_car')} loading="eager" /></div>
+            <div class="robo-dial-badge robo-dial-badge--sat">03</div>
             <span class="robo-dial-caption">{t(locale, 'robotics_slot_car')}</span>
           </div>
 
-          <div class="robo-dial-sat robo-dial-sat--house">
-            <div class="robo-dial-sat-circle"><img src={withBase("/assets/robotics/kits/r05.webp")} alt={t(locale, 'robotics_slot_house')} loading="eager" /></div>
-            <div class="robo-dial-badge robo-dial-badge--sat">03</div>
-            <span class="robo-dial-caption">{t(locale, 'robotics_slot_house')}</span>
+          <div class="robo-dial-sat robo-dial-sat--arm">
+            <div class="robo-dial-sat-circle"><img src={withBase("/assets/robotics/kits/r10.webp")} alt={t(locale, 'robotics_slot_arm')} loading="eager" /></div>
+            <div class="robo-dial-badge robo-dial-badge--sat">04</div>
+            <span class="robo-dial-caption">{t(locale, 'robotics_slot_arm')}</span>
           </div>
         </div>
       </div>
@@ -144,7 +152,7 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
     left: 50%;
     transform: translate(-50%, -50%);
     width: min(340px, 60%);
-    filter: drop-shadow(0 34px 50px rgba(20, 40, 80, 0.28));
+    filter: drop-shadow(0 40px 46px rgba(20, 40, 80, 0.42));
   }
   .robo-dial-badge {
     border-radius: 50%;
@@ -160,8 +168,8 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -158px;
-    margin-left: 56px;
+    margin-top: 118px;
+    margin-left: 85px;
     width: 30px;
     height: 30px;
     font-size: 13px;
@@ -180,13 +188,46 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
     align-items: center;
     gap: 10px;
   }
-  .robo-dial-sat--car {
-    top: 6%;
-    left: 4%;
-  }
   .robo-dial-sat--house {
+    top: 1%;
+    left: 12%;
+    gap: 5px;
+    flex-direction: column-reverse;
+  }
+  .robo-dial-sat--house .robo-dial-sat-circle img {
+    /* whole house, nothing cropped off — cover was cutting into the model
+       to kill the white sliver; contain shows it all, sized big so it
+       still reads confidently instead of floating small in the circle */
+    width: 96%;
+    height: 96%;
+    object-fit: contain;
+    object-position: 50% 50%;
+  }
+  .robo-dial-sat--car {
     bottom: 6%;
     right: 2%;
+  }
+  .robo-dial-sat--car .robo-dial-sat-circle img {
+    /* zoomed in past the circle a touch so the plain white studio
+       background at the photo's edge never shows as a pale sliver */
+    width: 102%;
+    height: 102%;
+    object-position: calc(50% + 20px) 50%;
+  }
+  .robo-dial-sat--arm {
+    bottom: 8%;
+    left: 2%;
+  }
+  .robo-dial-sat--arm .robo-dial-sat-circle img {
+    transform: scaleX(-1);
+    /* zoomed in a touch so the plain white studio background doesn't show
+       as a sliver at the edge — fully contained by the circle's own
+       overflow:hidden, nothing escapes it */
+    width: 108%;
+    height: 108%;
+    /* mirrored, so shifting the source crop right here reads as a leftward
+       shift on screen once scaleX(-1) flips it */
+    object-position: calc(50% + 20px) 50%;
   }
   /* Orbit mode. The script switches it on only when the dial box is wide
      enough for both chips to travel clear of the product photo; otherwise the
@@ -203,26 +244,41 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
   }
   .robo-dial-sat-circle {
     position: relative;
-    width: 116px;
-    height: 116px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     background: #fff;
     border: 3px solid #333a44;
     box-shadow: 0 18px 34px -14px rgba(20, 40, 70, 0.35);
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+  }
+  .robo-dial-sat--lg .robo-dial-sat-circle {
+    width: 106px;
+    height: 106px;
+  }
+  .robo-dial-sat--sm .robo-dial-sat-circle {
+    width: 80px;
+    height: 80px;
   }
   .robo-dial-sat-circle img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    display: block;
+    width: 88%;
+    height: 88%;
+    object-fit: cover;
   }
   .robo-dial-sat .robo-dial-badge--sat {
     position: absolute;
     top: -4px;
     right: -4px;
+  }
+  /* House's caption sits above the circle (column-reverse), so its badge
+     moves to the bottom corner to stay clear of the caption text. */
+  .robo-dial-sat--house .robo-dial-badge--sat {
+    top: auto;
+    bottom: -4px;
   }
   .robo-dial-caption {
     font-family: "Space Grotesk", sans-serif;
@@ -252,8 +308,16 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
       height: 460px;
     }
     .robo-dial-sat-circle {
-      width: 88px;
-      height: 88px;
+      width: 70px;
+      height: 70px;
+    }
+    .robo-dial-sat--lg .robo-dial-sat-circle {
+      width: 81px;
+      height: 81px;
+    }
+    .robo-dial-sat--sm .robo-dial-sat-circle {
+      width: 60px;
+      height: 60px;
     }
   }
 
@@ -265,9 +329,16 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
       width: 70%;
     }
     .robo-dial-sat-circle {
-      width: 70px;
-      height: 70px;
-      padding: 10px;
+      width: 56px;
+      height: 56px;
+    }
+    .robo-dial-sat--lg .robo-dial-sat-circle {
+      width: 65px;
+      height: 65px;
+    }
+    .robo-dial-sat--sm .robo-dial-sat-circle {
+      width: 48px;
+      height: 48px;
     }
     .robo-dial-caption {
       font-size: 11px;
@@ -295,30 +366,104 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
     var photo = document.querySelector('.robo-dial-photo');
     var car = document.querySelector('.robo-dial-sat--car');
     var house = document.querySelector('.robo-dial-sat--house');
+    var arm = document.querySelector('.robo-dial-sat--arm');
 
-    // Satellite orbit. The two chips sit on opposite ends of one ellipse and
-    // travel counter-clockwise; the ellipse is sized from the dial box so they
-    // can never leave it or reach across to the copy column.
-    var CAR_ANGLE = 210; // degrees — keeps the car chip up and to the left
+    // Satellite orbit, one ring each — pinned to the actual dashed SVG rings
+    // (r 310 / 245 / 180 in the 660 viewBox), not an independently-sized
+    // ellipse, so every chip visually sits ON its own line as it turns. Car
+    // rides the outer ring, arm the middle ring, house the inner ring. Car
+    // and house (ring 1 and ring 3) turn counter-clockwise together; arm
+    // (ring 2) turns the other way — same pairing as the SVG rings
+    // themselves, where the mid ring already spins opposite the outer/inner
+    // ones.
+    var SATS = [
+      { el: car, angle: 30, dir: 1, ring: 'car' }, // outer ring, down-right
+      { el: arm, angle: 157, dir: -1, ring: 'arm' }, // mid ring, down-left (nudged up ~30px along the ring)
+      { el: house, angle: 260, dir: 1, ring: 'house' }, // inner ring, up
+    ];
+    // The fixed "01" badge next to the photo (matches .robo-dial-badge--main
+    // margin-top/margin-left below).
+    var BADGE_X = 85;
+    var BADGE_Y = 118;
     var ORBIT_SPEED = 0.055; // degrees per scrolled pixel
-    var orbitX = 0;
-    var orbitY = 0;
+    // Chips sit visibly outside their own dashed ring, not right on top of
+    // it — but only a little: the ring gap is 65 viewBox units (310-245,
+    // 245-180), so a big offset makes a chip sit closer to the NEXT ring
+    // out than to its own, reading as if it belonged there instead. House
+    // rides closer still (~10px tighter at typical desktop scale).
+    var RING_PAD = { car: 25, arm: 25, house: 13 };
+    // Base (at-rest, breath = 0) radius per ring, in viewBox units — the
+    // outer/inner rings also breathe a little via transform:scale in
+    // update() below, and the mid ring's own radius is already computed
+    // there each frame, so the live radius is resolved per-frame, not
+    // cached here (see liveRingR).
+    var RING_BASE = { car: 310, arm: 245, house: 180 };
+    var svgScale = 0;
+    var RING = { car: 0, arm: 0, house: 0 };
     var orbiting = false;
 
     function measure() {
       orbiting = false;
-      if (!dial || !photo || !car || !house) return;
+      if (!dial || !photo || !car || !house || !arm) return;
 
+      // Mobile/tablet (the stacked single-column layout, same breakpoint as
+      // the CSS below) never orbits, full stop — no scroll-driven spin on a
+      // small screen, just the static corner placement from the CSS.
+      if (window.innerWidth <= 920) {
+        dial.classList.remove('robo-dial--orbit');
+        return;
+      }
+
+      // 1 viewBox unit -> px, from how the SVG itself is sized (see
+      // .robo-dial-rings: width/height: min(560px, 100%)).
+      svgScale = Math.min(560, dial.clientWidth, dial.clientHeight) / 660;
+      RING.car = (RING_BASE.car + RING_PAD.car) * svgScale;
+      RING.arm = (RING_BASE.arm + RING_PAD.arm) * svgScale;
+      RING.house = (RING_BASE.house + RING_PAD.house) * svgScale;
+
+      // Gate 1: at its own resting angle, the outer ring (car's) must clear
+      // the product photo and stay inside the dial box — checked at car's
+      // actual (x, y), not a worst-case "ring fits at every angle" bound
+      // (car never visits the very top/bottom of its ring, so that bound
+      // was way stricter than the real geometry).
       var halfW = car.offsetWidth / 2;
-      orbitX = Math.max(90, Math.min(dial.clientWidth / 2 - halfW - 8, 300));
-      orbitY = Math.max(70, dial.clientHeight / 2 - car.offsetHeight / 2 - 4);
+      var halfH = car.offsetHeight / 2;
+      var carRad = (30 * Math.PI) / 180;
+      var carX = Math.abs(Math.cos(carRad)) * RING.car;
+      var carY = Math.abs(Math.sin(carRad)) * RING.car;
+      var carClear =
+        RING.car - halfW - photo.offsetWidth / 2 >= 4 &&
+        carX + halfW <= dial.clientWidth / 2 &&
+        carY + halfH <= dial.clientHeight / 2;
 
-      // Only orbit when the chip clears the product photo at its tightest
-      // point (the resting angle). On narrow layouts the box is simply too
-      // small for that, and the corner placement is kept instead.
-      var narrowest = Math.abs(Math.cos((CAR_ANGLE * Math.PI) / 180)) * orbitX;
-      orbiting = narrowest - halfW - photo.offsetWidth / 2 >= 4;
+      // Gate 2: no chip may land on the fixed "01" badge — a small, precise
+      // exclusion zone, not the whole photo body. Uses the at-rest radius;
+      // the live breathing swing (±16 units on the mid ring, smaller on the
+      // others) is well inside the margins this gate already keeps.
+      var badgeClear = SATS.every(function (s) {
+        var rad = (s.angle * Math.PI) / 180;
+        var r = RING[s.ring];
+        var dx = Math.cos(rad) * r - BADGE_X;
+        var dy = Math.sin(rad) * r - BADGE_Y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        return dist - s.el.offsetWidth / 2 - 15 >= 4;
+      });
+
+      orbiting = carClear && badgeClear;
       dial.classList.toggle('robo-dial--orbit', orbiting);
+    }
+
+    // Live radius for a satellite's own ring, in sync with the same
+    // transform:scale/radius math update() applies to that ring each
+    // frame — so the chip visibly rides the line as it pulses, not a
+    // radius frozen at page-load.
+    function liveRingR(ring, breath) {
+      var base = RING_BASE[ring];
+      var scaled;
+      if (ring === 'car') scaled = base * (1 + breath * 0.014); // matches outer.style.transform scale
+      else if (ring === 'house') scaled = base * (1 - breath * 0.032); // matches inner.style.transform scale
+      else scaled = base - 16 * breath; // matches BASE_R - R_SWING * breath on the mid ring
+      return (scaled + RING_PAD[ring]) * svgScale;
     }
 
     function place(el, x, y) {
@@ -404,14 +549,16 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
           Math.round(lerp(from[6], to[6], k)) + ')'
       );
 
-      // Satellites: the pair travels counter-clockwise around the same centre,
-      // staying opposite each other. Pure translation — nothing tumbles.
+      // Satellites: all three travel counter-clockwise around the same
+      // centre, each on its own angle and its own ring's LIVE radius (the
+      // ring it's pinned to is breathing this same frame) — pure rotation
+      // plus that shared pulse, nothing tumbles.
       if (orbiting) {
-        var a = ((CAR_ANGLE - y * ORBIT_SPEED) * Math.PI) / 180;
-        var ox = Math.cos(a) * orbitX;
-        var oy = Math.sin(a) * orbitY;
-        place(car, ox, oy);
-        place(house, -ox, -oy);
+        SATS.forEach(function (s) {
+          var a = ((s.angle - y * ORBIT_SPEED * s.dir) * Math.PI) / 180;
+          var r = liveRingR(s.ring, breath);
+          place(s.el, Math.cos(a) * r, Math.sin(a) * r);
+        });
       }
     }
 

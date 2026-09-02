@@ -53,13 +53,13 @@ const bgIcons: Record<string, string> = {
 
 <section class="band kits" id="kits" itemscope itemtype="https://schema.org/Product">
   <div class="wrap">
-    <div class="band-head">
+    <div class="band-head reveal">
       <span class="eyebrow center">{t(locale, 'kits_eyebrow')}</span>
       <h2 set:html={t(locale, 'kits_title')} />
       <p>{t(locale, 'kits_desc')}</p>
     </div>
 
-    <div class="kit-tabs">
+    <div class="kit-tabs reveal" style="transition-delay:0.1s">
       {kitTabs.map((tab, i) => (
         <KitTab locale={locale} kit={tab.key} label={tab.label} active={i === 0} icon={tabIcons[tab.key]} />
       ))}

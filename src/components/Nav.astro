@@ -14,7 +14,6 @@ const appUrl = import.meta.env.DRSTEM_APP_URL || 'https://app.drstem.eu/#/';
 const otherLocale = locale === 'uk' ? 'en' : 'uk';
 const langLabel = otherLocale === 'uk' ? 'UA' : 'EN';
 
-const corpLinks = tArray<{ label: string; url: string }>(locale, 'nav_corp_links');
 const sectionItems = tArray<{ id: string; label: string }>(locale, 'dot_nav_items');
 const roboticsUrl = withBase(locale === 'uk' ? '/robototehnika/' : '/en/robotics/');
 const homeUrl = withBase(locale === 'uk' ? '/' : '/en/');
@@ -35,34 +34,39 @@ const menuSections = isRobotics
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href={homeUrl}><img src={withBase('/assets/logo.svg')} alt="Dr.STEM" class="brand-logo" width="110" height="91"></a>
+    <a href={homeUrl}><img src={withBase('/assets/logo-wordmark.svg')} alt="Dr.STEM" class="brand-logo" width="220" height="36"></a>
+    <div class="nav-switch nav-switch--center">
+      <a href={homeUrl} class={`nav-switch-opt${!isRobotics ? ' active' : ''}`}>{t(locale, 'nav_stem')}</a>
+      <a href={roboticsUrl} class={`nav-switch-opt${isRobotics ? ' active' : ''}`}>{t(locale, 'nav_robotics')}</a>
+      <span class="nav-switch-opt nav-switch-opt--muted" aria-disabled="true">{t(locale, 'nav_classroom')}</span>
+    </div>
     <div class="nav-actions">
-      {corpLinks.map((link) => (
-        <a href={link.url} target="_blank" rel="noopener noreferrer" class="nav-corp-link">{link.label}</a>
-      ))}
-      <a href={roboticsUrl} class="btn btn-ghost nav-dl-btn nav-pill">{t(locale, 'nav_robotics')}</a>
       <a href={otherUrl} class="btn btn-ghost nav-dl-btn nav-pill">{langLabel}</a>
-      <div class="dl-drop" id="dl-drop">
-        <button class="btn btn-ghost nav-dl-btn" id="dl-btn" aria-expanded="false">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span class="nav-dl-label">{t(locale, 'nav_download')}</span>
-          <svg class="dl-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="dl-menu" id="dl-menu">
-          <a href={appUrl} target="_blank" rel="noopener noreferrer" class="dl-item" data-dl="tablet">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            <span>{t(locale, 'nav_download_tablet')}</span>
-          </a>
-          <a href={appUrl} target="_blank" rel="noopener noreferrer" class="dl-item" data-dl="desktop">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
-            <span>{t(locale, 'nav_download_desktop')}</span>
-          </a>
+      {!isRobotics && (
+        <div class="dl-drop" id="dl-drop">
+          <button class="btn btn-ghost nav-dl-btn" id="dl-btn" aria-expanded="false">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span class="nav-dl-label">{t(locale, 'nav_download')}</span>
+            <svg class="dl-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="dl-menu" id="dl-menu">
+            <a href={appUrl} target="_blank" rel="noopener noreferrer" class="dl-item" data-dl="tablet">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              <span>{t(locale, 'nav_download_tablet')}</span>
+            </a>
+            <a href={appUrl} target="_blank" rel="noopener noreferrer" class="dl-item" data-dl="desktop">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+              <span>{t(locale, 'nav_download_desktop')}</span>
+            </a>
+          </div>
         </div>
-      </div>
-      <a href={appUrl} target="_blank" rel="noopener noreferrer" id="cabinet-btn" class="btn btn-primary nav-cta" aria-label={t(locale, 'nav_experiment')}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"></path><path d="M7 15h10"></path></svg>
-        <span>{t(locale, 'nav_experiment')}</span>
-      </a>
+      )}
+      {!isRobotics && (
+        <a href={appUrl} target="_blank" rel="noopener noreferrer" id="cabinet-btn" class="btn btn-primary nav-cta" aria-label={t(locale, 'nav_experiment')}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"></path><path d="M7 15h10"></path></svg>
+          <span>{t(locale, 'nav_experiment')}</span>
+        </a>
+      )}
       <button class="nav-burger" id="nav-burger" type="button" aria-label={t(locale, 'nav_menu_open')} aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
       </button>
@@ -72,15 +76,20 @@ const menuSections = isRobotics
 
 <div class="mobile-menu" id="mobile-menu">
   <div class="mobile-menu-inner" aria-label={t(locale, 'dot_nav_aria')}>
-    {corpLinks.map((link) => (
-      <a href={link.url} target="_blank" rel="noopener noreferrer" class="mm-link">{link.label}</a>
-    ))}
-    <a href={roboticsUrl} class="mm-link">{t(locale, 'nav_robotics')}</a>
+    <div class="mm-switch">
+      <a href={homeUrl} class={`mm-switch-opt${!isRobotics ? ' active' : ''}`}>{t(locale, 'nav_stem')}</a>
+      <a href={roboticsUrl} class={`mm-switch-opt${isRobotics ? ' active' : ''}`}>{t(locale, 'nav_robotics')}</a>
+      <span class="mm-switch-opt mm-switch-opt--muted" aria-disabled="true">{t(locale, 'nav_classroom')}</span>
+    </div>
     {menuSections.map((item) => (
       <a href={`#${item.id}`} class="mm-link">{item.label}</a>
     ))}
-    <a href={appUrl} target="_blank" rel="noopener noreferrer" class="mm-link" data-dl="tablet">{t(locale, 'nav_download_tablet_menu')}</a>
-    <a href={appUrl} target="_blank" rel="noopener noreferrer" class="mm-link" data-dl="desktop">{t(locale, 'nav_download_desktop_menu')}</a>
+    {!isRobotics && (
+      <>
+        <a href={appUrl} target="_blank" rel="noopener noreferrer" class="mm-link" data-dl="tablet">{t(locale, 'nav_download_tablet_menu')}</a>
+        <a href={appUrl} target="_blank" rel="noopener noreferrer" class="mm-link" data-dl="desktop">{t(locale, 'nav_download_desktop_menu')}</a>
+      </>
+    )}
     <a href={otherUrl} class="mm-link">{t(locale, 'nav_lang_switch')}</a>
   </div>
 </div>

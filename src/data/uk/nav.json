@@ -3,7 +3,9 @@
   "nav_download_tablet": "Для планшета",
   "nav_download_desktop": "Для ноутбука/ПК",
   "nav_experiment": "До експерименту",
-  "nav_robotics": "Робототехніка",
+  "nav_stem": "ЦВКК",
+  "nav_robotics": "Роботи",
+  "nav_classroom": "Classroom",
   "nav_corp_links": [
     {
       "label": "Eddy.Group",
@@ -12,8 +14,17 @@
     {
       "label": "1-Vision",
       "url": "https://1vision.eddygroup.eu/"
+    },
+    {
+      "label": "Світло",
+      "url": "https://svitlo.eddygroup.eu/"
+    },
+    {
+      "label": "Eddy Trade",
+      "url": "http://trade.eddygroup.eu/"
     }
   ],
+  "footer_family_label": "Eddy Group family",
   "nav_menu_open": "Відкрити меню",
   "nav_menu_close": "Закрити меню",
   "dot_nav_aria": "Навігація по секціях",

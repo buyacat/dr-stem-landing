@@ -21,9 +21,9 @@ const icons: Record<string, string> = {
   // Рівно 18 тіків по колу: число і є іконка. Тіки однакової довжини — при
   // чергуванні довгий/короткий око рахує дев'ять. У центрі стос наборів.
   sets18: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="1.2" opacity=".4"><path d="M24 4v3M30.84 5.21 29.81 8.02M36.86 8.68 34.93 10.98M41.32 14 38.72 15.5M43.7 20.53 40.74 21.05M43.7 27.47 40.74 26.95M41.32 34 38.72 32.5M36.86 39.32 34.93 37.02M30.84 42.79 29.81 39.98M24 44v-3M17.16 42.79 18.19 39.98M11.14 39.32 13.07 37.02M6.68 34 9.28 32.5M4.3 27.47 7.26 26.95M4.3 20.53 7.26 21.05M6.68 14 9.28 15.5M11.14 8.68 13.07 10.98M17.16 5.21 18.19 8.02"/></g><rect x="14.6" y="16.6" width="14" height="10" rx="2.5" stroke-width="1.2"/><rect x="17" y="19" width="14" height="10" rx="2.5" stroke-width="1.2"/><rect x="19.4" y="21.4" width="14" height="10" rx="2.5" stroke-width="1.6"/></svg>',
-  // Два діапазони класів — дві дзеркальні дужки з розривами на 12 і 6.
-  // Родич `span` з головної, але сплутати неможливо: там одна суцільна арка.
-  spans: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="1.2" opacity=".4"><path d="M24 4v3M34 6.68 32.5 9.28M41.32 14 38.72 15.5M44 24h-3M41.32 34 38.72 32.5M34 41.32 32.5 38.72M24 44v-3M14 41.32 15.5 38.72M6.68 34 9.28 32.5M4 24h3M6.68 14 9.28 15.5M14 6.68 15.5 9.28"/></g><path d="M14 6.68A20 20 0 0 0 14 41.32" stroke-width="2.4"/><path d="M34 6.68A20 20 0 0 1 34 41.32" stroke-width="2.4"/><circle cx="14" cy="6.68" r="2.4" fill="currentColor" stroke="none"/><circle cx="14" cy="41.32" r="2.4" fill="currentColor" stroke="none"/><circle cx="34" cy="6.68" r="2.4" fill="currentColor" stroke="none"/><circle cx="34" cy="41.32" r="2.4" fill="currentColor" stroke="none"/><circle cx="24" cy="24" r="2.4" fill="currentColor" stroke="none"/></svg>',
+  // Документ із поурочними розробками + печатка-галочка на розі —
+  // офіційний гриф МОН, не сплутати з UA-клеймом походження нижче.
+  cert: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20" pathLength="120" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/><rect x="13" y="10" width="18" height="24" rx="2" stroke-width="1.6"/><path d="M17 16h10M17 20.5h10M17 25h6" stroke-width="1.2"/><circle cx="31" cy="31" r="7.5" stroke-width="1.6"/><path d="M27.8 31 30 33.2 34.4 28.6" stroke-width="2"/></svg>',
   // Список проєктів у центрі, сектор на кільці — глибина від 5 до 50.
   // Незроблений пункт — порожня мікро-крапка, а не залита під прозорістю.
   projects: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20" pathLength="120" stroke-dasharray="1.4 3.6" stroke-width="1.2" opacity=".4"/><path d="M24 4A20 20 0 0 1 41.32 34" stroke-width="2.4"/><circle cx="24" cy="4" r="2.4" fill="currentColor" stroke="none"/><circle cx="41.32" cy="34" r="2.4" fill="currentColor" stroke="none"/><path d="M20.5 18.5h11M20.5 24h11M20.5 29.5h7" stroke-width="1.6"/><circle cx="16.5" cy="18.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="16.5" cy="24" r="1.5" fill="currentColor" stroke="none"/><circle cx="16.5" cy="29.5" r="1.5" stroke-width="1.2"/></svg>',
@@ -42,14 +42,14 @@ const icons: Record<string, string> = {
 
 <section class="band advantages" id="advantages" itemscope itemtype="https://schema.org/ItemList">
   <div class="wrap">
-    <div class="band-head">
+    <div class="band-head reveal">
       <span class="eyebrow center">{t(locale, 'robotics_advantages_eyebrow')}</span>
       <h2 set:html={t(locale, 'robotics_advantages_title')} />
       <p>{t(locale, 'robotics_advantages_desc')}</p>
     </div>
     <div class="adv-grid">
       {advantages.map((adv, i) => (
-        <div class={`adv ${adv.highlight ? 'y' : ''}`} itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <div class={`adv reveal ${adv.highlight ? 'y' : ''}`} style={`transition-delay:${(i % 3) * 0.08}s`} itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
           <meta itemprop="position" content={String(i + 1)} />
           <span class="num" aria-hidden="true"><span class="num-roll"><span>{adv.num}</span><span>{adv.num}</span></span></span>
           <div class="ic" set:html={icons[adv.icon]} />

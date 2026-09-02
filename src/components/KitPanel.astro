@@ -50,8 +50,8 @@ const isUni = kit.key === 'uni';
         <>
           <h4>{kit.sensors_title}</h4>
           <div class="sensor-chips">
-            {kit.sensors.map(s => (
-              <span class={`schip ${s === 'sensor_multi' ? 'multi' : ''}`}><span class="sd"></span><span>{t(locale, s)}</span></span>
+            {kit.sensors.map((s, i) => (
+              <span class={`schip ${s === 'sensor_multi' ? 'multi' : ''}`} style={`animation-delay:${(i % 10) * 0.035}s`}><span class="sd"></span><span>{t(locale, s)}</span></span>
             ))}
           </div>
         </>
@@ -60,8 +60,8 @@ const isUni = kit.key === 'uni';
         <>
           <h4>{kit.multi_title}</h4>
           <div class="sensor-chips">
-            {kit.multi_sensors?.map(s => (
-              <span class="schip"><span class="sd"></span><span>{t(locale, s)}</span></span>
+            {kit.multi_sensors?.map((s, i) => (
+              <span class="schip" style={`animation-delay:${(i % 10) * 0.035}s`}><span class="sd"></span><span>{t(locale, s)}</span></span>
             ))}
           </div>
         </>
@@ -70,8 +70,8 @@ const isUni = kit.key === 'uni';
         <>
           <h4>{kit.separate_title}</h4>
           <div class="sensor-chips">
-            {kit.separate_sensors?.map(s => (
-              <span class="schip"><span class="sd"></span><span>{t(locale, s)}</span></span>
+            {kit.separate_sensors?.map((s, i) => (
+              <span class="schip" style={`animation-delay:${(i % 10) * 0.035}s`}><span class="sd"></span><span>{t(locale, s)}</span></span>
             ))}
           </div>
         </>

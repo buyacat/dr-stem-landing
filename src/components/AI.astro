@@ -23,10 +23,10 @@ const aiIcons = [
 <section class="band split alt-b" id="ai">
   <div class="wrap">
     <div class="split-grid reverse">
-      <div class="visual visual-slot">
+      <div class="visual visual-slot reveal">
         <img style="max-width:100%; border-radius: 24px" src={aiImg400} srcset={`${aiImg400} 400w, ${aiImg700} 700w`} sizes="(max-width: 768px) 90vw, 400px" alt={t(locale, 'ai_img_alt')} width="700" height="549" loading="lazy" decoding="async">
       </div>
-      <div class="split-copy">
+      <div class="split-copy reveal" style="transition-delay:0.12s">
         <span class="eyebrow">{t(locale, 'ai_eyebrow')}</span>
         <h2 set:html={t(locale, 'ai_title')} />
         <p class="intro">{t(locale, 'ai_intro')}</p>

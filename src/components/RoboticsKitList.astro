@@ -38,12 +38,11 @@ const meta = (kit: Kit) =>
     .join(' · ');
 
 const photo = (kit: Kit) => withBase(`/assets/robotics/kits/${kit.code.toLowerCase()}`);
-const catalogPdf = withBase('/assets/robotics/catalog.pdf');
 ---
 
 <section class="band" id="kits">
   <div class="wrap">
-    <div class="band-head">
+    <div class="band-head reveal">
       <span class="eyebrow center">{t(locale, 'robotics_kits_eyebrow')}</span>
       <h2 set:html={t(locale, 'robotics_kits_title')} />
       <p>{t(locale, 'robotics_kits_intro')}</p>
@@ -51,7 +50,7 @@ const catalogPdf = withBase('/assets/robotics/catalog.pdf');
 
     <div class="rk-grid">
       {kits.map((kit, i) => (
-        <button type="button" class="rk-item" data-rk-open={i} aria-haspopup="dialog">
+        <button type="button" class="rk-item reveal" style={`transition-delay:${(i % 3) * 0.07}s`} data-rk-open={i} aria-haspopup="dialog">
           <span class="rk-line">
             <span class="rk-code">{kit.code}</span>
             <span class="rk-name">{kit.name}</span>
@@ -61,10 +60,6 @@ const catalogPdf = withBase('/assets/robotics/catalog.pdf');
           <svg class="rk-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
         </button>
       ))}
-    </div>
-
-    <div class="rk-cta">
-      <a class="btn btn-primary" href={catalogPdf} target="_blank" rel="noopener" download>{t(locale, 'robotics_kits_pdf_label')}</a>
     </div>
   </div>
 
@@ -128,11 +123,6 @@ const catalogPdf = withBase('/assets/robotics/catalog.pdf');
             <p class="rk-more">{t(locale, 'robotics_kits_more_label')}</p>
           )}
 
-          </div>
-
-          <div class="rk-actions">
-            <a class="btn btn-primary" href="#demo">{t(locale, 'robotics_kits_order_label')}</a>
-            <a class="btn btn-ghost" href={catalogPdf} target="_blank" rel="noopener" download>{t(locale, 'robotics_kits_catalog_label')}</a>
           </div>
         </article>
       ))}
@@ -231,12 +221,6 @@ const catalogPdf = withBase('/assets/robotics/catalog.pdf');
   .rk-item:hover .rk-chev {
     opacity: 0;
   }
-  .rk-cta {
-    display: flex;
-    justify-content: center;
-    margin-top: 36px;
-  }
-
   /* ---- panel ---- */
   .rk-dialog {
     width: min(880px, calc(100vw - 48px));
@@ -339,7 +323,7 @@ const catalogPdf = withBase('/assets/robotics/catalog.pdf');
   .rk-panel {
     display: grid;
     gap: 18px;
-    grid-template-areas: "aside" "copy" "actions";
+    grid-template-areas: "aside" "copy";
   }
   .rk-aside {
     grid-area: aside;
@@ -445,43 +429,18 @@ const catalogPdf = withBase('/assets/robotics/catalog.pdf');
   .rk-specs ul {
     margin-top: 10px;
   }
-  .rk-actions {
-    grid-area: actions;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 9px;
-    border-top: 1px solid var(--line);
-    padding-top: 16px;
-  }
-  .rk-actions .btn {
-    font-size: 13.5px;
-    padding: 11px 20px;
-  }
-
-  /* Photo, badges and buttons stack in one column beside the copy, so the kit
+  /* Photo and badges stack in one column beside the copy, so the kit
      fits a laptop screen without scrolling and neither column runs empty. */
   @media (min-width: 760px) {
     .rk-panel {
       grid-template-columns: 300px minmax(0, 1fr);
       grid-template-rows: auto 1fr;
-      grid-template-areas:
-        "aside  copy"
-        "actions copy";
+      grid-template-areas: "aside copy";
       gap: 16px 28px;
       align-items: start;
     }
     .rk-photo {
       max-width: none;
-    }
-    .rk-actions {
-      align-self: start;
-      flex-direction: column;
-      border-top: 0;
-      padding-top: 0;
-    }
-    .rk-actions .btn {
-      width: 100%;
-      text-align: center;
     }
   }
 

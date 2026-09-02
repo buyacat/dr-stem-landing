@@ -3,7 +3,9 @@
   "nav_download_tablet": "For tablet",
   "nav_download_desktop": "For laptop / PC",
   "nav_experiment": "Go to Experiment",
-  "nav_robotics": "Robotics",
+  "nav_stem": "STEM",
+  "nav_robotics": "Robots",
+  "nav_classroom": "Classroom",
   "nav_corp_links": [
     {
       "label": "Eddy.Group",
@@ -12,8 +14,17 @@
     {
       "label": "1-Vision",
       "url": "https://1vision.eddygroup.eu/"
+    },
+    {
+      "label": "Svitlo",
+      "url": "https://svitlo.eddygroup.eu/"
+    },
+    {
+      "label": "Eddy Trade",
+      "url": "http://trade.eddygroup.eu/"
     }
   ],
+  "footer_family_label": "Eddy Group family",
   "nav_menu_open": "Open menu",
   "nav_menu_close": "Close menu",
   "dot_nav_aria": "Section navigation",

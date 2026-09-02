@@ -19,7 +19,7 @@ const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
 <section class="band split alt-a" id="software" itemscope itemtype="https://schema.org/SoftwareApplication">
   <div class="wrap">
     <div class="split-grid">
-      <div class="split-copy">
+      <div class="split-copy reveal">
         <span class="eyebrow">{t(locale, 'software_eyebrow')}</span>
         <h2 itemprop="name" set:html={t(locale, 'software_title')} />
         <p class="intro" itemprop="description">{t(locale, 'software_intro')}</p>
@@ -32,16 +32,18 @@ const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
           ))}
         </div>
       </div>
-      <div class="visual visual-slot">
-        <div class="browser-frame">
-          <div class="browser-bar">
-            <span class="b-dot bd-red"></span>
-            <span class="b-dot bd-yel"></span>
-            <span class="b-dot bd-grn"></span>
-            <div class="b-url">{t(locale, 'software_browser_url')}</div>
-          </div>
-          <div class="software-video-wrap">
-            <video class="software-video" src={withBase('/assets/software-demo.mp4')} autoplay muted loop playsinline preload="metadata" width="1280" height="724"></video>
+      <div class="visual visual-slot reveal-crt" style="transition-delay:0.12s">
+        <div class="photo-frame photo-frame--static">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <span class="b-dot bd-red"></span>
+              <span class="b-dot bd-yel"></span>
+              <span class="b-dot bd-grn"></span>
+              <div class="b-url">{t(locale, 'software_browser_url')}</div>
+            </div>
+            <div class="software-video-wrap">
+              <video class="software-video" src={withBase('/assets/software-demo.mp4')} autoplay muted loop playsinline preload="auto" width="1280" height="724"></video>
+            </div>
           </div>
         </div>
       </div>

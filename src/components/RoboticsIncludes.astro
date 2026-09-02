@@ -1,6 +1,7 @@
 ---
 import { t, tArray } from '../utils/i18n';
 import type { Locale } from '../utils/i18n';
+import { withBase } from '../utils/url';
 
 interface Props {
   locale: Locale;
@@ -9,6 +10,7 @@ interface Props {
 const { locale } = Astro.props;
 
 const items = tArray<{icon: string; title: string; desc: string; highlight?: boolean}>(locale, 'robotics_includes');
+const quotes = tArray<{text: string; author: string}>(locale, 'robotics_video_quotes');
 
 const icons: Record<string, string> = {
   module: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M9 21v-3h6v3"/></svg>',
@@ -18,44 +20,64 @@ const icons: Record<string, string> = {
 };
 ---
 
-<section class="band includes" id="includes">
+<section class="band split alt-a" id="includes">
   <div class="wrap">
-    <div class="band-head">
-      <span class="eyebrow center">{t(locale, 'robotics_includes_eyebrow')}</span>
-      <h2 set:html={t(locale, 'robotics_includes_title')} />
-      <p>{t(locale, 'robotics_includes_desc')}</p>
-    </div>
-    <div class="inc-grid">
-      {items.map(item => (
-        <div class="inc">
-          <div class:list={["ic", { "ic--flip": item.highlight }]} set:html={icons[item.icon]} />
-          <h3>{item.title}</h3>
-          <p>{item.desc}</p>
+    <div class="split-grid">
+      <div class="split-copy reveal">
+        <span class="eyebrow">{t(locale, 'robotics_includes_eyebrow')}</span>
+        <h2 set:html={t(locale, 'robotics_includes_title')} />
+        <p class="intro">{t(locale, 'robotics_includes_desc')}</p>
+        <div class="feat-list">
+          {items.map((item) => (
+            <div class="feat">
+              <span class="fk" set:html={icons[item.icon]} />
+              <span>{item.title}</span>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+      <div class="visual visual-slot reveal-crt" style="transition-delay:0.12s">
+        <div class="photo-frame" id="pf-quote-frame" data-quotes={JSON.stringify(quotes)}>
+          <div class="software-video-wrap">
+            <video class="software-video" src={withBase('/assets/robotics/video/kits-loop-30s.mp4')} autoplay muted loop playsinline preload="auto" width="960" height="540"></video>
+          </div>
+          <div class="pf-quote" id="pf-quote" aria-live="polite"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<style>
-  /* Only 4 cards here (the homepage's shared .inc-grid is built for 5),
-     so the inherited 5-column track left an empty trailing column and
-     read as shoved left. Scope this component to its own 4-up track. */
-  .inc-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (max-width: 920px) {
-    .inc-grid {
-      grid-template-columns: repeat(2, 1fr);
+<script>
+  (function () {
+    const frame = document.getElementById('pf-quote-frame');
+    const quoteEl = document.getElementById('pf-quote');
+    if (!frame || !quoteEl) return;
+
+    let quotes: { text: string; author: string }[] = [];
+    try {
+      quotes = JSON.parse(frame.getAttribute('data-quotes') || '[]');
+    } catch {
+      quotes = [];
     }
-  }
-  @media (max-width: 560px) {
-    .inc-grid {
-      grid-template-columns: repeat(1, 1fr);
-    }
-  }
-  /* The glass-jelly icon treatment itself (.inc .ic, ::before/::after,
-     .ic--flip) lives in the shared src/styles/style.css now, so it's
-     consistent with the homepage's Includes section too — only the
-     column count is specific to this page (4 cards here vs 5 there). */
-</style>
+    if (!quotes.length) return;
+
+    let index = -1;
+    let hideTimer: ReturnType<typeof setTimeout> | null = null;
+
+    frame.addEventListener('click', () => {
+      let next = index;
+      if (quotes.length > 1) {
+        while (next === index) next = Math.floor(Math.random() * quotes.length);
+      } else {
+        next = 0;
+      }
+      index = next;
+      const q = quotes[index];
+      quoteEl.innerHTML = `“${q.text}”<span class="pf-quote-author">— ${q.author}</span>`;
+      quoteEl.classList.add('show');
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => quoteEl.classList.remove('show'), 4200);
+    });
+  })();
+</script>

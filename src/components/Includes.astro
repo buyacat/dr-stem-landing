@@ -22,14 +22,14 @@ const icons: Record<string, string> = {
 <section class="band includes" id="includes">
   <div class="scatter" id="scatter" data-i18n="scatter"></div>
   <div class="wrap">
-    <div class="band-head">
+    <div class="band-head reveal">
       <span class="eyebrow center">{t(locale, 'includes_eyebrow')}</span>
       <h2 set:html={t(locale, 'includes_title')} />
       <p>{t(locale, 'includes_desc')}</p>
     </div>
     <div class="inc-grid">
-      {items.map(item => (
-        <div class="inc">
+      {items.map((item, i) => (
+        <div class="inc reveal" style={`transition-delay:${(i % 4) * 0.08}s`}>
           <div class:list={["ic", { "ic--flip": item.highlight }]} set:html={icons[item.icon]} />
           <h3>{item.title}</h3>
           <p>{item.desc}</p>

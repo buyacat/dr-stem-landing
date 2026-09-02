@@ -19,6 +19,7 @@
   ],
   "robotics_slot_car": "4-wheel car",
   "robotics_slot_house": "Smart house",
+  "robotics_slot_arm": "Robotic arm",
   "robotics_slot_spider": "Spider",
   "robotics_slot_hint": "Photo coming soon",
   "robotics_advantages_eyebrow": "Advantages of Dr.STEM Robotics",
@@ -66,6 +67,31 @@
   "robotics_includes_eyebrow": "What's inside a Dr.STEM Robotics kit",
   "robotics_includes_title": "Everything you need <span class=\"hl\">in one kit</span>",
   "robotics_includes_desc": "From electronics to teaching materials — every kit is ready for the first lesson straight out of the box.",
+  "robotics_video_quote_hint": "Click the video",
+  "robotics_video_quotes": [
+    { "text": "I do not fear computers. I fear the lack of them.", "author": "Isaac Asimov" },
+    { "text": "The best way to predict the future is to invent it.", "author": "Alan Kay" },
+    { "text": "Any sufficiently advanced technology is indistinguishable from magic.", "author": "Arthur C. Clarke" },
+    { "text": "Whether you want to uncover the secrets of the universe, or you just want to pursue a career in the 21st century, basic computer programming is an essential skill to learn.", "author": "Stephen Hawking" },
+    { "text": "We shall be able to communicate with one another instantly, irrespective of distance.", "author": "Nikola Tesla" },
+    { "text": "Imagination is more important than knowledge.", "author": "Albert Einstein" },
+    { "text": "The Analytical Engine has no pretensions to originate anything. It can do whatever we know how to order it to perform.", "author": "Ada Lovelace" },
+    { "text": "Innovation distinguishes between a leader and a follower.", "author": "Steve Jobs" },
+    { "text": "The most dangerous phrase in the language is, \"We've always done it this way.\"", "author": "Grace Hopper" },
+    { "text": "You never change things by fighting the existing reality. To change something, build a new model that makes the existing model obsolete.", "author": "Buckminster Fuller" },
+    { "text": "If I have seen further, it is by standing on the shoulders of giants.", "author": "Isaac Newton" },
+    { "text": "We can only see a short distance ahead, but we can see plenty there that needs to be done.", "author": "Alan Turing" },
+    { "text": "What I cannot create, I do not understand.", "author": "Richard Feynman" },
+    { "text": "Nothing in life is to be feared, it is only to be understood.", "author": "Marie Curie" },
+    { "text": "Basic research is what I am doing when I don't know what I am doing.", "author": "Wernher von Braun" },
+    { "text": "We live in a society exquisitely dependent on science and technology, in which hardly anyone knows anything about science and technology.", "author": "Carl Sagan" },
+    { "text": "That's one small step for man, one giant leap for mankind.", "author": "Neil Armstrong" },
+    { "text": "I just did my job. NASA had a problem and I had the solution.", "author": "Katherine Johnson" },
+    { "text": "Results! Why, man, I have gotten a lot of results! I know several thousand things that won't work.", "author": "Thomas Edison" },
+    { "text": "What's above us connects us.", "author": "Mae Jemison" },
+    { "text": "Science is a dream of the future and a refuge for the soul.", "author": "Maryna Viazovska, Ukrainian mathematician" },
+    { "text": "The path to the stars is open.", "author": "Sergei Korolev, Ukrainian scientist" }
+  ],
   "robotics_includes": [
     {
       "icon": "module",
@@ -91,7 +117,7 @@
   ],
   "robotics_kits_eyebrow": "Kit catalog",
   "robotics_kits_title": "18 <span class=\"hl\">Dr.STEM Robotics kits</span>",
-  "robotics_kits_intro": "From simple wheeled robots for the first lessons to ESP32 IoT systems and computer vision. Open any kit to see its description, specification and learning outcome.",
+  "robotics_kits_intro": "From simple wheeled robots for the first lessons to ESP32 IoT systems and computer vision. Each kit includes a description, specification and learning outcome.",
   "robotics_kits_list": [
     {
       "code": "R01",
@@ -362,10 +388,9 @@
     },
     {
       "code": "R18",
-      "name": "ESP32 Internet of Things"
+      "name": "IoT Starter Kit"
     }
   ],
-  "robotics_kits_pdf_label": "Download kit catalog (PDF)",
   "robotics_form_headline": "Upgrade your STEM lab today",
   "robotics_form_lede": "Leave a request and our manager will help you select the optimal Dr.STEM Robotics kits for your curriculum.",
   "robotics_form_title": "Request Dr.STEM Robotics",
@@ -404,11 +429,10 @@
       "type": "textarea",
       "required": false,
       "placeholder": "For example: «Interested in additional servo motors»",
-      "rows": 3
+      "rows": 2
     }
   ],
   "robotics_form_submit": "Submit Dr.STEM Robotics request",
-  "robotics_form_hint": "We respond within one business day.",
   "robotics_form_sending": "Sending...",
   "robotics_form_success": "✓ Request sent",
   "robotics_form_success_hint": "Thank you! We will respond within one business day.",
@@ -426,7 +450,5 @@
   "robotics_kits_close_label": "Close",
   "robotics_kits_prev_label": "Previous kit",
   "robotics_kits_next_label": "Next kit",
-  "robotics_kits_more_label": "The full description, specification and learning outcomes for this kit are in the kit catalog.",
-  "robotics_kits_order_label": "Request a quote",
-  "robotics_kits_catalog_label": "PDF catalog"
+  "robotics_kits_more_label": "The full description, specification and learning outcomes for this kit are in the kit catalog."
 }

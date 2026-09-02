@@ -52,14 +52,14 @@ const icons: Record<string, string> = {
 
 <section class="band advantages" id="advantages" itemscope itemtype="https://schema.org/ItemList">
   <div class="wrap">
-    <div class="band-head">
+    <div class="band-head reveal">
       <span class="eyebrow center">{t(locale, 'advantages_eyebrow')}</span>
       <h2 set:html={t(locale, 'advantages_title')} />
       <p>{t(locale, 'advantages_desc')}</p>
     </div>
     <div class="adv-grid">
       {advantages.map((adv, i) => (
-        <div class={`adv ${adv.highlight ? 'y' : ''}`} itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <div class={`adv reveal ${adv.highlight ? 'y' : ''}`} style={`transition-delay:${(i % 3) * 0.08}s`} itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
           <meta itemprop="position" content={String(i + 1)} />
           <span class="num" aria-hidden="true"><span class="num-roll"><span>{adv.num}</span><span>{adv.num}</span></span></span>
           <div class="ic" set:html={icons[adv.icon]} />
