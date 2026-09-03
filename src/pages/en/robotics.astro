@@ -319,6 +319,14 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
       var narrowest = Math.abs(Math.cos((CAR_ANGLE * Math.PI) / 180)) * orbitX;
       orbiting = narrowest - halfW - photo.offsetWidth / 2 >= 4;
       dial.classList.toggle('robo-dial--orbit', orbiting);
+      // Switching back into orbit mode (e.g. resize from phone to desktop
+      // width) hands positioning back to the CSS class rule — drop the bob's
+      // inline transform first, since an inline style would otherwise beat
+      // that rule's specificity and freeze the chip mid-bob.
+      if (orbiting) {
+        car.style.transform = '';
+        house.style.transform = '';
+      }
     }
 
     function place(el, x, y) {
@@ -412,6 +420,14 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
         var oy = Math.sin(a) * orbitY;
         place(car, ox, oy);
         place(house, -ox, -oy);
+      } else {
+        // No room to orbit (phone/tablet, or a cramped desktop width) — the
+        // chips still read as alive: a small scroll-driven bob, each on its
+        // own phase so the two don't move in lockstep.
+        var carBreath = Math.sin(p * Math.PI * 2);
+        var houseBreath = Math.sin(p * Math.PI * 2 + 0.9);
+        car.style.transform = 'translateY(' + (carBreath * 5).toFixed(1) + 'px) scale(' + (1 + carBreath * 0.035).toFixed(3) + ')';
+        house.style.transform = 'translateY(' + (houseBreath * 5).toFixed(1) + 'px) scale(' + (1 + houseBreath * 0.035).toFixed(3) + ')';
       }
     }
 
