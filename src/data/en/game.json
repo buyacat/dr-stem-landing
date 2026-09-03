@@ -3,8 +3,8 @@
   "game_title": "We turn the lab into <span class=\"hl\">a team game</span>",
   "game_intro": "The gamification format turns the experiment into a competition where teams complete missions based on real data.",
   "game_features": [
-    "Team split and mascot selection",
-    "Missions with clear data conditions",
+    "Teams and mascots",
+    "Missions with clear conditions",
     "Real-time competition"
   ],
   "game_missions_label": "Game mission types",

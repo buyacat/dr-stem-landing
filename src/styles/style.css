@@ -2534,6 +2534,163 @@ a {
   z-index: 6;
 }
 
+/* =========================== Game: full-bleed video background =========================== */
+.game-band {
+  background: #0a1226;
+  min-height: 760px;
+}
+.game-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 0;
+}
+.game-bg-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(120% 90% at 50% 40%, rgba(6, 13, 30, 0.06) 0%, rgba(4, 9, 22, 0.32) 72%),
+    linear-gradient(180deg, rgba(6, 13, 30, 0.16) 0%, rgba(5, 11, 26, 0.34) 100%);
+}
+.game-band .wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.game-content {
+  max-width: 720px;
+  text-align: center;
+  color: #fff;
+}
+.game-content .eyebrow {
+  color: var(--yellow);
+  justify-content: center;
+}
+.game-content .eyebrow::before {
+  background: var(--yellow);
+}
+.game-hero-title {
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 16px 0 16px;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(4, 9, 22, 0.55);
+}
+.game-hero-title .hl {
+  color: var(--yellow);
+}
+.game-hero-intro {
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 auto 30px;
+  max-width: 560px;
+  text-shadow: 0 2px 12px rgba(4, 9, 22, 0.5);
+}
+.game-hero-feats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.ghf {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 8px 20px -10px rgba(5, 11, 26, 0.5);
+  border-radius: 999px;
+  padding: 8px 16px 8px 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.ghf .fk {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.ghf .fk svg {
+  width: 14px;
+  height: 14px;
+}
+.game-support {
+  max-width: 720px;
+  margin: 52px auto 0;
+  text-align: center;
+}
+.game-support-label {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0 0 14px;
+}
+.game-band .schip {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 8px 20px -10px rgba(5, 11, 26, 0.5);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.game-band .schip .sd {
+  background: var(--yellow);
+}
+.game-support .kit-note {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 8px 20px -10px rgba(5, 11, 26, 0.5);
+}
+.game-support .kit-note svg {
+  color: var(--yellow);
+}
+.game-support .kit-note p {
+  color: rgba(255, 255, 255, 0.85);
+}
+.game-support .kit-note b {
+  color: #fff;
+}
+@media (max-width: 760px) {
+  .game-band {
+    min-height: 640px;
+  }
+}
+@media (max-width: 560px) {
+  .game-band {
+    min-height: 600px;
+  }
+  .game-hero-feats {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ghf {
+    justify-content: center;
+  }
+}
+
 /* updated CTA labels reuse .cta */
 .cta.final {
   background: linear-gradient(
