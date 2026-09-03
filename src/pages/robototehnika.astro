@@ -451,6 +451,15 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
 
       orbiting = carClear && badgeClear;
       dial.classList.toggle('robo-dial--orbit', orbiting);
+      // Switching back into orbit mode (e.g. resize from phone to desktop
+      // width) hands positioning back to the CSS class rule — drop the bob's
+      // inline transform first, since an inline style would otherwise beat
+      // that rule's specificity and freeze the chip mid-bob.
+      if (orbiting) {
+        SATS.forEach(function (s) {
+          s.el.style.transform = '';
+        });
+      }
     }
 
     // Live radius for a satellite's own ring, in sync with the same
@@ -558,6 +567,16 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
           var a = ((s.angle - y * ORBIT_SPEED * s.dir) * Math.PI) / 180;
           var r = liveRingR(s.ring, breath);
           place(s.el, Math.cos(a) * r, Math.sin(a) * r);
+        });
+      } else {
+        // No room to orbit (phone/tablet, or a cramped desktop width) — the
+        // chips still read as alive: a small scroll-driven bob, each on its
+        // own phase so the three don't move in lockstep.
+        SATS.forEach(function (s, idx) {
+          var localBreath = Math.sin(p * Math.PI * 2 + idx * 0.9);
+          var dy = localBreath * 5;
+          var scale = 1 + localBreath * 0.035;
+          s.el.style.transform = 'translateY(' + dy.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
         });
       }
     }
