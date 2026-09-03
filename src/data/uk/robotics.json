@@ -1,4 +1,13 @@
 {
+  "robotics_meta_title": "Робототехніка Dr.STEM — набори для STEM-кабінетів шкіл",
+  "robotics_meta_description": "18 наборів робототехніки Dr.STEM для 7–12 класів: від 4-колісної машини до роботизованої руки. Arduino UNO/Nano, 5–50 навчальних проєктів у наборі.",
+  "robotics_meta_keywords": "робототехніка Dr.STEM, набори робототехніки, Arduino для шкіл, STEM робототехніка, навчальні роботи, робототехніка для дітей, гурток робототехніки",
+  "robotics_meta_og_title": "Робототехніка Dr.STEM — 18 наборів для STEM-кабінетів",
+  "robotics_meta_og_description": "Набори робототехніки на Arduino для 7–12 класів: від машини на 4 колесах до роботизованої руки-маніпулятора. 5–50 навчальних проєктів у кожному наборі.",
+  "robotics_meta_twitter_title": "Робототехніка Dr.STEM — набори для STEM-кабінетів",
+  "robotics_meta_twitter_description": "18 наборів робототехніки Dr.STEM для 7–12 класів на базі Arduino.",
+  "robotics_schema_name": "Робототехніка Dr.STEM",
+  "robotics_schema_description": "Набори робототехніки Dr.STEM на базі Arduino для STEM-кабінетів шкіл, 7–12 класи",
   "robotics_eyebrow": "Робототехніка для STEM-освіти",
   "robotics_title": "Робототехніка <span class=\"hl\">Dr.STEM</span>",
   "robotics_lede": "Набори з робототехніки для STEM-кабінетів загальноосвітніх шкіл, STEM-лабораторій та центрів.",

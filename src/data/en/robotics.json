@@ -1,4 +1,13 @@
 {
+  "robotics_meta_title": "Dr.STEM Robotics — kits for school STEM classrooms",
+  "robotics_meta_description": "18 Dr.STEM robotics kits for grades 7–12: from a 4-wheel car to a robotic arm. Arduino UNO/Nano, 5–50 learning projects per kit.",
+  "robotics_meta_keywords": "Dr.STEM robotics, robotics kits, Arduino for schools, STEM robotics, educational robots, robotics for kids, robotics club",
+  "robotics_meta_og_title": "Dr.STEM Robotics — 18 kits for STEM classrooms",
+  "robotics_meta_og_description": "Arduino-based robotics kits for grades 7–12: from a 4-wheel car to a robotic manipulator arm. 5–50 learning projects in every kit.",
+  "robotics_meta_twitter_title": "Dr.STEM Robotics — kits for STEM classrooms",
+  "robotics_meta_twitter_description": "18 Dr.STEM robotics kits for grades 7–12, built on Arduino.",
+  "robotics_schema_name": "Dr.STEM Robotics",
+  "robotics_schema_description": "Arduino-based Dr.STEM robotics kits for school STEM classrooms, grades 7–12",
   "robotics_eyebrow": "Robotics for STEM education",
   "robotics_title": "Robotics <span class=\"hl\">Dr.STEM</span>",
   "robotics_lede": "Robotics kits for STEM classrooms in schools, STEM labs and education centers.",

@@ -23,7 +23,19 @@ const stats = tArray<{ n: string; l: string }>(locale, 'robotics_stats');
 // badges, the satellite photos and their captions all stay upright.
 ---
 
-<MainLayout locale={locale} path="/en/robotics/">
+<MainLayout
+  locale={locale}
+  path="/en/robotics/"
+  title={t(locale, 'robotics_meta_title')}
+  description={t(locale, 'robotics_meta_description')}
+  keywords={t(locale, 'robotics_meta_keywords')}
+  ogTitle={t(locale, 'robotics_meta_og_title')}
+  ogDescription={t(locale, 'robotics_meta_og_description')}
+  twitterTitle={t(locale, 'robotics_meta_twitter_title')}
+  twitterDescription={t(locale, 'robotics_meta_twitter_description')}
+  schemaName={t(locale, 'robotics_schema_name')}
+  schemaDescription={t(locale, 'robotics_schema_description')}
+>
   <Nav locale={locale} />
   <main>
     <section class="hero" id="top">

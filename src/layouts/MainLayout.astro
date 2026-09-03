@@ -8,19 +8,30 @@ import appScriptUrl from '../scripts/app.js?url';
 interface Props {
   locale: Locale;
   path?: string;
+  // Per-page SEO overrides — omit to fall back to the site-wide meta.json copy
+  // (which is written for the ЦВКК product, not for a section like robotics).
+  title?: string;
+  description?: string;
+  keywords?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  schemaName?: string;
+  schemaDescription?: string;
 }
 
 const { locale, path = '/' } = Astro.props;
 
 const siteUrl = import.meta.env.SITE_URL || 'https://drstem.eu';
 
-const title = t(locale, 'meta_title');
-const description = t(locale, 'meta_description');
-const keywords = t(locale, 'meta_keywords');
-const ogTitle = t(locale, 'meta_og_title');
-const ogDescription = t(locale, 'meta_og_description');
-const twitterTitle = t(locale, 'meta_twitter_title');
-const twitterDescription = t(locale, 'meta_twitter_description');
+const title = Astro.props.title || t(locale, 'meta_title');
+const description = Astro.props.description || t(locale, 'meta_description');
+const keywords = Astro.props.keywords || t(locale, 'meta_keywords');
+const ogTitle = Astro.props.ogTitle || t(locale, 'meta_og_title');
+const ogDescription = Astro.props.ogDescription || t(locale, 'meta_og_description');
+const twitterTitle = Astro.props.twitterTitle || t(locale, 'meta_twitter_title');
+const twitterDescription = Astro.props.twitterDescription || t(locale, 'meta_twitter_description');
 const robots = t(locale, 'meta_robots') || 'index, follow';
 
 const canonical = siteUrl + path;
@@ -29,8 +40,8 @@ const ogUrl = canonical;
 const ogLocale = locale === 'uk' ? 'uk_UA' : 'en_US';
 
 // Schema.org data
-const schemaName = t(locale, 'schema_name');
-const schemaDescription = t(locale, 'schema_description');
+const schemaName = Astro.props.schemaName || t(locale, 'schema_name');
+const schemaDescription = Astro.props.schemaDescription || t(locale, 'schema_description');
 const schemaBrand = t(locale, 'schema_brand');
 const schemaTelephone = t(locale, 'schema_telephone');
 const schemaEmail = t(locale, 'schema_email');
@@ -77,8 +88,12 @@ const appDomain = (() => {
   }
 })();
 
-const otherLocale = locale === 'uk' ? 'en' : 'uk';
-const otherPath = otherLocale === 'uk' ? '/' : '/en/';
+// Same page-family detection Nav.astro's language switcher already uses —
+// hreflang has to point at the matching robotics/home page, not always
+// the homepage, or it misdescribes every non-home page to search engines.
+const isRobotics = Astro.url.pathname.includes('robot');
+const ukPath = isRobotics ? '/robototehnika/' : '/';
+const enPath = isRobotics ? '/en/robotics/' : '/en/';
 
 // Scatter labels for app.js i18n
 const scatterLabels = [
@@ -170,9 +185,9 @@ const i18nData = {
   <meta property="twitter:creator" content="@drstem" />
 
   <!-- Hreflang -->
-  <link rel="alternate" hreflang="uk" href={siteUrl + '/'} />
-  <link rel="alternate" hreflang="en" href={siteUrl + '/en/'} />
-  <link rel="alternate" hreflang="x-default" href={siteUrl + '/'} />
+  <link rel="alternate" hreflang="uk" href={siteUrl + ukPath} />
+  <link rel="alternate" hreflang="en" href={siteUrl + enPath} />
+  <link rel="alternate" hreflang="x-default" href={siteUrl + ukPath} />
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json" set:html={schemaOrg} />
